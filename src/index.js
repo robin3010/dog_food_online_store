@@ -16,35 +16,33 @@ import { Login } from './components/Pages/Login/Login';
 import { SignIn } from './components/Pages/Login/SignIn';
 import { SignUp } from './components/Pages/Login/SignUp';
 
-const rootRouter = createBrowserRouter(
-  createRoutesFromElements(
+const rootRouter = createBrowserRouter(createRoutesFromElements(
+  <Route
+    path="/"
+    element={<App />}
+    errorElement={<ErrorPage />}
+  >
+    <Route index element={<Main />} />
     <Route
-      path="/"
-      element={<App />}
-      errorElement={<ErrorPage />}
+      path="products"
+      element={<Products />}
+    />
+    <Route
+      path="login/"
+      element={<Login />}
     >
-      <Route index element={<Main />} />
+      <Route index element={<SignIn />} />
       <Route
-        path="products"
-        element={<Products />}
+        path="signin"
+        element={<SignIn />}
       />
       <Route
-        path="login/"
-        element={<Login />}
-      >
-        <Route index element={<SignIn />} />
-        <Route
-          path="signin"
-          element={<SignIn />}
-        />
-        <Route
-          path="signup"
-          element={<SignUp />}
-        />
-      </Route>
-    </Route>,
-  ),
-);
+        path="signup"
+        element={<SignUp />}
+      />
+    </Route>
+  </Route>,
+), { basename: '/dog_food_online_store' });
 
 const root = ReactDOM.createRoot(document.getElementById('container'));
 root.render(
