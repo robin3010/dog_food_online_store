@@ -15,7 +15,7 @@ export const Header = memo(() => {
             [styles.header__nav],
           )}
           >
-            <NavLink Link to="/" className="nav-link">
+            <NavLink to="/" className="nav-link">
               <i className="fa-solid fa-house" />
             </NavLink>
             <NavLink to="/products" className="nav-link">Товары</NavLink>
