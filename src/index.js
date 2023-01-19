@@ -16,6 +16,9 @@ import { Login } from './components/Pages/Login/Login';
 import { SignIn } from './components/Pages/Login/SignIn';
 import { SignUp } from './components/Pages/Login/SignUp';
 
+// const basename = { basename: '/dog_food_online_store' };
+const basename = '';
+
 const rootRouter = createBrowserRouter(createRoutesFromElements(
   <Route
     path="/"
@@ -42,7 +45,7 @@ const rootRouter = createBrowserRouter(createRoutesFromElements(
       />
     </Route>
   </Route>,
-), { basename: '/dog_food_online_store' });
+), basename);
 
 const root = ReactDOM.createRoot(document.getElementById('container'));
 root.render(
