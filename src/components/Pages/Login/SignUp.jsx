@@ -2,7 +2,9 @@ import {
   Field, Form, Formik, ErrorMessage,
 } from 'formik';
 import { NavLink } from 'react-router-dom';
+import clsx from 'clsx';
 import { signUpValidationScheme } from './loginValidation';
+import styles from './Login.module.css';
 
 const initialValues = {
   email: '',
@@ -16,7 +18,7 @@ export function SignUp() {
   return (
     <>
       <h2 className="fw-bold mb-2 text-uppercase">Регистрация</h2>
-      <p className="text-black-50 mb-4">Введите e-mail и пароль</p>
+      <p className="text-black-50 mb-4">Введите регистрационные данные</p>
 
       <Formik
         initialValues={initialValues}
@@ -30,10 +32,9 @@ export function SignUp() {
                 <div className="form-floating mb-3">
                   <Field
                     type="email"
-                    className={
-                    `form-control${
-                      errors.email && touched.email ? ' is-invalid' : ''}`
-                  }
+                    className={clsx('form-control', {
+                      'is-invalid': errors.email && touched.email,
+                    })}
                     name="email"
                     placeholder="E-mail"
                   />
@@ -45,10 +46,9 @@ export function SignUp() {
                 <div className="form-floating mb-3">
                   <Field
                     type="text"
-                    className={
-                    `form-control${
-                      errors.group && touched.group ? ' is-invalid' : ''}`
-                  }
+                    className={clsx('form-control', {
+                      'is-invalid': errors.group && touched.group,
+                    })}
                     name="group"
                     placeholder="Группа"
                   />
@@ -60,10 +60,9 @@ export function SignUp() {
             <div className="form-floating mb-3">
               <Field
                 type="password"
-                className={
-                  `form-control${
-                    errors.password && touched.password ? ' is-invalid' : ''}`
-                }
+                className={clsx('form-control', {
+                  'is-invalid': errors.password && touched.password,
+                })}
                 name="password"
                 placeholder="Пароль"
               />
@@ -73,10 +72,9 @@ export function SignUp() {
             <div className="form-floating mb-3">
               <Field
                 type="password"
-                className={
-                  `form-control${
-                    errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : ''}`
-                }
+                className={clsx('form-control', {
+                  'is-invalid': errors.confirmPassword && touched.confirmPassword,
+                })}
                 name="confirmPassword"
                 placeholder="Подтвердите пароль"
               />
@@ -84,13 +82,13 @@ export function SignUp() {
               <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
             </div>
             <div className="d-grid gap-2">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className={`btn ${styles['btn-login-primary']}`}>
                 Зарегистрироваться
               </button>
               <NavLink
                 to="/login/signin"
                 type="button"
-                className="btn btn-light text-primary-emphasis bg-dark-subtle"
+                className={`btn ${styles['btn-login-outline-secondary']}`}
               >
                 Уже зарегистрированы? Войти
               </NavLink>

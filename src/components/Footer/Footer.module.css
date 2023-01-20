@@ -1,11 +1,17 @@
 footer {
   margin: 0;
-  background-color: rgba(244, 244, 244, 0.7);
-  border-top: 2px solid rgba(0, 0, 0, .1);
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  background: linear-gradient(
+    to bottom right,
+    rgb(251 255 244),
+    rgb(229 203 217)
+  );
 }
 
+
+
+
 hr {
-  background-color: rgba(244, 244, 244, 0.7);
-  border-top: 2px solid rgba(0, 0, 0, .1);
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
   opacity: 1;
 }

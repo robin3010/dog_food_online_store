@@ -5,7 +5,7 @@ export const signInValidationScheme = Yup.object({
     .email('Введите корректный e-mail')
     .required(' '),
   password: Yup.string()
-    .required('Введите корректный пароль'),
+    .required(' '),
   remember: Yup.boolean()
     .default(false),
 });
