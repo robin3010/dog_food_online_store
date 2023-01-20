@@ -22,6 +22,9 @@
   --bs-btn-active-color: var(--bs-btn-hover-color);
   --bs-btn-active-bg: rgb(181, 20, 36);
   --bs-btn-active-border-color: rgb(175, 18, 33);
+  --bs-btn-disabled-color: var(--bs-white);
+  --bs-btn-disabled-bg: #d92c3e;
+  --bs-btn-disabled-border-color: #d92c3e;
 }
 
 .btn-login-outline-secondary {

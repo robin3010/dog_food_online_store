@@ -6,8 +6,6 @@ import clsx from 'clsx';
 import { signInValidationScheme } from './loginValidation';
 import styles from './Login.module.css';
 
-console.log(Object.keys(styles));
-
 const initialValues = {
   email: '',
   password: '',
@@ -24,7 +22,7 @@ export function SignIn() {
       <Formik
         initialValues={initialValues}
         validationSchema={signInValidationScheme}
-        onSubmit={(values) => console.log({ values })}
+        onSubmit={(values, errors) => console.log(values, errors.lenght)}
       >
         {({ errors, touched }) => (
           <Form>
@@ -77,6 +75,7 @@ export function SignIn() {
               <button
                 type="submit"
                 className={`btn ${styles['btn-login-primary']}`}
+                disabled={Object.keys(errors).length > 0}
               >
                 Войти
               </button>

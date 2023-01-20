@@ -82,7 +82,11 @@ export function SignUp() {
               <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
             </div>
             <div className="d-grid gap-2">
-              <button type="submit" className={`btn ${styles['btn-login-primary']}`}>
+              <button
+                type="submit"
+                className={`btn ${styles['btn-login-primary']}`}
+                disabled={Object.keys(errors).length > 0}
+              >
                 Зарегистрироваться
               </button>
               <NavLink
