@@ -72,7 +72,6 @@ class ShopApi {
     this.checkFetchErrors.call(fetchGoodsList);
 
     const { products } = await fetchGoodsList.json();
-    console.log({ products });
     return products;
   }
 }

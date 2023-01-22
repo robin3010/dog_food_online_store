@@ -6,6 +6,96 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+/* MAIN HEADER */
+.main__header {
+  background: linear-gradient(
+    to bottom right,
+    rgb(231 255 202),
+    rgb(239 126 184)
+  );
+  box-shadow: 0 12px 34px -11px rgb(38 20 19 / 10%);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.header__nav {
+  color: rgb(28, 34, 46)!important;
+}
+
+.header__nav i {
+  font-size: 1.6rem;
+}
+/* 
+.navbar__badge {
+  left: 90%;
+  top: 10%;
+  font-size: 0.65em;
+} */
+
 .navbar-toggler:focus {
   box-shadow: none;
+}
+
+
+/* LOGIN PAGE */
+.login__card {
+  margin: 0;
+  /* border: 2px solid rgba(0, 0, 0, 0.1); */
+  background: rgba(235, 248, 221, .4);
+  background: linear-gradient(
+    to bottom right,
+    rgba(235, 248, 221, .4),
+    rgba(255, 200, 229, .4)
+  );
+}
+
+.login__alert {
+  padding: 6px 12px;
+  margin: 6px 0;
+}
+
+
+/* PDODUCTS PAGES */
+.product__card button {
+  padding: 0.75rem;
+  line-height: normal;
+}
+
+.product__card-price {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 8rem;
+}
+
+.product__card-picture {
+  min-height: 256px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product__card-picture img {
+  max-height: 256px;
+  max-width: fit-content;
+}
+
+
+/* MAIN FOOTER */
+.main__footer {
+  margin: 0;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  background: linear-gradient(
+    to bottom right,
+    rgb(251 255 244),
+    rgb(229 203 217)
+  );
+}
+
+.main__footer hr {
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  opacity: 1;
 }

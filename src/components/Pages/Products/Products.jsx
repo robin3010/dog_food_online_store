@@ -20,7 +20,6 @@ export function Products() {
     queryFn: () => shopApi.getGoodsList(),
   });
 
-  console.log({ goods });
   if (isLoading) return <p>загрузка...</p>;
 
   if (!goods) {
@@ -28,18 +27,13 @@ export function Products() {
   }
 
   return (
-    <div className="d-flex
-      flex-column
-      justify-content-center
-      align-items-center
-      m-auto
-      text-center"
-    >
-      <h1>Products Page</h1>
-
-      {goods.map((item) => (
-        <ProductItem key={item._id} item={{ ...item }} />
-      ))}
+    <div className="container p-5">
+      <div className="row row-cols row-cols-xxl-4 row-cols-lg-3 row-cols-md-1 row-cols-sm-1 g-4">
+        {goods.map((item) => (
+          <ProductItem key={item._id} item={{ ...item }} />
+        ))}
+        <div className="col me-auto" />
+      </div>
 
     </div>
   );

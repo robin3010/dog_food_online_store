@@ -1,7 +1,6 @@
 // import clsx from 'clsx';
 import { memo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import styles from './Header.module.css';
 import logo from '../../logo.png';
 import { useAuthTokenContext } from '../../context/AuthTokenContext';
 
@@ -11,9 +10,8 @@ export const Header = memo(() => {
   const { logout } = useAuthTokenContext();
 
   return (
-    // <header>
-    <header className="navbar navbar-expand-sm">
-      <div className={`m-2 container-fluid ${styles.header__nav}`}>
+    <header className="main__header navbar navbar-expand-sm">
+      <div className="m-2 container-fluid header__nav}">
         <Link to="/" className="navbar-brand">
           <img
             src={logo}
@@ -84,6 +82,5 @@ export const Header = memo(() => {
         </div>
       </div>
     </header>
-    // </header>
   );
 });

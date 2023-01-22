@@ -2,13 +2,12 @@
 import clsx from 'clsx';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import './Footer.module.css';
 
 export const Footer = memo(() => {
   console.log('Render Footer');
 
   return (
-    <footer>
+    <footer className="main__footer">
       <section
         className={clsx(
           'd-flex',
