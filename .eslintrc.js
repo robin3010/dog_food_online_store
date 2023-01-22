@@ -38,5 +38,6 @@ module.exports = {
     'import/prefer-default-export': 0,
     'react/jsx-filename-extension': 0,
     'max-len': ['error', { code: 100 }],
+    'no-underscore-dangle': 0,
   },
 };
