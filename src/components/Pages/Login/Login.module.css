@@ -9,6 +9,11 @@
   );
 }
 
+.login__alert {
+  padding: 6px 12px;
+  margin: 6px 0;
+}
+
 .btn-login-primary {
   --bs-btn-font-weight: 600;
   --bs-btn-color: var(--bs-white);

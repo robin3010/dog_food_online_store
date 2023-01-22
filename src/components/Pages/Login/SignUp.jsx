@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { signUpValidationScheme } from './loginValidation';
 import styles from './Login.module.css';
+import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 
 const initialValues = {
@@ -109,10 +110,11 @@ export function SignUp() {
               <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
             </div>
             <div className="d-grid gap-2">
+              <LoginErrorAlert loginError={isError} error={error} />
               <button
                 type="submit"
                 className={`btn ${styles['btn-login-primary']}`}
-                disabled={Object.keys(errors).length > 0}
+                disabled={Object.keys(errors).length > 0 || !touched.email || isLoading}
               >
                 Зарегистрироваться
               </button>
