@@ -3,9 +3,12 @@ import { memo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import logo from '../../logo.png';
+import { useAuthTokenContext } from '../../context/AuthTokenContext';
 
 export const Header = memo(() => {
   console.log('Render Header');
+
+  const { logout } = useAuthTokenContext();
 
   return (
     // <header>
@@ -60,6 +63,9 @@ export const Header = memo(() => {
           <NavLink to="/login" className="nav-link">
             <i className="fa-solid fa-user fa-lg" />
           </NavLink>
+          <button onClick={logout} type="button" className="btn btn-outline-warning">
+            <i className="fa-solid fa-right-from-bracket fa-lg text-warning-emphasis" />
+          </button>
           <NavLink to="/shopping-cart" className="nav-link position-relative">
             {/* <span
               className={clsx(

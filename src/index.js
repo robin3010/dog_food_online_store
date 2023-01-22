@@ -7,6 +7,10 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ErrorPage } from './components/Pages/Error/Error';
@@ -15,6 +19,7 @@ import { Main } from './components/Pages/Main/Main';
 import { Login } from './components/Pages/Login/Login';
 import { SignIn } from './components/Pages/Login/SignIn';
 import { SignUp } from './components/Pages/Login/SignUp';
+import { AuthTokenContextWr } from './context/AuthTokenContext';
 
 // const basename = { basename: '/dog_food_online_store' };
 const basename = '';
@@ -47,10 +52,16 @@ const rootRouter = createBrowserRouter(createRoutesFromElements(
   </Route>,
 ), basename);
 
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById('container'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={rootRouter} />
+    <QueryClientProvider client={queryClient}>
+      <AuthTokenContextWr>
+        <RouterProvider router={rootRouter} />
+      </AuthTokenContextWr>
+    </QueryClientProvider>
   </React.StrictMode>,
 );
 

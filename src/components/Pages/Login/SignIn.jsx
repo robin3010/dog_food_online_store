@@ -1,10 +1,13 @@
 import {
   Field, Form, Formik, ErrorMessage,
 } from 'formik';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
+import { useMutation } from '@tanstack/react-query';
 import { signInValidationScheme } from './loginValidation';
 import styles from './Login.module.css';
+import { shopApi } from '../../../api/shopApi';
+import { useAuthTokenContext } from '../../../context/AuthTokenContext';
 
 const initialValues = {
   email: '',
@@ -14,6 +17,28 @@ const initialValues = {
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 export function SignIn() {
+  const { login } = useAuthTokenContext();
+
+  const navigate = useNavigate();
+
+  const {
+    mutateAsync, isLoading, isError, error,
+  } = useMutation({
+    mutationFn: (userData) => shopApi.signIn(userData),
+  });
+
+  const signInHandler = async (values) => {
+    const { email, password } = values;
+    const validData = {
+      email,
+      password,
+    };
+
+    login(await mutateAsync(validData));
+
+    setTimeout(() => navigate('/products'));
+  };
+
   return (
     <>
       <h2 className="fw-bold mb-2 text-uppercase">Авторизация</h2>
@@ -22,7 +47,7 @@ export function SignIn() {
       <Formik
         initialValues={initialValues}
         validationSchema={signInValidationScheme}
-        onSubmit={(values, errors) => console.log(values, errors.lenght)}
+        onSubmit={signInHandler}
       >
         {({ errors, touched }) => (
           <Form>

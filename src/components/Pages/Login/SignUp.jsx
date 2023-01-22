@@ -1,10 +1,12 @@
 import {
   Field, Form, Formik, ErrorMessage,
 } from 'formik';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
+import { useMutation } from '@tanstack/react-query';
 import { signUpValidationScheme } from './loginValidation';
 import styles from './Login.module.css';
+import { shopApi } from '../../../api/shopApi';
 
 const initialValues = {
   email: '',
@@ -15,6 +17,31 @@ const initialValues = {
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 export function SignUp() {
+  const navigate = useNavigate();
+
+  const {
+    mutateAsync, isLoading, isError, error,
+  } = useMutation({
+    mutationFn: (userData) => shopApi.signUp(userData),
+  });
+
+  const signUpHandler = async (values) => {
+    const { email, password, group } = values;
+    const validData = {
+      email,
+      password,
+      group,
+    };
+    console.log(validData);
+
+    await mutateAsync(validData);
+    if (!isError) {
+      navigate('..', {
+        relative: 'path',
+      });
+    }
+  };
+
   return (
     <>
       <h2 className="fw-bold mb-2 text-uppercase">Регистрация</h2>
@@ -23,7 +50,7 @@ export function SignUp() {
       <Formik
         initialValues={initialValues}
         validationSchema={signUpValidationScheme}
-        onSubmit={(values) => console.log({ values })}
+        onSubmit={signUpHandler}
       >
         {({ errors, touched }) => (
           <Form>
