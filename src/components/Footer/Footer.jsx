@@ -89,7 +89,7 @@ export const Footer = memo(() => {
                 )}
               >
                 <i className="fas fa-envelope me-3 text-secondary" />
-                info@example.com
+                mail@dogfood.shop
               </a>
               <p>
                 <i className="fas fa-phone me-3 text-secondary" />
@@ -104,10 +104,14 @@ export const Footer = memo(() => {
       <div className="text-center pb-3">
         <hr />
         <div
-          className="d-flex justify-content-center flex-column flex-md-row my-0 align-middle"
-          style={{
-            fontFamily: "'Comfortaa', cursive",
-          }}
+          className="
+          d-flex
+          justify-content-center
+          flex-column
+          flex-md-row
+          my-0
+          align-middle
+          brand-text"
         >
           <span>© 2023 Интернет-магазин</span>
           <span className="ms-md-1">Dog Food</span>

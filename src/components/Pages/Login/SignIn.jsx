@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { signInValidationScheme } from './loginValidation';
-import styles from './Login.module.css';
+import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { useAuthTokenContext } from '../../../context/AuthTokenContext';
@@ -89,11 +89,12 @@ export function SignIn() {
                 type="checkbox"
                 className={clsx(
                   'form-check-input',
-                  styles['form-login-check-input'],
+                  loginStyles['form-login-check-input'],
                 )}
                 name="remember"
+                id="remember"
               />
-              <label className="form-check-label ps-2" htmlFor="remember">
+              <label className="form-check-label user-select-none ps-2" htmlFor="remember">
                 Запомнить меня
               </label>
             </div>
@@ -101,7 +102,7 @@ export function SignIn() {
               <LoginErrorAlert loginError={isError} error={error} />
               <button
                 type="submit"
-                className={`btn ${styles['btn-login-primary']}`}
+                className={`btn ${loginStyles['btn-login-primary']}`}
                 disabled={Object.keys(errors).length > 0 || !touched.email || isLoading}
               >
                 Войти
@@ -109,7 +110,7 @@ export function SignIn() {
               <NavLink
                 to="/login/signup"
                 type="button"
-                className={`btn ${styles['btn-login-outline-secondary']}`}
+                className={`btn ${loginStyles['btn-login-outline-secondary']}`}
               >
                 Регистрация
               </NavLink>

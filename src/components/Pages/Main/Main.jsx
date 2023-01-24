@@ -10,7 +10,8 @@ export function Main() {
       <h1>
         Добро пожаловать
         <br />
-        в интернет-магазин Dog food
+        в интернет-магазин
+        <span className="brand-text"> Dog Food</span>
 
       </h1>
       <h4>

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Link, useRouteError } from 'react-router-dom';
+import { useRouteError } from 'react-router-dom';
 
 export function ErrorPage() {
   const error = useRouteError();
@@ -18,10 +18,10 @@ export function ErrorPage() {
     >
       <h1>Ой, что-то пошло не так :(</h1>
       <p>Возникла непредвиденная ошибка.</p>
-      <Link to="/" style={{ textDecoration: 'none' }}>Вернуться на Главную</Link>
       <p>
         <i>{error.statusText || error.message}</i>
       </p>
+      <a href="/" style={{ textDecoration: 'none' }}>Вернуться на Главную</a>
     </div>
   );
 }

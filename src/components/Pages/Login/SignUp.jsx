@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { signUpValidationScheme } from './loginValidation';
-import styles from './Login.module.css';
+import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 
@@ -33,7 +33,6 @@ export function SignUp() {
       password,
       group,
     };
-    console.log(validData);
 
     await mutateAsync(validData);
     if (!isError) {
@@ -113,7 +112,7 @@ export function SignUp() {
               <LoginErrorAlert loginError={isError} error={error} />
               <button
                 type="submit"
-                className={`btn ${styles['btn-login-primary']}`}
+                className={`btn ${loginStyles['btn-login-primary']}`}
                 disabled={Object.keys(errors).length > 0 || !touched.email || isLoading}
               >
                 Зарегистрироваться
@@ -121,7 +120,7 @@ export function SignUp() {
               <NavLink
                 to="/login/signin"
                 type="button"
-                className={`btn ${styles['btn-login-outline-secondary']}`}
+                className={`btn ${loginStyles['btn-login-outline-secondary']}`}
               >
                 Уже зарегистрированы? Войти
               </NavLink>

@@ -6,6 +6,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.brand-text {
+  font-family: 'Comfortaa', cursive;
+}
+
 
 /* MAIN HEADER */
 .main__header {
@@ -25,9 +29,6 @@ body {
   color: rgb(28, 34, 46)!important;
 }
 
-.header__nav i {
-  font-size: 1.6rem;
-}
 /* 
 .navbar__badge {
   left: 90%;
@@ -35,15 +36,34 @@ body {
   font-size: 0.65em;
 } */
 
+.navbar__brand-text {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.4rem;
+}
+
+.header__user-avatar {
+  border: 3px solid rgb(28, 34, 46);
+  box-shadow: 0 0px 6px .5px rgba(28, 34, 46, .3);
+  width: 3rem;
+  height: 3rem;
+}
+
+
+.navbar-toggler{
+ border: none;
+}
+
 .navbar-toggler:focus {
   box-shadow: none;
 }
 
+.dropdown-toggle, .dropdown-toggle:active {
+  border: none;
+}
 
 /* LOGIN PAGE */
 .login__card {
   margin: 0;
-  /* border: 2px solid rgba(0, 0, 0, 0.1); */
   background: rgba(235, 248, 221, .4);
   background: linear-gradient(
     to bottom right,
