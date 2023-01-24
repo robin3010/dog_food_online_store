@@ -1,4 +1,8 @@
 import clsx from 'clsx';
+import {
+  DiscountPrice,
+  ProductAvailableQuantity,
+} from './ProductDynamicElements/ProductDynamicElements';
 
 export function ProductItem({ item }) {
   const {
@@ -6,31 +10,10 @@ export function ProductItem({ item }) {
     price,
     pictures,
     discount,
-    quatity,
+    stock: quantity,
     available,
     // _id,
   } = item;
-
-  // eslint-disable-next-line consistent-return
-  const availableQuantity = () => {
-    if (!available || quatity === 0) {
-      return 'нет в наличии';
-    }
-    // if (quatity >= 20) {
-    //   return 'Много';
-    // }
-    if (quatity >= 10) {
-      return 'в наличии';
-    }
-    if (quatity >= 4) {
-      return 'мало';
-    }
-    if (quatity > 0) {
-      let str = 'осталось';
-      if (quatity === 1) str = 'осталась';
-      return `${str} ${quatity} шт.`;
-    }
-  };
 
   // const prod = {
   //   discount: 10,
@@ -45,6 +28,8 @@ export function ProductItem({ item }) {
   //   price: 180,
   // };
 
+  const priceBeforeDiscount = 'text-decoration-line-through fw-normal text-muted';
+
   return (
     <div className="col">
       <div className="card h-100" style={{ minWidth: '18rem' }}>
@@ -55,10 +40,7 @@ export function ProductItem({ item }) {
           <p className="card-text">{name}</p>
         </div>
         <footer className="px-3 pb-3">
-          <div>
-            <span>Наличие: </span>
-            <span>{availableQuantity()}</span>
-          </div>
+          <ProductAvailableQuantity available={available} quantity={quantity} />
           <div className="d-flex product__card">
             <div className="d-flex w-100 me-auto p-1 ps-0">
               <div
@@ -66,25 +48,13 @@ export function ProductItem({ item }) {
                 border border-tertiary rounded w-100"
               >
                 <p className="m-auto ms-2 fw-semibold product__card-price">
-                  {discount ? (
-                    <span className="me-2">
-                      {`${
-                        price - price / discount
-                      } \u{20BD}`}
-                    </span>
-                  ) : (
-                    ''
-                  )}
+                  <DiscountPrice price={price} discount={discount} />
                   <span
                     className={clsx(
-                      { 'text-decoration-line-through': discount },
-                      { 'fw-normal': discount },
-                      { 'text-muted': discount },
+                      { [priceBeforeDiscount]: discount },
                     )}
                   >
-                    {price}
-                    {' '}
-                    &#8381;
+                    {`${price} \u20BD`}
                   </span>
                 </p>
               </div>
