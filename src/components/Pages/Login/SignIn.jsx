@@ -9,6 +9,7 @@ import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { useAuthTokenContext } from '../../../context/AuthTokenContext';
+import { ModalLoader } from '../../Loaders/ModalLoader';
 
 const initialValues = {
   email: '',
@@ -118,6 +119,7 @@ export function SignIn() {
           </Form>
         )}
       </Formik>
+      {isLoading ? <ModalLoader /> : ''}
     </>
   );
 }

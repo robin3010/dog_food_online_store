@@ -6,6 +6,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.overflow__hidden {
+  overflow: hidden;
+}
+
 .brand-text {
   font-family: 'Comfortaa', cursive;
 }
@@ -23,6 +27,7 @@ body {
   backdrop-filter: blur(2px);
   font-weight: 500;
   font-size: 1.3rem;
+  z-index: 99;
 }
 
 .header__nav {

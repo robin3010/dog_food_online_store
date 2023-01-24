@@ -8,6 +8,7 @@ import { signUpValidationScheme } from './loginValidation';
 import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
+import { ModalLoader } from '../../Loaders/ModalLoader';
 
 const initialValues = {
   email: '',
@@ -128,6 +129,7 @@ export function SignUp() {
           </Form>
         )}
       </Formik>
+      {isLoading ? <ModalLoader /> : ''}
 
     </>
   );
