@@ -19,14 +19,23 @@ const initialValues = {
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 export function SignIn() {
-  const { login } = useAuthTokenContext();
+  const {
+    login, setUserData, withoutProperty, renameUserDataKeys,
+  } = useAuthTokenContext();
 
   const navigate = useNavigate();
+
+  const saveUserData = (userData) => {
+    const withoutEmail = withoutProperty(userData, 'email');
+    const renameKeys = renameUserDataKeys(withoutEmail);
+    setUserData(renameKeys);
+  };
 
   const {
     mutateAsync, isLoading, isError, error,
   } = useMutation({
     mutationFn: (userData) => shopApi.signIn(userData),
+    onSuccess: ({ data }) => saveUserData(data),
   });
 
   const signInHandler = async (values) => {
@@ -35,8 +44,7 @@ export function SignIn() {
       email,
       password,
     };
-
-    login(await mutateAsync(validData));
+    login(await mutateAsync(validData), values.remember);
 
     setTimeout(() => navigate('/products'));
   };

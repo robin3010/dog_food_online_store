@@ -1,69 +1,66 @@
 // import clsx from 'clsx';
 import { memo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+// import { useMutation } from '@tanstack/react-query';
 import logo from '../../logo.png';
-import { useAuthTokenContext } from '../../context/AuthTokenContext';
+// import { shopApi } from '../../api/shopApi';
+import { LoginButton } from './LoginButton/LoginButton';
+// import { useAuthTokenContext } from '../../context/AuthTokenContext';
 
 export const Header = memo(() => {
   console.log('Render Header');
 
-  const { logout } = useAuthTokenContext();
+  // const { userData } = useAuthTokenContext();
+
+  // <ТЕСТ>
+  // Запрос данных пользователя с сервера
+  // вызов без аргумента возвращает объект
+  // вызов с аргументом = конкретные данные из объекта пользователя
+  // const { mutateAsync } = useMutation({
+  //   mutationFn: (property) => shopApi.getUserInfo(userData.group, property),
+  // });
+
+  // const getInfo = async (property) => {
+  //   await mutateAsync(property);
+  // };
+  // </ТЕСТ>
 
   return (
-    <header className="main__header navbar navbar-expand-sm">
-      <div className="m-2 container-fluid header__nav}">
-        <Link to="/" className="navbar-brand">
+    <header className="main__header navbar navbar-expand-md">
+      <div className="
+        container-fluid
+        d-flex
+        header__nav m-2
+        justify-content-sm-start
+        justify-content-md-between"
+      >
+        <Link to="/" className="navbar-brand me-0 me-sm-2">
           <img
             src={logo}
             alt="Logo"
-            width="60"
-            className="d-inline-block align-text-center me-2"
+            width="60px"
+            className="d-inline-block align-text-center me-0 me-sm-2"
           />
-          <span
-            className="align-middle"
-            style={{
-              fontFamily: "'Comfortaa', cursive",
-              fontSize: '1.4rem',
-            }}
-          >
+          <span className="navbar__brand-text align-middle d-none d-sm-inline">
             Dog Food
           </span>
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          style={{ border: 'none' }}
+        <div className="
+          d-flex align-items-center
+          gap-1
+          gap-sm-2
+          gap-md-4
+          gap-lg-5
+          ms-sm-auto
+          order-md-3"
         >
-          <span className="navbar-toggler-icon" />
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
-            <NavLink to="/products" className="nav-link">
-              Товары
-            </NavLink>
-            <NavLink to="/delivery" className="nav-link">
-              Доставка
-            </NavLink>
-            <NavLink to="/contacs" className="nav-link me-auto">
-              Контакты
-            </NavLink>
-          </div>
-        </div>
-        <div className="d-flex align-items-center gap-5">
           <NavLink to="/favorite" className="nav-link">
-            <i className="fa-regular fa-heart fa-lg" />
+            <i className="fa-regular fa-heart fa-xl" />
           </NavLink>
-          <NavLink to="/login" className="nav-link">
-            <i className="fa-solid fa-user fa-lg" />
-          </NavLink>
-          <button onClick={logout} type="button" className="btn btn-outline-warning">
-            <i className="fa-solid fa-right-from-bracket fa-lg text-warning-emphasis" />
-          </button>
+          {/* <button onClick={() => getInfo('avatar')} type="button" className="btn nav-link">
+            ТЕСТ
+          </button> */}
+          <LoginButton />
           <NavLink to="/shopping-cart" className="nav-link position-relative">
             {/* <span
               className={clsx(
@@ -77,8 +74,35 @@ export const Header = memo(() => {
             >
               1
             </span> */}
-            <i className="fa-solid fa-shopping-cart fa-lg" />
+            <i className="fa-solid fa-shopping-cart fa-xl" />
           </NavLink>
+        </div>
+        <button
+          className="navbar-toggler order-md-4"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div
+          className="collapse navbar-collapse order-md-2"
+          id="navbarNavAltMarkup"
+        >
+          <div className="navbar-nav">
+            <NavLink to="/products" className="nav-link">
+              Товары
+            </NavLink>
+            <NavLink to="/delivery" className="nav-link">
+              Доставка
+            </NavLink>
+            <NavLink to="/contacs" className="nav-link me-auto">
+              Контакты
+            </NavLink>
+          </div>
         </div>
       </div>
     </header>

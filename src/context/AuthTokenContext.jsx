@@ -1,34 +1,89 @@
 import {
-  useMemo,
-  useContext, createContext, useEffect, useState,
+  useMemo, useContext, createContext, useEffect, useState,
 } from 'react';
 import { shopApi } from '../api/shopApi';
+
+const LS_KEYS = {
+  AUTH_TOKEN: 'AUTH_TOKEN',
+  USER_DATA: 'USER_DATA',
+  IS_SESSION: 'IS_SESSION',
+};
 
 export const authTokenContext = createContext();
 
 export function AuthTokenContextWr({ children }) {
-  const [authToken, setAuthToken] = useState(() => {
-    const authTokenFromLS = localStorage.getItem('LS_AUTH_TOKEN');
-    // const initAuthToken = getAuthTokenLS || '';
+  const [isSession, setIsSession] = useState(() => {
+    const isSessionFromLS = JSON.parse(localStorage.getItem(LS_KEYS.IS_SESSION));
 
-    return authTokenFromLS;
+    return !!isSessionFromLS;
+  });
+
+  const [authToken, setAuthToken] = useState(() => {
+    const authTokenFromStorage = !isSession
+      ? localStorage.getItem(LS_KEYS.AUTH_TOKEN)
+      : sessionStorage.getItem(LS_KEYS.AUTH_TOKEN);
+    const initAuthToken = authTokenFromStorage || '';
+
+    return initAuthToken;
+  });
+
+  const [userData, setUserData] = useState(() => {
+    const userDataFromStorage = !isSession
+      ? localStorage.getItem(LS_KEYS.USER_DATA)
+      : sessionStorage.getItem(LS_KEYS.USER_DATA);
+    const initUserData = userDataFromStorage ? JSON.parse(userDataFromStorage) : {};
+
+    return initUserData;
   });
 
   useEffect(() => {
-    localStorage.setItem('LS_AUTH_TOKEN', authToken);
+    if (!isSession) {
+      localStorage.setItem(LS_KEYS.AUTH_TOKEN, authToken);
+      localStorage.setItem(LS_KEYS.USER_DATA, JSON.stringify(userData));
+    }
+    if (isSession) {
+      sessionStorage.setItem(LS_KEYS.AUTH_TOKEN, authToken);
+      sessionStorage.setItem(LS_KEYS.USER_DATA, JSON.stringify(userData));
+    }
     shopApi.setAuthToken(authToken);
-    console.log({ authToken }, '>>>>>>>>>>>>>>', shopApi.authToken);
-  }, [authToken]);
+  }, [authToken, userData]);
 
-  const login = (token) => {
+  const login = ({ token }, remember) => {
+    setIsSession(!remember);
+    localStorage.setItem(LS_KEYS.IS_SESSION, JSON.stringify(!remember));
     setAuthToken(token);
   };
 
   const logout = () => {
+    localStorage.removeItem(LS_KEYS.IS_SESSION);
+    setUserData({});
     setAuthToken('');
   };
 
-  const contextProps = useMemo(() => ({ authToken, login, logout }), [authToken]);
+  const withoutProperty = (fullUserData, property) => {
+    const { [property]: unused, ...rest } = fullUserData;
+
+    return rest;
+  };
+
+  const renameUserDataKeys = ({ name: userName, _id: id, ...rest }) => ({
+    userName,
+    id,
+    ...rest,
+  });
+
+  const contextProps = useMemo(
+    () => ({
+      authToken,
+      userData,
+      setUserData,
+      login,
+      logout,
+      withoutProperty,
+      renameUserDataKeys,
+    }),
+    [authToken, userData],
+  );
 
   return (
     <authTokenContext.Provider value={contextProps}>
