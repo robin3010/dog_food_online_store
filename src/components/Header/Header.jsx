@@ -92,14 +92,14 @@ export const Header = memo(() => {
           className="collapse navbar-collapse order-md-2"
           id="navbarNavAltMarkup"
         >
-          <div className="navbar-nav">
+          <div className="navbar-nav d-flex align-items-center align-items-sm-start">
             <NavLink to="/products" className="nav-link">
               Товары
             </NavLink>
             <NavLink to="/delivery" className="nav-link">
               Доставка
             </NavLink>
-            <NavLink to="/contacs" className="nav-link me-auto">
+            <NavLink to="/contacts" className="nav-link">
               Контакты
             </NavLink>
           </div>

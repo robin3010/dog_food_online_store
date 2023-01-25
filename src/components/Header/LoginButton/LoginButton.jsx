@@ -47,7 +47,7 @@ function LoggedIn() {
           )}
         />
       </button>
-      <ul className="dropdown-menu dropdown-menu-lg-end text-center">
+      <ul className="dropdown-menu dropdown-menu-sm-end text-center">
         <li>
           <span className="dropdown-item-text fw-semibold">
             {firstName}
@@ -55,14 +55,14 @@ function LoggedIn() {
         </li>
         <hr className="my-2" />
         <li>
-          <button
+          <Link
+            to="/login"
             onClick={logout}
-            type="button"
             className="btn nav-link dropdown-item"
           >
-            <span className="me-2">Выйти</span>
-            <i className="fa-solid fa-right-from-bracket fa-xl" />
-          </button>
+            <i className="fa-solid fa-right-from-bracket fa-xl me-2" />
+            <span>Выйти</span>
+          </Link>
         </li>
       </ul>
     </div>
