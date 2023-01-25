@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
   createBrowserRouter,
-  createRoutesFromElements,
-  Route,
   RouterProvider,
 } from 'react-router-dom';
 import {
@@ -21,36 +19,43 @@ import { SignIn } from './components/Pages/Login/SignIn';
 import { SignUp } from './components/Pages/Login/SignUp';
 import { UserDataContextWr } from './context/UserDataContext';
 
-// const basename = { basename: '/dog_food_online_store' };
-const basename = '';
-
-const rootRouter = createBrowserRouter(createRoutesFromElements(
-  <Route
-    path="/"
-    element={<App />}
-    errorElement={<ErrorPage />}
-  >
-    <Route index element={<Main />} />
-    <Route
-      path="products"
-      element={<Products />}
-    />
-    <Route
-      path="login/"
-      element={<Login />}
-    >
-      <Route index element={<SignIn />} />
-      <Route
-        path="signin"
-        element={<SignIn />}
-      />
-      <Route
-        path="signup"
-        element={<SignUp />}
-      />
-    </Route>
-  </Route>,
-), basename);
+const rootRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Main />,
+      },
+      {
+        path: 'products',
+        element: <Products />,
+      },
+      {
+        path: 'login/',
+        element: <Login />,
+        children: [
+          {
+            index: true,
+            element: <SignIn />,
+          },
+          {
+            path: 'signin',
+            element: <SignIn />,
+          },
+          {
+            path: 'signup',
+            element: <SignUp />,
+          },
+        ],
+      },
+    ],
+  },
+], {
+  // basename: '/dog_food_online_store',
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
