@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { NavLink } from 'react-router-dom';
-import { useAuthTokenContext } from '../../../context/AuthTokenContext';
+import { Link, NavLink } from 'react-router-dom';
+import { useUserDataContext } from '../../../context/UserDataContext';
 
 const defaultAvatar = 'https://react-learning.ru/image-compressed/default-image.jpg';
 
 function LoggedIn() {
-  const { userData, logout } = useAuthTokenContext();
+  const { userData, logout } = useUserDataContext();
   let userName = '';
   let firstName;
   let avatar;
@@ -78,7 +78,7 @@ function LoggedOut() {
 }
 
 export function LoginButton() {
-  const { authToken } = useAuthTokenContext();
+  const { authToken } = useUserDataContext();
 
   if (!authToken) return <LoggedOut />;
 

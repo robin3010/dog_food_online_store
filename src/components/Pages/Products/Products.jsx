@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { shopApi } from '../../../api/shopApi';
-import { useAuthTokenContext } from '../../../context/AuthTokenContext';
+import { useUserDataContext } from '../../../context/UserDataContext';
 import { withQuery } from '../../HOCs/withQuery';
 import { ProductItem } from '../../ProductItem/ProductItem';
 
@@ -46,7 +46,7 @@ function ProductsReturn({ goods }) {
 const ProductsReturnWithQuery = withQuery(ProductsReturn);
 
 export function Products() {
-  const { authToken } = useAuthTokenContext();
+  const { authToken } = useUserDataContext();
   const navigate = useNavigate();
 
   useEffect(() => {

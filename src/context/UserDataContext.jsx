@@ -9,9 +9,9 @@ const LS_KEYS = {
   IS_SESSION: 'IS_SESSION',
 };
 
-export const authTokenContext = createContext();
+export const userDataContext = createContext();
 
-export function AuthTokenContextWr({ children }) {
+export function UserDataContextWr({ children }) {
   const [isSession, setIsSession] = useState(() => {
     const isSessionFromLS = JSON.parse(localStorage.getItem(LS_KEYS.IS_SESSION));
 
@@ -86,10 +86,10 @@ export function AuthTokenContextWr({ children }) {
   );
 
   return (
-    <authTokenContext.Provider value={contextProps}>
+    <userDataContext.Provider value={contextProps}>
       {children}
-    </authTokenContext.Provider>
+    </userDataContext.Provider>
   );
 }
 
-export const useAuthTokenContext = () => useContext(authTokenContext);
+export const useUserDataContext = () => useContext(userDataContext);

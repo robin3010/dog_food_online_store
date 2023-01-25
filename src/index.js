@@ -19,7 +19,7 @@ import { Main } from './components/Pages/Main/Main';
 import { Login } from './components/Pages/Login/Login';
 import { SignIn } from './components/Pages/Login/SignIn';
 import { SignUp } from './components/Pages/Login/SignUp';
-import { AuthTokenContextWr } from './context/AuthTokenContext';
+import { UserDataContextWr } from './context/UserDataContext';
 
 // const basename = { basename: '/dog_food_online_store' };
 const basename = '';
@@ -64,9 +64,9 @@ const root = ReactDOM.createRoot(document.getElementById('container'));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AuthTokenContextWr>
+      <UserDataContextWr>
         <RouterProvider router={rootRouter} />
-      </AuthTokenContextWr>
+      </UserDataContextWr>
     </QueryClientProvider>
   </React.StrictMode>,
 );

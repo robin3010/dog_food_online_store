@@ -8,7 +8,7 @@ import { signInValidationScheme } from './loginValidation';
 import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
-import { useAuthTokenContext } from '../../../context/AuthTokenContext';
+import { useUserDataContext } from '../../../context/UserDataContext';
 import { ModalLoader } from '../../Loaders/ModalLoader';
 
 const initialValues = {
@@ -21,7 +21,7 @@ const initialValues = {
 export function SignIn() {
   const {
     login, setUserData, withoutProperty, renameUserDataKeys,
-  } = useAuthTokenContext();
+  } = useUserDataContext();
 
   const navigate = useNavigate();
 
