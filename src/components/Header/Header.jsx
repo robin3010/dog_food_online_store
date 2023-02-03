@@ -27,7 +27,8 @@ export const Header = memo(() => {
 
   return (
     <header className="main__header navbar navbar-expand-md">
-      <div className="
+      <div
+        className="
         container-fluid
         d-flex
         header__nav m-2
@@ -45,17 +46,19 @@ export const Header = memo(() => {
             Dog Food
           </span>
         </Link>
-        <div className="
+        <div
+          className="
           d-flex align-items-center
           gap-1
           gap-sm-2
           gap-md-4
           gap-lg-5
           ms-sm-auto
-          order-md-3"
+          order-md-3
+          fa-lg"
         >
           <NavLink to="/favorite" className="nav-link">
-            <i className="fa-regular fa-heart fa-xl" />
+            <i className="fa-regular fa-heart" />
           </NavLink>
           {/* <button onClick={() => getInfo('avatar')} type="button" className="btn nav-link">
             ТЕСТ
@@ -74,7 +77,7 @@ export const Header = memo(() => {
             >
               1
             </span> */}
-            <i className="fa-solid fa-shopping-cart fa-xl" />
+            <i className="fa-solid fa-shopping-cart" />
           </NavLink>
         </div>
         <button

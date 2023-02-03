@@ -21,7 +21,7 @@ export const Footer = memo(() => {
           <span>Мы на связи:</span>
         </div>
 
-        <div>
+        <div className="fa-lg">
           <Link href="#" className="me-4 link-secondary">
             <i className="fa-brands fa-telegram" />
           </Link>

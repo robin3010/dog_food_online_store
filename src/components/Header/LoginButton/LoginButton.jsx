@@ -25,12 +25,12 @@ function LoggedIn() {
         type="button"
         data-bs-toggle="dropdown"
         data-bs-display="static"
+        data-bs-auto-close="outside"
         aria-expanded="false"
       >
         <i className={clsx(
           'fa-solid',
           'fa-user',
-          'fa-xl',
           { 'd-none': avatar !== defaultAvatar },
         )}
         />
@@ -60,7 +60,7 @@ function LoggedIn() {
             onClick={logout}
             className="btn nav-link dropdown-item"
           >
-            <i className="fa-solid fa-right-from-bracket fa-xl me-2" />
+            <i className="fa-solid fa-right-from-bracket me-2" />
             <span>Выйти</span>
           </Link>
         </li>
@@ -72,7 +72,7 @@ function LoggedIn() {
 function LoggedOut() {
   return (
     <NavLink to="/login" className="nav-link">
-      <i className="fa-solid fa-user fa-xl" />
+      <i className="fa-solid fa-user" />
     </NavLink>
   );
 }
