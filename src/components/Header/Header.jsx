@@ -84,8 +84,8 @@ export const Header = memo(() => {
           className="navbar-toggler order-md-4"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
@@ -93,17 +93,47 @@ export const Header = memo(() => {
         </button>
         <div
           className="collapse navbar-collapse order-md-2"
-          id="navbarNavAltMarkup"
+          id="navbarNav"
         >
-          <div className="navbar-nav d-flex align-items-center align-items-sm-start">
-            <NavLink to="/products" className="nav-link">
-              Товары
+          <div className="
+          navbar-nav
+          d-flex
+          align-items-center
+          align-items-sm-start
+          header__nav__links"
+          >
+            <NavLink
+              to="/products"
+              className="nav-link p-0 m-2"
+            >
+              <span
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+              >
+                Товары
+              </span>
             </NavLink>
-            <NavLink to="/delivery" className="nav-link">
-              Доставка
+            <NavLink
+              to="/delivery"
+              className="nav-link p-0 m-2"
+            >
+              <span
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+              >
+                Доставка
+              </span>
             </NavLink>
-            <NavLink to="/contacts" className="nav-link">
-              Контакты
+            <NavLink
+              to="/contacts"
+              className="nav-link p-0 m-2"
+            >
+              <span
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+              >
+                Контакты
+              </span>
             </NavLink>
           </div>
         </div>

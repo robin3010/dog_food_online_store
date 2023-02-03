@@ -64,7 +64,7 @@ export const Footer = memo(() => {
               <Link to="#" className="nav-link pb-2">
                 Акции
               </Link>
-              <Link to="#" className="nav-link pb-2">
+              <Link to="/delivery" className="nav-link pb-2">
                 Доставка и оплата
               </Link>
               <Link to="#" className="nav-link pb-2">

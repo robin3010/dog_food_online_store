@@ -18,6 +18,8 @@ import { Login } from './components/Pages/Login/Login';
 import { SignIn } from './components/Pages/Login/SignIn';
 import { SignUp } from './components/Pages/Login/SignUp';
 import { UserDataContextWr } from './context/UserDataContext';
+import { Delivery } from './components/Pages/Delivery/Delivery';
+import { Contacts } from './components/Pages/Contacts/Contacts';
 
 const rootRouter = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const rootRouter = createBrowserRouter([
       {
         path: 'products',
         element: <Products />,
+      },
+      {
+        path: 'delivery',
+        element: <Delivery />,
+      },
+      {
+        path: 'contacts',
+        element: <Contacts />,
       },
       {
         path: 'login/',
