@@ -9,6 +9,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ErrorPage } from './components/Pages/Error/Error';
@@ -17,9 +18,10 @@ import { Main } from './components/Pages/Main/Main';
 import { Login } from './components/Pages/Login/Login';
 import { SignIn } from './components/Pages/Login/SignIn';
 import { SignUp } from './components/Pages/Login/SignUp';
-import { UserDataContextWr } from './context/UserDataContext';
+// import { UserDataContextWr } from './context/UserDataContext';
 import { Delivery } from './components/Pages/Delivery/Delivery';
 import { Contacts } from './components/Pages/Contacts/Contacts';
+import { store } from './redux/store';
 
 const rootRouter = createBrowserRouter([
   {
@@ -79,9 +81,11 @@ const root = ReactDOM.createRoot(document.getElementById('container'));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <UserDataContextWr>
+      <Provider store={store}>
+        {/* <UserDataContextWr> */}
         <RouterProvider router={rootRouter} />
-      </UserDataContextWr>
+        {/* </UserDataContextWr> */}
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>,
 );

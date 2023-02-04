@@ -1,21 +1,22 @@
 import clsx from 'clsx';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-import { useUserDataContext } from '../../../context/UserDataContext';
+import { getUserDataSelector, logout } from '../../../redux/slices/userSlice';
 
 const defaultAvatar = 'https://react-learning.ru/image-compressed/default-image.jpg';
+const defaultFirstName = 'Покупатель';
 
 function LoggedIn() {
-  const { userData, logout } = useUserDataContext();
-  let userName = '';
-  let firstName;
-  let avatar;
-  if (Object.keys(userData).length === 0) {
-    firstName = 'Покупатель';
-    avatar = defaultAvatar;
-  }
-  if (Object.keys(userData).length > 0) {
-    ({ userName, avatar } = userData);
-    firstName = userName.replace(/\s.*/, '');
+  const userData = useSelector(getUserDataSelector);
+  const dispatch = useDispatch();
+
+  let firstName = defaultFirstName;
+  let avatar = defaultAvatar;
+
+  if (Object.keys(userData).length) {
+    const userName = userData.name;
+    firstName = userName.replace(/\s.*/, '') || defaultFirstName;
+    avatar = userData.avatar || defaultAvatar;
   }
 
   return (
@@ -57,7 +58,7 @@ function LoggedIn() {
         <li>
           <Link
             to="/login"
-            onClick={logout}
+            onClick={() => dispatch(logout())}
             className="btn nav-link dropdown-item"
           >
             <i className="fa-solid fa-right-from-bracket me-2" />
@@ -78,7 +79,7 @@ function LoggedOut() {
 }
 
 export function LoginButton() {
-  const { authToken } = useUserDataContext();
+  const { authToken } = useSelector(getUserDataSelector);
 
   if (!authToken) return <LoggedOut />;
 

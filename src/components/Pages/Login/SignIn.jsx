@@ -4,12 +4,15 @@ import {
 import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
+import { useDispatch } from 'react-redux';
 import { signInValidationScheme } from './loginValidation';
 import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
-import { useUserDataContext } from '../../../context/UserDataContext';
+// import { useUserDataContext } from '../../../context/UserDataContext';
 import { ModalLoader } from '../../Loaders/ModalLoader';
+import { login } from '../../../redux/slices/userSlice';
+import { updateValue } from '../../../redux/slices/isSessionSlice';
 
 const initialValues = {
   email: '',
@@ -19,23 +22,24 @@ const initialValues = {
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 export function SignIn() {
-  const {
-    login, setUserData, withoutProperty, renameUserDataKeys,
-  } = useUserDataContext();
+  // const {
+  //   login, setUserData, withoutProperty, renameUserDataKeys,
+  // } = useUserDataContext();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const saveUserData = (userData) => {
-    const withoutEmail = withoutProperty(userData, 'email');
-    const renameKeys = renameUserDataKeys(withoutEmail);
-    setUserData(renameKeys);
-  };
+  // const saveUserData = (userData) => {
+  //   const withoutEmail = withoutProperty(userData, 'email');
+  //   const renameKeys = renameUserDataKeys(withoutEmail);
+  //   setUserData(renameKeys);
+  // };
 
   const {
     mutateAsync, isLoading, isError, error,
   } = useMutation({
     mutationFn: (userData) => shopApi.signIn(userData),
-    onSuccess: ({ data }) => saveUserData(data),
+    // onSuccess: ({ data }) => saveUserData(data),
   });
 
   const signInHandler = async (values) => {
@@ -44,7 +48,11 @@ export function SignIn() {
       email,
       password,
     };
-    login(await mutateAsync(validData), values.remember);
+
+    dispatch(updateValue(values.remember));
+    dispatch(login(await mutateAsync(validData)));
+    // dispatch(login(await mutateAsync(validData), values.remember));
+    // login(await mutateAsync(validData), values.remember);
 
     setTimeout(() => navigate('/products'));
   };

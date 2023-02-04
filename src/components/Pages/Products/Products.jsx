@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { shopApi } from '../../../api/shopApi';
-import { useUserDataContext } from '../../../context/UserDataContext';
+import { getUserDataSelector } from '../../../redux/slices/userSlice';
+// import { useUserDataContext } from '../../../context/UserDataContext';
 import { withQuery } from '../../HOCs/withQuery';
 import { ProductItem } from '../../ProductItem/ProductItem';
 
@@ -46,7 +48,8 @@ function ProductsReturn({ goods }) {
 const ProductsReturnWithQuery = withQuery(ProductsReturn);
 
 export function Products() {
-  const { authToken } = useUserDataContext();
+  // const { authToken } = useUserDataContext();
+  const { authToken } = useSelector(getUserDataSelector);
   const navigate = useNavigate();
 
   useEffect(() => {
