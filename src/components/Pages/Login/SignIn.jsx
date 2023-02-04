@@ -9,7 +9,6 @@ import { signInValidationScheme } from './loginValidation';
 import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
-// import { useUserDataContext } from '../../../context/UserDataContext';
 import { ModalLoader } from '../../Loaders/ModalLoader';
 import { login } from '../../../redux/slices/userSlice';
 import { updateValue } from '../../../redux/slices/isSessionSlice';
@@ -22,18 +21,8 @@ const initialValues = {
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 export function SignIn() {
-  // const {
-  //   login, setUserData, withoutProperty, renameUserDataKeys,
-  // } = useUserDataContext();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // const saveUserData = (userData) => {
-  //   const withoutEmail = withoutProperty(userData, 'email');
-  //   const renameKeys = renameUserDataKeys(withoutEmail);
-  //   setUserData(renameKeys);
-  // };
 
   const {
     mutateAsync, isLoading, isError, error,
@@ -51,10 +40,10 @@ export function SignIn() {
 
     dispatch(updateValue(values.remember));
     dispatch(login(await mutateAsync(validData)));
-    // dispatch(login(await mutateAsync(validData), values.remember));
-    // login(await mutateAsync(validData), values.remember);
 
-    setTimeout(() => navigate('/products'));
+    navigate('/products');
+
+    // setTimeout(() => navigate('/products'));
   };
 
   return (

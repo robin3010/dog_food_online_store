@@ -23,11 +23,11 @@ const syncWebStorage = () => {
     : window.localStorage;
 
   Object.keys(currentState).forEach((slice) => {
-    if (slice === 'isSession') {
-      window.localStorage.setItem(IS_SESSION, JSON.stringify(isSession));
+    if (slice !== 'isSession') {
+      webStorage.setItem(STORE_SLICES[slice], JSON.stringify(currentState[slice]));
     }
-    webStorage.setItem(STORE_SLICES[slice], JSON.stringify(currentState[slice]));
   });
+  window.localStorage.setItem(IS_SESSION, JSON.stringify(isSession));
 
   shopApi.setAuthToken(currentState.user.authToken);
   // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', shopApi.authToken);
