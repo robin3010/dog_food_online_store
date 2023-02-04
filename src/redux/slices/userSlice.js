@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { renameIdKey, withoutProperty } from '../../utils/utils';
 import { initState } from '../initState';
 
 export const userSlice = createSlice({
@@ -6,14 +7,17 @@ export const userSlice = createSlice({
   initialState: initState.user,
   reducers: {
     login: {
-      reducer(state, action) {
+      reducer(_, action) {
         console.log(action.payload);
         return action.payload;
       },
       prepare(apiUserData) {
+        const withoutEmail = withoutProperty(apiUserData.data, 'email');
+        const renamedIdKey = renameIdKey(withoutEmail);
+
         return {
           payload: {
-            ...apiUserData.data,
+            ...renamedIdKey,
             authToken: apiUserData.token,
           },
         };
