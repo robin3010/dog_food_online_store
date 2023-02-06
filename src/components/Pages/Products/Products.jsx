@@ -67,7 +67,7 @@ const ProductsReturnWithQuery = withQuery(ProductsReturn);
 
 export function Products() {
   console.log('Render Products');
-
+  
   const { authToken } = useSelector(getUserDataSelector);
   const { search, tagsSelected } = useSelector(getFiltersSelector);
   const { list: goods } = useSelector(getGoodsSelector);
