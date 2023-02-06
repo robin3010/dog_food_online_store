@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { renameIdKey, withoutProperty } from '../../utils/utils';
+import { renameIdKey, withoutProperty } from '../utils/utils';
 import { initState } from '../initState';
 
 export const userSlice = createSlice({
@@ -30,8 +30,6 @@ export const userSlice = createSlice({
 });
 
 export const { login, logout } = userSlice.actions;
-
-// export const getAuthTokenSelector = (state) => state.user.authToken;
 
 export const getUserDataSelector = (state) => state.user;
 

@@ -1,9 +1,17 @@
 import { shopApi } from '../api/shopApi';
-import { IS_SESSION, STORE_SLICES } from '../utils/webStorageKeys';
+import { IS_SESSION, STORE_SLICES } from './utils/webStorageKeys';
 
 export const initState = {
   user: {},
   isSession: true,
+  filters: {
+    search: '',
+    tagsCollection: [],
+    tagsSelected: [],
+  },
+  goods: {
+    list: [],
+  },
   // cart: [],
 };
 

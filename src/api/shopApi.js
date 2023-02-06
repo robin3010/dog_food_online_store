@@ -4,6 +4,7 @@ class ShopApi {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
     this.authToken = '';
+    this.search = '';
     // this.userName = '';
     // this.userId = '';
     // this.userGroup = '';
@@ -13,8 +14,16 @@ class ShopApi {
     this.authToken = token;
   }
 
+  setSearch(search) {
+    this.search = search;
+  }
+
   getAuthHeader() {
     return `Bearer ${this.authToken}`;
+  }
+
+  getSearchQuery() {
+    return `/search?query=${this.search}`;
   }
 
   checkFetchErrors() {
@@ -96,7 +105,9 @@ class ShopApi {
   async getGoodsList() {
     this.checkAuthToken();
 
-    const fetchGoodsList = await fetch(`${BASE_URL}/products`, {
+    const searchQuery = this.search && this.getSearchQuery();
+
+    const fetchGoodsList = await fetch(`${BASE_URL}/products${searchQuery}`, {
       headers: {
         authorization: this.getAuthHeader(),
       },
@@ -104,8 +115,10 @@ class ShopApi {
 
     this.checkFetchErrors.call(fetchGoodsList);
 
-    const { products } = await fetchGoodsList.json();
-    return products;
+    const response = await fetchGoodsList.json();
+
+    if (searchQuery) return response;
+    return response.products;
   }
 }
 
