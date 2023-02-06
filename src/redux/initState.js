@@ -11,6 +11,7 @@ export const initState = {
   },
   goods: {
     list: [],
+    lastSort: '',
   },
   // cart: [],
 };
