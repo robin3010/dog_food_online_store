@@ -1,5 +1,9 @@
 import clsx from 'clsx';
 import {
+  calcCondition,
+  conditionsCollection,
+} from '../Filters/ConditionFilterButton/conditionsCollection';
+import {
   DiscountPrice,
   ProductAvailableQuantity,
 } from './ProductDynamicElements/ProductDynamicElements';
@@ -30,9 +34,20 @@ export function ProductItem({ item }) {
 
   const priceBeforeDiscount = 'text-decoration-line-through fw-normal text-muted';
 
+  const test = conditionsCollection[calcCondition];
+
   return (
     <div className="col">
       <div className="card h-100" style={{ minWidth: '18rem' }}>
+        <div>
+          <span>{`likes ${test(item, 'likes')}`}</span>
+          <br />
+          <span>{`reviews ${test(item, 'reviews')}`}</span>
+          <br />
+          <span>{`rating ${test(item, 'rating')}`}</span>
+          <br />
+          <span>{`discount ${test(item, 'discount')}`}</span>
+        </div>
         <div className="product__card-picture pt-3">
           <img src={pictures} className="card-img-top product__card-picture" alt="..." />
         </div>
