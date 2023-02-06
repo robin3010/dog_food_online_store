@@ -1,14 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { shopApi } from '../api/shopApi';
-import { IS_SESSION, STORE_SLICES } from '../utils/webStorageKeys';
+import { IS_SESSION, STORE_SLICES } from './utils/webStorageKeys';
 import { getInitState } from './initState';
+import { filtersReducer } from './slices/filtersSlice';
 import { isSessionReducer } from './slices/isSessionSlice';
 import { userReducer } from './slices/userSlice';
+import { goodsReducer } from './slices/goodsSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     isSession: isSessionReducer,
+    filters: filtersReducer,
+    goods: goodsReducer,
   },
   preloadedState: getInitState(),
 });
@@ -23,7 +27,7 @@ const syncWebStorage = () => {
     : window.localStorage;
 
   Object.keys(currentState).forEach((slice) => {
-    if (slice !== 'isSession') {
+    if (slice === 'user') {
       webStorage.setItem(STORE_SLICES[slice], JSON.stringify(currentState[slice]));
     }
   });
