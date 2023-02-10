@@ -1,14 +1,18 @@
 import clsx from 'clsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addItemToCart, getCheckoutSelector } from '../../redux/slices/checkoutSlice';
+import { calcCondition } from '../../utils/utils';
 import {
-  calcCondition,
-  conditionsCollection,
-} from '../Filters/ConditionFilterButton/conditionsCollection';
-import {
-  DiscountPrice,
+  Price,
   ProductAvailableQuantity,
 } from './ProductDynamicElements/ProductDynamicElements';
 
 export function ProductItem({ item }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const checkout = useSelector(getCheckoutSelector);
+
   const {
     name,
     price,
@@ -16,40 +20,32 @@ export function ProductItem({ item }) {
     discount,
     stock: quantity,
     available,
-    // _id,
+    // id,
   } = item;
 
-  // const prod = {
-  //   discount: 10,
-  //   stock: 10,
-  //   available: true,
-  // eslint-disable-next-line max-len
-  //   pictures: 'https://img.detmir.st/-7K4ihFCcSHbGCGhHi7I3IMxyJWwBH-E-zjtt1NfkX8/rs:fit:460:460/g:sm/el:1/aHR0cHM6Ly9zdGF0aWMuZGV0bWlyLnN0L21lZGlhX291dC81MzUvMTQ0LzMxNDQ1MzUvMTUwMC8wLmpwZz8xNjUyMjY0NTA5NTIx.webp',
-  //   likes: [],
-  //   tags: [],
-  //   _id: '63cadd4059b98b038f77a8ac',
-  //   name: 'Лакомство для собак Деревенские лакомства мини пород Медальоны ягненок',
-  //   price: 180,
-  // };
+  const itemIndex = checkout.findIndex((el) => el.id === item.id);
 
-  const priceBeforeDiscount = 'text-decoration-line-through fw-normal text-muted';
-
-  const test = conditionsCollection[calcCondition];
+  const addToCartHandler = (elem) => {
+    if (itemIndex === -1) {
+      return dispatch(addItemToCart(elem));
+    }
+    return navigate('/checkout');
+  };
 
   return (
     <div className="col">
       <div className="card h-100" style={{ minWidth: '18rem' }}>
         <div>
-          <span>{`likes ${test(item, 'likes')}`}</span>
+          <span>{`likes ${calcCondition(item, 'likes')}`}</span>
           <br />
-          <span>{`reviews ${test(item, 'reviews')}`}</span>
+          <span>{`reviews ${calcCondition(item, 'reviews')}`}</span>
           <br />
-          <span>{`rating ${test(item, 'rating')}`}</span>
+          <span>{`rating ${calcCondition(item, 'rating')}`}</span>
           <br />
-          <span>{`discount ${test(item, 'discount')}`}</span>
+          <span>{`discount ${calcCondition(item, 'discount')}`}</span>
         </div>
         <div className="product__card-picture pt-3">
-          <img src={pictures} className="card-img-top product__card-picture" alt="..." />
+          <img src={pictures} alt="..." />
         </div>
         <div className="card-body text-start">
           <p className="card-text">{name}</p>
@@ -63,24 +59,28 @@ export function ProductItem({ item }) {
                 border border-tertiary rounded w-100"
               >
                 <p className="m-auto ms-2 fw-semibold product__card-price">
-                  <DiscountPrice price={price} discount={discount} />
-                  <span
-                    className={clsx(
-                      { [priceBeforeDiscount]: discount },
-                    )}
-                  >
-                    {`${price} \u20BD`}
-                  </span>
+                  <Price price={price} discount={discount} />
                 </p>
               </div>
             </div>
             <div className="p-1">
-              <button type="button" className="btn btn-outline-danger card__btn">
+              <button
+                type="button"
+                className="btn btn-outline-danger card__btn"
+              >
                 <i className="fa-regular fa-heart fa-lg" />
               </button>
             </div>
             <div className="p-1 pe-0">
-              <button type="button" className="btn btn-secondary">
+              <button
+                onClick={() => addToCartHandler(item)}
+                type="button"
+                className={clsx(
+                  'btn',
+                  'btn-secondary',
+                  { 'bg-warning': itemIndex !== -1 },
+                )}
+              >
                 <i className="fa-solid fa-shopping-cart fa-lg" />
               </button>
             </div>

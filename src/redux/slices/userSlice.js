@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { renameIdKey, withoutProperty } from '../utils/utils';
+import { renameIdKey, withoutProperty } from '../reduxUtils/reduxUtils';
 import { initState } from '../initState';
 
 export const userSlice = createSlice({

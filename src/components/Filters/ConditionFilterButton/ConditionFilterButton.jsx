@@ -1,12 +1,13 @@
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGoodsSelector, sortGoodsList } from '../../../redux/slices/goodsSlice';
+import { productParams } from '../../../utils/constants';
 
 export function ConditionFilterButton({ conditionKey, conditionValue }) {
   const { lastSort } = useSelector(getGoodsSelector);
   const dispatch = useDispatch();
 
-  const priceOrderIconHandler = (lastFilter, currFilter) => {
+  const priceOrderIcon = (lastFilter, currFilter) => {
     if (lastFilter === 'price') {
       return (
         <i className={clsx(
@@ -23,8 +24,8 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
 
   const sortHandler = (condition, e) => {
     dispatch(sortGoodsList(condition));
-    if (lastSort === 'price') {
-      e.target.lastChild.classList.toggle('fa-flip-vertical');
+    if (lastSort === productParams.price) {
+      e.currentTarget.lastChild.classList.toggle('fa-flip-vertical');
     }
   };
 
@@ -34,9 +35,9 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
       type="button"
       className={clsx(
         'btn',
+        'border-0',
         { 'fw-semibold': lastSort === conditionKey },
       )}
-      style={{ border: 'none' }}
     >
       {conditionValue}
       {/* <i className={clsx(
@@ -46,7 +47,7 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
         { 'd-none': lastSort !== conditionKey },
       )}
       /> */}
-      {priceOrderIconHandler(lastSort, conditionKey)}
+      {priceOrderIcon(lastSort, conditionKey)}
     </button>
   );
 }

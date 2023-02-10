@@ -1,11 +1,26 @@
-export function DiscountPrice({ price, discount }) {
-  if (!discount) return '';
+import clsx from 'clsx';
+import { formattedPrice } from '../../../utils/utils';
+
+export function Price({ price, discount, column }) {
+  const defaultPriceStyles = 'strike-through fw-normal text-muted';
+
+  const defaultPrice = () => (
+    <span
+      className={clsx({ [defaultPriceStyles]: discount })}
+    >
+      {formattedPrice(price)}
+    </span>
+  );
+
+  if (!discount) { return defaultPrice(); }
 
   return (
-    <span className="me-2">
-      {`${price - price / discount} \u20BD`}
-    </span>
-
+    <>
+      <span className={clsx({ 'me-2': !column })}>
+        {formattedPrice((price - price / discount))}
+      </span>
+      {defaultPrice()}
+    </>
   );
 }
 

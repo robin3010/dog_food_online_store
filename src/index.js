@@ -22,6 +22,7 @@ import { SignUp } from './components/Pages/Login/SignUp';
 import { Delivery } from './components/Pages/Delivery/Delivery';
 import { Contacts } from './components/Pages/Contacts/Contacts';
 import { store } from './redux/store';
+import { Checkout } from './components/Pages/Checkout/Checkout';
 
 const rootRouter = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const rootRouter = createBrowserRouter([
       {
         path: 'contacts',
         element: <Contacts />,
+      },
+      {
+        path: 'checkout',
+        element: <Checkout />,
       },
       {
         path: 'login/',

@@ -1,0 +1,52 @@
+.wishlist small,
+.remove small {
+  color: #6c757d;
+}
+
+.wishlist:hover small,
+.remove:hover small,
+.wishlist.active small {
+  color: #d92c3e;
+}
+
+.wishlist.active:hover small {
+  color: #af1221;
+}
+
+.btn-quantity-counter {
+  --bs-btn-font-weight: 400;
+  --bs-btn-color: var(--bs-light-text);
+  --bs-btn-bg: var(--bs-tertiary-bg);
+  --bs-btn-border-color: var(--bs-border-color);
+  --bs-btn-hover-color: #2d3850;
+  --bs-btn-hover-bg: var(--bs-secondary-bg);
+  --bs-btn-hover-border-color: var(--bs-border-color);
+  --bs-btn-active-color: #2d3850;
+  --bs-btn-active-bg: var(--bs-secondary-bg);
+  --bs-btn-active-border-color: var(--bs-border-color);
+  --bs-btn-disabled-color: #a5aaaf;
+  --bs-btn-disabled-bg: var(--bs-tertiary-bg);
+  --bs-btn-disabled-border-color: var(--bs-border-color);
+  --bs-btn-box-shadow: none;
+  --bs-btn-focus-shadow-rgb: 36, 41, 50;
+  --bs-btn-disabled-opacity: 1
+}
+
+.quantity-counter {
+  color: var(--bs-light-text);
+  background-color: var(--bs-tertiary-bg);
+}
+
+.quantity-counter:focus {
+  color: var(--main-text-color);
+  background-color: var(--bs-form-control-bg);
+  border-color: var(--bs-border-color);
+  /* outline: 0; */
+  box-shadow: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { getFiltersSelector } from '../../redux/slices/filtersSlice';
 import { Search } from './Search';
 import { TagFilterButton } from './TagFilterButton/TagFilterButton';
-import { conditionsCollection } from './ConditionFilterButton/conditionsCollection';
+import { conditionsSet } from './ConditionFilterButton/conditionsSet';
 import { ConditionFilterButton } from './ConditionFilterButton/ConditionFilterButton';
 
 export const Filters = memo(() => {
@@ -21,11 +21,11 @@ export const Filters = memo(() => {
       </div>
       <div className="px-3 pb-2">
         <span className="text-muted">Сортировать:</span>
-        {Object.keys(conditionsCollection).map((k) => (
+        {Object.keys(conditionsSet).map((k) => (
           <ConditionFilterButton
             key={k}
             conditionKey={k}
-            conditionValue={conditionsCollection[k]}
+            conditionValue={conditionsSet[k]}
           />
         ))}
       </div>

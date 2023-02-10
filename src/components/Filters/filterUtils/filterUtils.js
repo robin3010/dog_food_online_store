@@ -13,7 +13,7 @@ export const getTagsHash = (goods) => {
   goods.forEach((el) => {
     el.tags.forEach((tag) => {
       const isExist = hash.includes(tag);
-      if (!isExist) {
+      if (!isExist && !!tag) {
         hash.push(tag);
       }
     });

@@ -81,26 +81,26 @@ class ShopApi {
   }
 
   // пока не используется
-  async getUserInfo(group, property) {
-    this.checkAuthToken();
+  // async getUserInfo(group, property) {
+  //   this.checkAuthToken();
 
-    const fetchUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me`, {
-      headers: {
-        authorization: this.getAuthHeader(),
-      },
-    });
+  //   const fetchUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me`, {
+  //     headers: {
+  //       authorization: this.getAuthHeader(),
+  //     },
+  //   });
 
-    // this.checkFetchErrors.call(fetchUserInfo);
+  //   // this.checkFetchErrors.call(fetchUserInfo);
 
-    const userInfo = await fetchUserInfo.json();
+  //   const userInfo = await fetchUserInfo.json();
 
-    if (property) {
-      console.log(userInfo[property]);
-      return userInfo[property];
-    }
-    console.log(userInfo);
-    return userInfo;
-  }
+  //   if (property) {
+  //     console.log(userInfo[property]);
+  //     return userInfo[property];
+  //   }
+  //   console.log(userInfo);
+  //   return userInfo;
+  // }
 
   async getGoodsList() {
     this.checkAuthToken();
@@ -119,6 +119,24 @@ class ShopApi {
 
     if (searchQuery) return response;
     return response.products;
+  }
+
+  async getGoodsByIds(ids) {
+    this.checkAuthToken();
+
+    const getItemById = async (itemId) => {
+      const fetchItemById = await fetch(`${BASE_URL}/products/${itemId}`, {
+        headers: {
+          authorization: this.getAuthHeader(),
+        },
+      });
+      const response = fetchItemById.json();
+      return response;
+    };
+
+    const fetchGoodsById = await Promise.all(ids.map((id) => getItemById(id)));
+
+    return fetchGoodsById;
   }
 }
 

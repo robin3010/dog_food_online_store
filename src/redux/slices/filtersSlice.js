@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getTagsHash } from '../../components/Filters/utils/utils';
+import { getTagsHash } from '../../components/Filters/filterUtils/filterUtils';
 import { initState } from '../initState';
 
 export const filtersSlice = createSlice({

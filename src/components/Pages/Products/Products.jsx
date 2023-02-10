@@ -8,7 +8,7 @@ import { getGoodsSelector, setGoodsList } from '../../../redux/slices/goodsSlice
 import { getUserDataSelector } from '../../../redux/slices/userSlice';
 import { getGoodsListQueryKey } from '../../../utils/queryUtils';
 import { Filters } from '../../Filters/Filters';
-import { getFilteredByTags } from '../../Filters/utils/utils';
+import { getFilteredByTags } from '../../Filters/filterUtils/filterUtils';
 import { withQuery } from '../../HOCs/withQuery';
 import { ProductItem } from '../../ProductItem/ProductItem';
 
@@ -54,7 +54,7 @@ function ProductsReturn({ goods, search }) {
   // <div className="container p-3 p-md-4 p-lg-5">
     <div className="row row-cols row-cols-xxl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
       {goods.map((item) => (
-        <ProductItem key={item._id} item={{ ...item }} />
+        <ProductItem key={item.id} item={{ ...item }} />
       ))}
       <div className="col me-auto" />
     </div>

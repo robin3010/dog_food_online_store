@@ -64,7 +64,7 @@ export const Header = memo(() => {
             ТЕСТ
           </button> */}
           <LoginButton />
-          <NavLink to="/shopping-cart" className="nav-link position-relative">
+          <NavLink to="/checkout" className="nav-link position-relative">
             {/* <span
               className={clsx(
                 'position-absolute',
