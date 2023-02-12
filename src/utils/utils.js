@@ -27,7 +27,7 @@ export const calcCondition = (item, condition) => {
   }
 };
 
-export const formattedPrice = (price) => price.toLocaleString('ru-RU', {
+export const formatPrice = (price) => price?.toLocaleString('ru-RU', {
   style: 'currency',
   currency: 'RUB',
   maximumFractionDigits: 0,
@@ -36,9 +36,5 @@ export const formattedPrice = (price) => price.toLocaleString('ru-RU', {
 
 export const formatGoodsList = (list) => list.map(({ _id: id, ...rest }) => ({ id, ...rest }));
 
-export const getCheckoutItemParams = (item, checkout) => {
-  const checkoutItem = checkout.find((elem) => elem.id === item.id);
-
-  const result = checkoutItem ? { ...item, ...checkoutItem } : item;
-  return result;
-};
+export const getCheckoutItemParams = (itemId, checkout) => checkout
+  .find((elem) => elem.id === itemId);

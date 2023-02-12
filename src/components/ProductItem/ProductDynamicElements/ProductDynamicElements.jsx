@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { formattedPrice } from '../../../utils/utils';
+import { formatPrice } from '../../../utils/utils';
 
 export function Price({ price, discount, column }) {
   const defaultPriceStyles = 'strike-through fw-normal text-muted';
@@ -8,7 +8,7 @@ export function Price({ price, discount, column }) {
     <span
       className={clsx({ [defaultPriceStyles]: discount })}
     >
-      {formattedPrice(price)}
+      {formatPrice(price)}
     </span>
   );
 
@@ -16,30 +16,30 @@ export function Price({ price, discount, column }) {
 
   return (
     <>
-      <span className={clsx({ 'me-2': !column })}>
-        {formattedPrice((price - price / discount))}
+      <span className={clsx('discount', { 'me-2': !column })}>
+        {formatPrice((price - price / discount))}
       </span>
       {defaultPrice()}
     </>
   );
 }
 
-export function ProductAvailableQuantity({ available, quantity }) {
+export function ProductAvailableQuantity({ available, stock }) {
   // eslint-disable-next-line consistent-return
   const checkAvailableQuantity = () => {
-    if (!available || quantity === 0) {
+    if (!available || stock === 0) {
       return <span className="text-danger">нет в наличии</span>;
     }
-    if (quantity >= 10) {
+    if (stock >= 10) {
       return <span className="text-success">в наличии</span>;
     }
-    if (quantity >= 4) {
+    if (stock >= 4) {
       return <span className="text-warning">мало</span>;
     }
-    if (quantity > 0) {
+    if (stock > 0) {
       let str = 'осталось';
-      if (quantity === 1) str = 'осталась';
-      return <span className="text-danger">{`${str} ${quantity} шт.`}</span>;
+      if (stock === 1) str = 'осталась';
+      return <span className="text-danger">{`${str} ${stock} шт.`}</span>;
     }
   };
 

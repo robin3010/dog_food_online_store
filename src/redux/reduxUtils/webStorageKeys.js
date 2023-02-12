@@ -1,6 +1,5 @@
-export const IS_SESSION = 'IS_SESSION';
-
 export const STORE_SLICES = {
-  user: 'USER_DATA',
+  isSession: 'IS_SESSION',
   checkout: 'CHECKOUT',
+  user: 'USER_DATA',
 };

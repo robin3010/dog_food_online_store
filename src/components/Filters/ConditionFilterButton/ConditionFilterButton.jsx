@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGoodsSelector, sortGoodsList } from '../../../redux/slices/goodsSlice';
+import { getLastSortSelector, sortGoodsList } from '../../../redux/slices/goodsSlice';
 import { productParams } from '../../../utils/constants';
 
 export function ConditionFilterButton({ conditionKey, conditionValue }) {
-  const { lastSort } = useSelector(getGoodsSelector);
+  const lastSort = useSelector(getLastSortSelector);
   const dispatch = useDispatch();
 
   const priceOrderIcon = (lastFilter, currFilter) => {
@@ -40,13 +40,6 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
       )}
     >
       {conditionValue}
-      {/* <i className={clsx(
-        'fa-solid',
-        'fa-arrow-down-wide-short',
-        'ms-1',
-        { 'd-none': lastSort !== conditionKey },
-      )}
-      /> */}
       {priceOrderIcon(lastSort, conditionKey)}
     </button>
   );

@@ -43,6 +43,8 @@ export const goodsSlice = createSlice({
 
 export const { setGoodsList, resetLastSort, sortGoodsList } = goodsSlice.actions;
 
-export const getGoodsSelector = (state) => state.goods;
+// export const getGoodsSelector = (state) => state.goods;
+export const getGoodsListSelector = (state) => state.goods.list;
+export const getLastSortSelector = (state) => state.goods.lastSort;
 
 export const goodsReducer = goodsSlice.reducer;

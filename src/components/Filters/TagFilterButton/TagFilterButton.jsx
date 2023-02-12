@@ -1,21 +1,28 @@
-import { useDispatch } from 'react-redux';
-import { setTagsFilter } from '../../../redux/slices/filtersSlice';
+import clsx from 'clsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTagsSelectedSelector, setTagsFilter } from '../../../redux/slices/filtersSlice';
 
 export function TagFilterButton({ tag }) {
   const dispatch = useDispatch();
+  const tagsSelected = useSelector(getTagsSelectedSelector);
 
-  const setTagFilterHandler = (tagName, e) => {
+  const setTagFilterHandler = (tagName) => {
     dispatch(setTagsFilter(tagName));
-    e.target.classList.toggle('active');
   };
 
   return (
     <button
-      onClick={(e) => setTagFilterHandler(tag, e)}
+      onClick={() => setTagFilterHandler(tag)}
       type="button"
-      className="btn btn-light rounded-4"
+      className={clsx(
+        'btn',
+        'btn-light',
+        'rounded-4',
+        'text-capitalize',
+        { active: tagsSelected.find((t) => t === tag) },
+      )}
     >
-      {tag[0].toUpperCase() + tag.slice(1)}
+      {tag}
     </button>
   );
 }

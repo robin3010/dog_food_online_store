@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { shopApi } from '../api/shopApi';
-import { IS_SESSION, STORE_SLICES } from './utils/webStorageKeys';
+import { STORE_SLICES } from './reduxUtils/webStorageKeys';
 import { getInitState } from './initState';
 import { filtersReducer } from './slices/filtersSlice';
 import { isSessionReducer } from './slices/isSessionSlice';
@@ -19,24 +19,26 @@ export const store = configureStore({
   preloadedState: getInitState(),
 });
 
-const syncWebStorage = () => {
+const syncWebStorage = (keys) => {
   const currentState = store.getState();
-
   const { isSession } = currentState;
 
-  const webStorage = isSession
-    ? window.sessionStorage
-    : window.localStorage;
+  const sliceKeys = Object.keys(keys);
 
-  Object.keys(currentState).forEach((slice) => {
-    if (slice === 'user') {
-      webStorage.setItem(STORE_SLICES[slice], JSON.stringify(currentState[slice]));
+  sliceKeys.forEach((slice) => {
+    let webStorage = window.localStorage;
+
+    if (slice === 'user' && isSession) {
+      webStorage = window.sessionStorage;
     }
+    webStorage.setItem(keys[slice], JSON.stringify(currentState[slice]));
   });
-  window.localStorage.setItem(IS_SESSION, JSON.stringify(isSession));
 
-  shopApi.setAuthToken(currentState.user.authToken);
-  // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', shopApi.authToken);
+  console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<', { 'shopApi.authToken': shopApi.authToken });
+  if (!shopApi.authToken) {
+    shopApi.setAuthToken(currentState.user.authToken);
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', { 'shopApi.authToken': shopApi.authToken });
+  }
 };
 
-store.subscribe(syncWebStorage);
+store.subscribe(() => syncWebStorage(STORE_SLICES));

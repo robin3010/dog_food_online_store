@@ -18,7 +18,7 @@ export function ProductItem({ item }) {
     price,
     pictures,
     discount,
-    stock: quantity,
+    stock,
     available,
     // id,
   } = item;
@@ -44,14 +44,14 @@ export function ProductItem({ item }) {
           <br />
           <span>{`discount ${calcCondition(item, 'discount')}`}</span>
         </div>
-        <div className="product__card-picture pt-3">
+        <div className="product__card-img pt-3">
           <img src={pictures} alt="..." />
         </div>
         <div className="card-body text-start">
           <p className="card-text">{name}</p>
         </div>
         <footer className="px-3 pb-3">
-          <ProductAvailableQuantity available={available} quantity={quantity} />
+          <ProductAvailableQuantity available={available} stock={stock} />
           <div className="d-flex product__card">
             <div className="d-flex w-100 me-auto p-1 ps-0">
               <div

@@ -1,5 +1,5 @@
 import { shopApi } from '../api/shopApi';
-import { IS_SESSION, STORE_SLICES } from './utils/webStorageKeys';
+import { STORE_SLICES } from './reduxUtils/webStorageKeys';
 
 export const initState = {
   user: {},
@@ -13,27 +13,60 @@ export const initState = {
     list: [],
     lastSort: '',
   },
-  // cart: [],
+  checkout: [],
 };
 
 export const getInitState = () => {
-  const isSessionFromLS = !!JSON.parse(localStorage.getItem(IS_SESSION));
-  console.log(isSessionFromLS);
+  const getDataFromStorage = (keys) => {
+    const sliceKeys = Object.keys(keys);
 
-  const webStorage = isSessionFromLS ? sessionStorage : localStorage;
-  const userDataFromStorage = webStorage.getItem(STORE_SLICES.user);
+    return sliceKeys.reduce((acc, slice) => {
+      let webStorage = localStorage;
 
-  const initUserData = userDataFromStorage
-    ? { user: JSON.parse(userDataFromStorage) }
-    : initState.user;
+      if (slice === 'user' && acc.isSession) {
+        webStorage = sessionStorage;
+      }
+      const dataFromStorage = webStorage.getItem(keys[slice]);
 
-  console.log(Object.keys(initUserData).length);
-  if (Object.keys(initUserData).length) {
-    shopApi.setAuthToken(initUserData.user.authToken);
-  }
+      const initData = dataFromStorage
+        ? JSON.parse(dataFromStorage)
+        : initState[slice];
+
+      acc[slice] = initData;
+
+      if (acc?.user) {
+        shopApi.setAuthToken(acc.user.authToken);
+      }
+
+      console.log(slice);
+      console.log(acc);
+
+      return acc;
+    }, {});
+  };
+
+  // const userDataFromStorage = webStorage.getItem(STORE_SLICES.user);
+  // const initUserData = userDataFromStorage
+  //   ? JSON.parse(userDataFromStorage)
+  //   : initState.user;
+
+  // const checkoutFromStorage = webStorage.getItem(STORE_SLICES.checkout);
+  // const initCheckout = checkoutFromStorage
+  //   ? JSON.parse(checkoutFromStorage)
+  //   : initState.checkout;
+
+  // console.log(Object.keys(initUserData).length);
+  // if (Object.keys(initUserData).length) {
+  //   shopApi.setAuthToken(initUserData.user.authToken);
+  // }
+
+  // return {
+  //   user: initUserData,
+  //   isSession: isSessionFromLS,
+  //   checkout: initCheckout,
+  // };
 
   return {
-    ...initUserData,
-    isSession: isSessionFromLS,
+    ...getDataFromStorage(STORE_SLICES),
   };
 };

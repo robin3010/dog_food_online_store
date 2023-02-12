@@ -28,5 +28,7 @@ export const filtersSlice = createSlice({
 export const { setSearchFilter, setTagsFilter, setTagsCollection } = filtersSlice.actions;
 
 export const getFiltersSelector = (state) => state.filters;
+export const getTagsSelectedSelector = (state) => state.filters.tagsSelected;
+export const getTagsCollectionSelector = (state) => state.filters.tagsCollection;
 
 export const filtersReducer = filtersSlice.reducer;

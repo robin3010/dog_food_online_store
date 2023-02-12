@@ -1,16 +1,24 @@
 .wishlist small,
-.remove small {
+.removeSm small,
+.remove,
+.remove.disabled {
   color: #6c757d;
 }
 
 .wishlist:hover small,
-.remove:hover small,
+.removeSm:hover small,
+.remove:hover,
 .wishlist.active small {
   color: #d92c3e;
 }
 
 .wishlist.active:hover small {
   color: #af1221;
+}
+
+.remove.disabled {
+  opacity: .8;
+  pointer-events: none;
 }
 
 .btn-quantity-counter {
@@ -49,4 +57,18 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.summary__position {
+  position: static;
+}
+
+@media (max-width: 992px) {
+  .summary__position {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+  }
 }

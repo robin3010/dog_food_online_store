@@ -1,33 +1,30 @@
 import clsx from 'clsx';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
-  getCheckoutSelector, itemCountChange, itemCountDecrement, itemCountIncrement, removeItemFromCart,
+  changeIsCheckedState,
+  itemCountChange, itemCountDecrement, itemCountIncrement, removeItemFromCart,
 } from '../../../../redux/slices/checkoutSlice';
 import { productParams } from '../../../../utils/constants';
 import {
   calcCondition,
-  formattedPrice,
-  getCheckoutItemParams,
+  formatPrice,
 } from '../../../../utils/utils';
 import { Price } from '../../../ProductItem/ProductDynamicElements/ProductDynamicElements';
 import styles from '../Checkout.module.css';
+import loginStyles from '../../Login/Login.module.css';
 
 export function CheckoutProductItem({ item }) {
-  const checkout = useSelector(getCheckoutSelector);
-
   const {
     name,
     price,
     pictures,
     discount,
-    stock: quantity,
-    // available,
+    stock,
     id,
+    count,
+    isChecked,
   } = item;
-
-  const { count, isChecked } = getCheckoutItemParams(item, checkout);
-  console.log({ count, isChecked });
 
   const [input, setInput] = useState(count);
   const dispatch = useDispatch();
@@ -38,7 +35,7 @@ export function CheckoutProductItem({ item }) {
       id: itemId,
       count: newCountValue,
     };
-    console.log({ payload });
+    // console.log({ payload });
     setInput(newCountValue);
 
     dispatch(itemCountChange(payload));
@@ -56,14 +53,32 @@ export function CheckoutProductItem({ item }) {
     dispatch(removeItemFromCart(itemId));
   };
 
+  const selectItemHandler = (itemId) => {
+    dispatch(changeIsCheckedState(itemId));
+  };
+
   return (
     <div className="col-12">
-      <div className="card p-3">
+      <div className="card p-3 position-relative">
+        <div
+          className="position-absolute ps-2 pt-2 top-0 start-0"
+          // style={{ top: '-0.5rem', left: '-0.5rem' }}
+        >
+          <input
+            type="checkbox"
+            onChange={() => selectItemHandler(id)}
+            className={clsx(
+              'form-check-input',
+              'm-0',
+              loginStyles['form-login-check-input'],
+            )}
+            checked={isChecked}
+          />
+        </div>
         <div className="row g-3">
           <div className="col">
             <div
-              className="product__card-picture"
-              style={{ width: '96px', height: '96px' }}
+              className="product__card-img checkout__product_card-img"
             >
               <img src={pictures} alt="..." />
             </div>
@@ -72,7 +87,7 @@ export function CheckoutProductItem({ item }) {
             <p className="card-text">{name}</p>
             <div className="d-flex gap-3">
               <button
-                onClick={(e) => e.target.classList.toggle([styles.active])}
+                onClick={(e) => e.currentTarget.classList.toggle([styles.active])}
                 className={`border-0 bg-transparent p-0 ${styles.wishlist}`}
                 type="button"
               >
@@ -80,7 +95,7 @@ export function CheckoutProductItem({ item }) {
               </button>
               <button
                 onClick={() => removeItemHandler(id)}
-                className={`border-0 bg-transparent p-0 ${styles.remove}`}
+                className={`border-0 bg-transparent p-0 ${styles.removeSm}`}
                 type="button"
               >
                 <small>Удалить</small>
@@ -95,9 +110,6 @@ export function CheckoutProductItem({ item }) {
               <div
                 className="input-group input-group-sm"
                 role="group"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                data-bs-title="Tooltip on bottom"
               >
                 <button
                   type="button"
@@ -105,7 +117,7 @@ export function CheckoutProductItem({ item }) {
                   className={clsx(
                     'btn',
                     'border-end-0',
-                    [styles['btn-quantity-counter']],
+                    styles['btn-quantity-counter'],
                     { disabled: count === 1 },
                   )}
                 >
@@ -119,10 +131,10 @@ export function CheckoutProductItem({ item }) {
                     'border-end-0',
                     'form-control',
                     'text-center',
-                    [styles['quantity-counter']],
+                    styles['quantity-counter'],
                   )}
-                  max={quantity}
-                  maxLength={quantity.toString().length}
+                  max={stock}
+                  maxLength={stock.toString().length}
                   value={count}
                 />
                 <button
@@ -131,15 +143,15 @@ export function CheckoutProductItem({ item }) {
                   className={clsx(
                     'btn',
                     'border-start-0',
-                    [styles['btn-quantity-counter']],
-                    { disabled: count === quantity },
+                    styles['btn-quantity-counter'],
+                    { disabled: count === stock },
                   )}
                 >
                   <i className="fa-solid fa-plus" />
                 </button>
               </div>
               <small className={clsx('text-muted', { 'd-none': count === 1 })}>
-                {`${formattedPrice(
+                {`${formatPrice(
                   calcCondition(item, productParams.price),
                 )} / шт.`}
               </small>

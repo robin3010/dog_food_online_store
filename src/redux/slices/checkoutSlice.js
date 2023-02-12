@@ -21,7 +21,7 @@ export const checkoutSlice = createSlice({
             id: item.id,
             count: 1,
             isChecked: false,
-            quantity: item.stock,
+            stock: item.stock,
           },
         };
       },
@@ -29,10 +29,16 @@ export const checkoutSlice = createSlice({
     removeItemFromCart(state, action) {
       return state.filter((item) => item.id !== action.payload);
     },
+    removeSelectedItemsFromCart(state, action) {
+      return state.filter((item) => action.payload.every((id) => id !== item.id));
+    },
+    clearCart() {
+      return [];
+    },
     itemCountIncrement(state, action) {
       const currentItem = state.find((item) => item.id === action.payload);
 
-      if (currentItem && currentItem.count < currentItem.quantity) {
+      if (currentItem && currentItem.count < currentItem.stock) {
         currentItem.count += 1;
       }
     },
@@ -47,8 +53,8 @@ export const checkoutSlice = createSlice({
 
       if (currentItem) {
         if (newValue < 1) currentItem.count = 1;
-        if (newValue <= currentItem.quantity) currentItem.count = newValue;
-        if (newValue >= currentItem.quantity) currentItem.count = currentItem.quantity;
+        if (newValue <= currentItem.stock) currentItem.count = newValue;
+        if (newValue >= currentItem.stock) currentItem.count = currentItem.stock;
       }
     },
     changeIsCheckedState(state, action) {
@@ -59,13 +65,10 @@ export const checkoutSlice = createSlice({
       }
     },
     changeAllIsCheckedState(state, action) {
-      state.map((...item) => ({
+      return state.map((item) => ({
         ...item,
         isChecked: action.payload,
       }));
-    },
-    clearCart() {
-      return [];
     },
   },
 });
@@ -73,16 +76,18 @@ export const checkoutSlice = createSlice({
 export const {
   addItemToCart,
   removeItemFromCart,
+  removeSelectedItemsFromCart,
+  clearCart,
   itemCountIncrement,
   itemCountDecrement,
   itemCountChange,
   changeIsCheckedState,
   changeAllIsCheckedState,
-  clearCart,
 } = checkoutSlice.actions;
 
 export const getCheckoutSelector = (state) => state.checkout;
 
-export const getCheckoutItemSelector = (id, state) => state.checkout.find((item) => item.id === id);
+// export const getCheckoutItemSelector = (id, state) => state.checkout
+//   .find((item) => item.id === id);
 
 export const checkoutReducer = checkoutSlice.reducer;

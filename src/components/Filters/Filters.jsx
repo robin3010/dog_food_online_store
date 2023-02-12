@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { memo } from 'react';
-import { getFiltersSelector } from '../../redux/slices/filtersSlice';
+import { getTagsCollectionSelector } from '../../redux/slices/filtersSlice';
 import { Search } from './Search';
 import { TagFilterButton } from './TagFilterButton/TagFilterButton';
 import { conditionsSet } from './ConditionFilterButton/conditionsSet';
@@ -9,7 +9,7 @@ import { ConditionFilterButton } from './ConditionFilterButton/ConditionFilterBu
 export const Filters = memo(() => {
   console.log('Render Filters');
 
-  const { tagsCollection } = useSelector(getFiltersSelector);
+  const tagsCollection = useSelector(getTagsCollectionSelector);
 
   return (
     <div className="card mb-4">

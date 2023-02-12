@@ -103,6 +103,7 @@ class ShopApi {
   // }
 
   async getGoodsList() {
+    console.log('start fetching getGoodsList');
     this.checkAuthToken();
 
     const searchQuery = this.search && this.getSearchQuery();
@@ -122,6 +123,7 @@ class ShopApi {
   }
 
   async getGoodsByIds(ids) {
+    console.log('start fetching getCheckoutList');
     this.checkAuthToken();
 
     const getItemById = async (itemId) => {
@@ -130,12 +132,14 @@ class ShopApi {
           authorization: this.getAuthHeader(),
         },
       });
-      const response = fetchItemById.json();
+
+      this.checkFetchErrors.call(fetchItemById);
+
+      const response = await fetchItemById.json();
       return response;
     };
 
     const fetchGoodsById = await Promise.all(ids.map((id) => getItemById(id)));
-
     return fetchGoodsById;
   }
 }
