@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useRouteError } from 'react-router-dom';
 
 export function ErrorPage() {
@@ -8,13 +7,12 @@ export function ErrorPage() {
   return (
     <div
       id="error-page"
-      className={clsx(
-        'd-flex',
-        'flex-column',
-        'justify-content-center',
-        'align-items-center',
-        'vh-100',
-      )}
+      className="
+        d-flex
+        flex-column
+        justify-content-center
+        align-items-center
+        vh-100"
     >
       <h1>Ой, что-то пошло не так :(</h1>
       <p>Возникла непредвиденная ошибка.</p>

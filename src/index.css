@@ -1,7 +1,12 @@
+:root {
+  --main-text-color: rgb(28, 34, 46);
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  color: rgb(28, 34, 46);
+  color: var(--main-text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -41,7 +46,20 @@ body {
 }
 
 .header__nav {
-  color: rgb(28, 34, 46)!important;
+  color: var(--main-text-color)!important;
+}
+
+.header__nav__links a.nav-link,
+.header__nav__links button.nav-link,
+.header__nav__user-btns a.nav-link,
+.header__nav__user-btns button.nav-link {
+  padding: .5rem;
+  margin: 0;
+}
+
+.header__nav__links a.nav-link.active {
+  /* border-bottom: 0.2rem solid var(--main-text-color); */
+  box-shadow: 0 .2rem 0 var(--main-text-color);
 }
 
 /* 
@@ -57,12 +75,11 @@ body {
 }
 
 .header__user-avatar {
-  border: 3px solid rgb(28, 34, 46);
+  border: 3px solid var(--main-text-color);
   box-shadow: 0 0px 6px .5px rgba(28, 34, 46, .3);
   width: 3rem;
   height: 3rem;
 }
-
 
 .navbar-toggler{
  border: none;
@@ -75,6 +92,7 @@ body {
 .dropdown-toggle, .dropdown-toggle:active {
   border: none;
 }
+
 
 /* LOGIN PAGE */
 .login__card {

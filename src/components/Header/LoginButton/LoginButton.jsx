@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-import { getUserDataSelector, logout } from '../../../redux/slices/userSlice';
+import { getAuthTokenSelector, getUserDataSelector, logout } from '../../../redux/slices/userSlice';
 
 const defaultAvatar = 'https://react-learning.ru/image-compressed/default-image.jpg';
 const defaultFirstName = 'Покупатель';
@@ -36,7 +36,7 @@ function LoggedIn() {
         )}
         />
         <img
-          src={avatar ?? defaultAvatar}
+          src={avatar}
           alt=""
           className={clsx(
             'rounded-5',
@@ -50,7 +50,7 @@ function LoggedIn() {
       </button>
       <ul className="dropdown-menu dropdown-menu-sm-end text-center">
         <li>
-          <span className="dropdown-item-text fw-semibold">
+          <span className="dropdown-item-text fw-semibold py-2">
             {firstName}
           </span>
         </li>
@@ -79,7 +79,7 @@ function LoggedOut() {
 }
 
 export function LoginButton() {
-  const { authToken } = useSelector(getUserDataSelector);
+  const authToken = useSelector(getAuthTokenSelector);
 
   if (!authToken) return <LoggedOut />;
 

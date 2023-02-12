@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import clsx from 'clsx';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -9,13 +8,12 @@ export const Footer = memo(() => {
   return (
     <footer className="main__footer">
       <section
-        className={clsx(
-          'd-flex',
-          'justify-content-center',
-          'justify-content-md-evently',
-          'p-3',
-          'border-bottom',
-        )}
+        className="
+          d-flex
+          justify-content-center
+          justify-content-md-evently
+          p-3
+          border-bottom"
       >
         <div className="me-5 d-none d-md-block">
           <span>Мы на связи:</span>
@@ -79,14 +77,13 @@ export const Footer = memo(() => {
               <h6 className="text-uppercase fw-bold mb-3">Контакты</h6>
               <a
                 href="mailto:mail@dogfood.shop"
-                className={clsx(
-                  'nav-link',
-                  'pb-2',
-                  'd-flex',
-                  'align-items-center',
-                  'justify-content-center',
-                  'justify-content-md-start',
-                )}
+                className="
+                  nav-link
+                  pb-2
+                  d-flex
+                  align-items-center
+                  justify-content-center
+                  justify-content-md-start"
               >
                 <i className="fas fa-envelope me-3 text-secondary" />
                 mail@dogfood.shop

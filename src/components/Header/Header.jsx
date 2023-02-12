@@ -31,7 +31,9 @@ export const Header = memo(() => {
         className="
         container-fluid
         d-flex
-        header__nav m-2
+        header__nav
+        m-2
+        mx-5
         justify-content-sm-start
         justify-content-md-between"
       >
@@ -48,11 +50,12 @@ export const Header = memo(() => {
         </Link>
         <div
           className="
+          header__nav__links
           d-flex align-items-center
-          gap-1
-          gap-sm-2
-          gap-md-4
-          gap-lg-5
+          gap-0
+          gap-sm-1
+          gap-md-2
+          gap-lg-4
           ms-sm-auto
           order-md-3
           fa-lg"
@@ -72,7 +75,7 @@ export const Header = memo(() => {
                 'badge',
                 'rounded-pill',
                 'bg-danger',
-                [styles.navbar__badge],
+                styles[navbar__badge],
               )}
             >
               1
@@ -104,7 +107,7 @@ export const Header = memo(() => {
           >
             <NavLink
               to="/products"
-              className="nav-link p-0 m-2"
+              className="nav-link"
             >
               <span
                 data-bs-toggle="collapse"
@@ -115,7 +118,7 @@ export const Header = memo(() => {
             </NavLink>
             <NavLink
               to="/delivery"
-              className="nav-link p-0 m-2"
+              className="nav-link"
             >
               <span
                 data-bs-toggle="collapse"
@@ -126,7 +129,7 @@ export const Header = memo(() => {
             </NavLink>
             <NavLink
               to="/contacts"
-              className="nav-link p-0 m-2"
+              className="nav-link"
             >
               <span
                 data-bs-toggle="collapse"

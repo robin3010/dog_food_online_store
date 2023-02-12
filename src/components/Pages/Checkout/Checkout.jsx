@@ -21,7 +21,7 @@ function CheckoutListReturn({ checkoutList }) {
       style={{ fontSize: '.875rem' }}
     >
       <div className="row g-4">
-        <div className="col-12 col-md-9">
+        <div className="col-12 col-lg-9">
           <CheckoutCheckBar checkoutList={checkoutList} />
           <div className="row gy-3">
             {checkoutList.map((item) => (
