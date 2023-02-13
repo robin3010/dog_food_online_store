@@ -1,18 +1,26 @@
 import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTagsSelectedSelector, setTagsFilter } from '../../../redux/slices/filtersSlice';
+import { useSearchParams } from 'react-router-dom';
+import { searchParamsKeys } from '../../../utils/constants';
+import { setTagsFilter } from '../filterUtils/filterUtils';
 
 export function TagFilterButton({ tag }) {
-  const dispatch = useDispatch();
-  const tagsSelected = useSelector(getTagsSelectedSelector);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const setTagFilterHandler = (tagName) => {
-    dispatch(setTagsFilter(tagName));
+  const tagsQuery = searchParams.get(searchParamsKeys.tags);
+  const tagsSelected = tagsQuery ? tagsQuery.split(',') : [];
+
+  const setTagFilterHandler = (tags, tagName) => {
+    const newTagFilter = setTagsFilter(tags, tagName);
+
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      [searchParamsKeys.tags]: newTagFilter.join(),
+    });
   };
 
   return (
     <button
-      onClick={() => setTagFilterHandler(tag)}
+      onClick={() => setTagFilterHandler(tagsSelected, tag)}
       type="button"
       className={clsx(
         'btn',

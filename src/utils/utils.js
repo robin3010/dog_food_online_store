@@ -1,5 +1,7 @@
 import { productParams } from './constants';
 
+// Функция преобразования значений по требуемому условию
+// для дальнейшей сортировки массива данных по этому условию
 export const calcCondition = (item, condition) => {
   const value = item[condition];
 
@@ -13,7 +15,7 @@ export const calcCondition = (item, condition) => {
   switch (condition) {
     case productParams.price:
       if (item.discount) {
-        return value - (value / (item.discount));
+        return value - ((value * item.discount) / 100);
       }
       return value;
 
@@ -34,7 +36,23 @@ export const formatPrice = (price) => price?.toLocaleString('ru-RU', {
   // minimumFractionDigits: 0,
 });
 
-export const formatGoodsList = (list) => list.map(({ _id: id, ...rest }) => ({ id, ...rest }));
+// Переименование ключа id; приведение значений ключа discount к диапазону [0 - 100]
+export const formatGoodsList = (list) => list.map(({ _id: id, discount, ...rest }) => {
+  const discountValue = +discount > 100 ? 100 : +discount;
+  return ({
+    id,
+    discount: discountValue,
+    ...rest,
+  });
+});
 
 export const getCheckoutItemParams = (itemId, checkout) => checkout
   .find((elem) => elem.id === itemId);
+
+export const sortGoods = (goods, cond, sortByPriceType) => {
+  if (!cond) return goods;
+  if (sortByPriceType === productParams.price_up) {
+    return goods.sort((a, b) => calcCondition(a, cond) - calcCondition(b, cond));
+  }
+  return goods.sort((a, b) => calcCondition(b, cond) - calcCondition(a, cond));
+};

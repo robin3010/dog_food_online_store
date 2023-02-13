@@ -1,11 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { shopApi } from '../../../api/shopApi';
-import { getFiltersSelector, setTagsCollection } from '../../../redux/slices/filtersSlice';
-import { getGoodsListSelector, setGoodsList } from '../../../redux/slices/goodsSlice';
+import { getSearchFilterSelector, setTagsCollection } from '../../../redux/slices/filtersSlice';
+import {
+  getGoodsSelector,
+  setGoodsList,
+  sortGoodsList,
+} from '../../../redux/slices/goodsSlice';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
+import { productParams, searchParamsKeys } from '../../../utils/constants';
 import { getGoodsListQueryKey } from '../../../utils/queryUtils';
 import { Filters } from '../../Filters/Filters';
 import { getFilteredByTags } from '../../Filters/filterUtils/filterUtils';
@@ -65,8 +70,9 @@ export function Products() {
   console.log('Render Products');
 
   const authToken = useSelector(getAuthTokenSelector);
-  const { search, tagsSelected } = useSelector(getFiltersSelector);
-  const goods = useSelector(getGoodsListSelector);
+  const [searchParams] = useSearchParams();
+  const search = useSelector(getSearchFilterSelector);
+  const goods = useSelector(getGoodsSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -76,64 +82,38 @@ export function Products() {
     }
   }, [authToken]);
 
+  const tagsQuery = searchParams.getAll(searchParamsKeys.tags);
+  const tagsSelected = tagsQuery[0] ? tagsQuery : [];
+  const lastSort = searchParams.get(searchParamsKeys.sort) ?? '';
+
+  const applyFilters = (fetchResponse) => {
+    dispatch(setTagsCollection(fetchResponse));
+    dispatch(setGoodsList(fetchResponse));
+    if (lastSort) {
+      let condition = lastSort;
+      const sortFilterName = lastSort;
+      if (lastSort === productParams.price_down || lastSort === productParams.price_up) {
+        condition = productParams.price;
+      }
+      console.log({ condition, sortFilterName });
+      dispatch(sortGoodsList({ condition, sortFilterName }));
+    }
+  };
+
   const {
     isLoading, isError, error, refetch,
   } = useQuery({
-    queryKey: getGoodsListQueryKey(search),
+    queryKey: getGoodsListQueryKey(search, tagsSelected, lastSort),
     queryFn: () => shopApi.getGoodsList(),
     enabled: !!authToken,
-    onSuccess: (res) => {
-      dispatch(setTagsCollection(res));
-      dispatch(setGoodsList(res));
-      // if (lastSort) {
-      //   dispatch(sortGoodsList(lastSort));
-      // }
-    },
+    onSuccess: (res) => applyFilters(res),
   });
 
-  console.log({ authToken }, { 'shopApi.authToken': shopApi.authToken });
-
-  // let filteredData = goods;
-
-  // // console.log({ goods, filteredData, isLoading });
-
-  // useEffect(() => {
-  //   if (goods.length) {
-  //     // const sortedData = lastSort ? sortGoodsList(lastSort) : goods;
-  //     const sortedData = (function sortData() {
-  //       if (lastSort) {
-  //         dispatch(sortGoodsList(lastSort));
-  //         return goods;
-  //       }
-  //       return goods;
-  //     }());
-
-  //     console.log('use effect', { goods, sortedData });
-
-  //     filteredData = sortedData && getFilteredByTags(sortedData, tagsSelected);
-  //     console.log('use effect', { goods, filteredData });
-  //   }
-
-  //   // let sortedData = goods;
-  //   // if (lastSort) {
-  //   //   sortedData = goods && sortGoodsList(goods, lastSort);
-  //   // }
-  //   // filteredData = sortedData && getFilteredByTags(sortedData, tagsSelected);
-  // }, []);
-
-  // console.log({ goods, filteredData, isLoading });
-  // const filteredData = goods && getFilteredByTags(goods, tagsSelected);
-
-  // (function sortData() {
-  //   if (lastSort) {
-  //     dispatch(sortGoodsList(lastSort));
-  //     return goods;
-  //   }
-  //   return goods;
-  // }());
-  // console.log({ goods });
-
   const filteredData = goods && getFilteredByTags(goods, tagsSelected);
+  const isFiltersActive = Object.values({
+    search: !!search,
+    tagsSelected: !!tagsSelected.length,
+  }).some((f) => f === true);
 
   return (
     <section className="bg-body-secondary flex-grow-1">
@@ -141,7 +121,7 @@ export function Products() {
         <Filters />
         <ProductsReturnWithQuery
           goods={filteredData}
-          filters={{ search: !!search, tagsSelected: !!tagsSelected.length }}
+          filters={isFiltersActive}
           isLoading={isLoading}
           isError={isError}
           error={error}

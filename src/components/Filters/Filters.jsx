@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { memo } from 'react';
 import { getTagsCollectionSelector } from '../../redux/slices/filtersSlice';
-import { Search } from './Search';
+import { Search } from './Search/Search';
 import { TagFilterButton } from './TagFilterButton/TagFilterButton';
 import { conditionsSet } from './ConditionFilterButton/conditionsSet';
 import { ConditionFilterButton } from './ConditionFilterButton/ConditionFilterButton';

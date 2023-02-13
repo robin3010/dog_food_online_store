@@ -17,7 +17,7 @@ export function Price({ price, discount, column }) {
   return (
     <>
       <span className={clsx('discount', { 'me-2': !column })}>
-        {formatPrice((price - price / discount))}
+        {formatPrice(price - ((price * discount) / 100))}
       </span>
       {defaultPrice()}
     </>

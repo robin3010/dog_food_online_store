@@ -9,12 +9,6 @@ export const filtersSlice = createSlice({
     setSearchFilter(state, action) {
       state.search = action.payload;
     },
-    setTagsFilter(state, action) {
-      const isExist = state.tagsSelected.includes(action.payload);
-
-      if (isExist) state.tagsSelected = state.tagsSelected.filter((tag) => tag !== action.payload);
-      if (!isExist) state.tagsSelected.push(action.payload);
-    },
     setTagsCollection(state, action) {
       if (!action.payload) {
         state.tagsCollection = [];
@@ -25,10 +19,9 @@ export const filtersSlice = createSlice({
   },
 });
 
-export const { setSearchFilter, setTagsFilter, setTagsCollection } = filtersSlice.actions;
+export const { setSearchFilter, setTagsCollection } = filtersSlice.actions;
 
-export const getFiltersSelector = (state) => state.filters;
-export const getTagsSelectedSelector = (state) => state.filters.tagsSelected;
+export const getSearchFilterSelector = (state) => state.filters.search;
 export const getTagsCollectionSelector = (state) => state.filters.tagsCollection;
 
 export const filtersReducer = filtersSlice.reducer;

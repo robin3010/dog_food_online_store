@@ -7,12 +7,8 @@ export const initState = {
   filters: {
     search: '',
     tagsCollection: [],
-    tagsSelected: [],
   },
-  goods: {
-    list: [],
-    lastSort: '',
-  },
+  goods: [],
   checkout: [],
 };
 

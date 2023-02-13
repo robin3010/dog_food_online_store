@@ -1,3 +1,13 @@
+export const setTagsFilter = (tags, newTag) => {
+  const isExist = tags.includes(newTag);
+
+  if (isExist) {
+    return tags.filter((t) => t !== newTag);
+  }
+  tags.push(newTag);
+  return tags;
+};
+
 export const getFilteredByTags = (goods, tags) => {
   if (tags) {
     return goods.reduce((acc, current) => {

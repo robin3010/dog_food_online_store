@@ -1,20 +1,24 @@
 import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { getLastSortSelector, sortGoodsList } from '../../../redux/slices/goodsSlice';
-import { productParams } from '../../../utils/constants';
+import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { sortGoodsList } from '../../../redux/slices/goodsSlice';
+import { productParams, searchParamsKeys } from '../../../utils/constants';
 
 export function ConditionFilterButton({ conditionKey, conditionValue }) {
-  const lastSort = useSelector(getLastSortSelector);
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
 
-  const priceOrderIcon = (lastFilter, currFilter) => {
-    if (lastFilter === 'price') {
+  const lastSort = searchParams.get(searchParamsKeys.sort) ?? '';
+
+  const sortByPriceIcon = (lastFilter, currFilter) => {
+    if (currFilter === productParams.price) {
       return (
         <i className={clsx(
+          'ms-1',
           'fa-solid',
           'fa-arrow-down-wide-short',
-          'ms-1',
-          { 'd-none': lastFilter !== currFilter },
+          { 'fa-flip-vertical': lastFilter === productParams.price_up },
+          { 'd-none': !lastFilter.startsWith(productParams.price) },
         )}
         />
       );
@@ -22,16 +26,24 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
     return undefined;
   };
 
-  const sortHandler = (condition, e) => {
-    dispatch(sortGoodsList(condition));
-    if (lastSort === productParams.price) {
-      e.currentTarget.lastChild.classList.toggle('fa-flip-vertical');
+  const sortHandler = (condition, lastSortValue) => {
+    let sortFilterName = condition;
+    if (condition === productParams.price) {
+      if (lastSortValue === productParams.price_up) sortFilterName = productParams.price_down;
+      if (lastSortValue !== productParams.price_up) sortFilterName = productParams.price_up;
     }
+
+    dispatch(sortGoodsList({ condition, sortFilterName }));
+
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      [searchParamsKeys.sort]: sortFilterName,
+    });
   };
 
   return (
     <button
-      onClick={(e) => sortHandler(conditionKey, e)}
+      onClick={() => sortHandler(conditionKey, lastSort)}
       type="button"
       className={clsx(
         'btn',
@@ -40,7 +52,7 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
       )}
     >
       {conditionValue}
-      {priceOrderIcon(lastSort, conditionKey)}
+      {sortByPriceIcon(lastSort, conditionKey)}
     </button>
   );
 }

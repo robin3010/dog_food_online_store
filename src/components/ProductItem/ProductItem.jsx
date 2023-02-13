@@ -20,7 +20,6 @@ export function ProductItem({ item }) {
     discount,
     stock,
     available,
-    // id,
   } = item;
 
   const itemIndex = checkout.findIndex((el) => el.id === item.id);
