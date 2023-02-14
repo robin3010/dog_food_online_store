@@ -10,46 +10,53 @@ import {
   sortGoodsList,
 } from '../../../redux/slices/goodsSlice';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
-import { productParams, searchParamsKeys } from '../../../utils/constants';
+import {
+  placeholderStylesClasses,
+  productParams,
+  searchParamsKeys,
+} from '../../../utils/constants';
 import { getGoodsListQueryKey } from '../../../utils/queryUtils';
 import { Filters } from '../../Filters/Filters';
 import { getFilteredByTags } from '../../Filters/filterUtils/filterUtils';
 import { withQuery } from '../../HOCs/withQuery';
+import { PlaceholderButtons } from '../../PlaceholderButtons/PlaceholderButtons';
 import { ProductItem } from '../../ProductItem/ProductItem';
 
 function ProductsReturn({ goods, filters }) {
-  const placeholderStylesClasses = `
-  d-flex
-  flex-column
-  justify-content-center
-  align-items-center
-  m-auto
-  text-center`;
-
   if (!goods.length) {
     if (filters) {
       return (
-        <div className={placeholderStylesClasses}>
-          <h2 className="mb-3">
-            Ничего не нашлось... :(
-          </h2>
-          <h4>
-            попробуйте изменить запрос
-          </h4>
+        <div className="card px-3 py-4">
+          <div className={placeholderStylesClasses}>
+            <div className="mb-3">
+              <h2 className="mb-3">
+                Ничего не нашлось... :(
+              </h2>
+              <h4>
+                попробуйте изменить запрос
+              </h4>
+            </div>
+            <PlaceholderButtons filters={filters} list={goods} />
+          </div>
         </div>
       );
     }
 
     return (
-      <div className={placeholderStylesClasses}>
-        <h2 className="mb-3">
-          Все товары закончились... :(
-        </h2>
-        <h4>
-          ...но мы везём новые,
-          <br />
-          загляните чуть позже!
-        </h4>
+      <div className="card px-3 py-4">
+        <div className={placeholderStylesClasses}>
+          <div className="mb-3">
+            <h2 className="mb-3">
+              Все товары закончились... :(
+            </h2>
+            <h4>
+              ...но мы везём новые,
+              <br />
+              загляните чуть позже!
+            </h4>
+          </div>
+          <PlaceholderButtons filters={filters} list={goods} />
+        </div>
       </div>
     );
   }
@@ -88,6 +95,7 @@ export function Products() {
 
   const applyFilters = (fetchResponse) => {
     dispatch(setTagsCollection(fetchResponse));
+    // dispatch(setGoodsList([]));
     dispatch(setGoodsList(fetchResponse));
     if (lastSort) {
       let condition = lastSort;
@@ -104,7 +112,7 @@ export function Products() {
     isLoading, isError, error, refetch,
   } = useQuery({
     queryKey: getGoodsListQueryKey(search, tagsSelected, lastSort),
-    queryFn: () => shopApi.getGoodsList(),
+    queryFn: () => shopApi.getGoodsList(authToken),
     enabled: !!authToken,
     onSuccess: (res) => applyFilters(res),
   });

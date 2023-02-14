@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { shopApi } from '../api/shopApi';
 import { STORE_SLICES } from './reduxUtils/webStorageKeys';
 import { getInitState } from './initState';
 import { filtersReducer } from './slices/filtersSlice';
@@ -33,12 +32,6 @@ const syncWebStorage = (keys) => {
     }
     webStorage.setItem(keys[slice], JSON.stringify(currentState[slice]));
   });
-
-  console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<', { 'shopApi.authToken': shopApi.authToken });
-  if (!shopApi.authToken) {
-    shopApi.setAuthToken(currentState.user.authToken);
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', { 'shopApi.authToken': shopApi.authToken });
-  }
 };
 
 store.subscribe(() => syncWebStorage(STORE_SLICES));

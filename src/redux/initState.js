@@ -1,4 +1,3 @@
-import { shopApi } from '../api/shopApi';
 import { STORE_SLICES } from './reduxUtils/webStorageKeys';
 
 export const initState = {
@@ -29,13 +28,6 @@ export const getInitState = () => {
         : initState[slice];
 
       acc[slice] = initData;
-
-      if (acc?.user) {
-        shopApi.setAuthToken(acc.user.authToken);
-      }
-
-      console.log(slice);
-      console.log(acc);
 
       return acc;
     }, {});

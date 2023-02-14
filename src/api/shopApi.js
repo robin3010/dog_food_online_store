@@ -1,25 +1,21 @@
+/* eslint-disable class-methods-use-this */
 const BASE_URL = 'https://api.react-learning.ru';
 
 class ShopApi {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
-    this.authToken = '';
     this.search = '';
     // this.userName = '';
     // this.userId = '';
     // this.userGroup = '';
   }
 
-  setAuthToken(token) {
-    this.authToken = token;
-  }
-
   setSearch(search) {
     this.search = search;
   }
 
-  getAuthHeader() {
-    return `Bearer ${this.authToken}`;
+  getAuthHeader(authToken) {
+    return `Bearer ${authToken}`;
   }
 
   getSearchQuery() {
@@ -44,8 +40,8 @@ class ShopApi {
     }
   }
 
-  checkAuthToken() {
-    if (!this.authToken) throw new Error('Вы не авторизованы');
+  checkAuthToken(authToken) {
+    if (!authToken) throw new Error('Вы не авторизованы');
   }
 
   async signIn(userData) {
@@ -102,15 +98,15 @@ class ShopApi {
   //   return userInfo;
   // }
 
-  async getGoodsList() {
+  async getGoodsList(authToken) {
     console.log('start fetching getGoodsList');
-    this.checkAuthToken();
+    this.checkAuthToken(authToken);
 
     const searchQuery = this.search && this.getSearchQuery();
 
     const fetchGoodsList = await fetch(`${BASE_URL}/products${searchQuery}`, {
       headers: {
-        authorization: this.getAuthHeader(),
+        authorization: this.getAuthHeader(authToken),
       },
     });
 
@@ -122,14 +118,14 @@ class ShopApi {
     return response.products;
   }
 
-  async getGoodsByIds(ids) {
+  async getGoodsByIds(ids, authToken) {
     console.log('start fetching getCheckoutList');
-    this.checkAuthToken();
+    this.checkAuthToken(authToken);
 
     const getItemById = async (itemId) => {
       const fetchItemById = await fetch(`${BASE_URL}/products/${itemId}`, {
         headers: {
-          authorization: this.getAuthHeader(),
+          authorization: this.getAuthHeader(authToken),
         },
       });
 

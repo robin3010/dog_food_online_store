@@ -1,29 +1,17 @@
-// import clsx from 'clsx';
+import clsx from 'clsx';
 import { memo } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-// import { useMutation } from '@tanstack/react-query';
 import logo from '../../logo.png';
-// import { shopApi } from '../../api/shopApi';
+import { getCheckoutSelector } from '../../redux/slices/checkoutSlice';
+import { getIsCheckedIds } from '../Pages/Checkout/checkoutUtils/checkoutUtils';
 import { LoginButton } from './LoginButton/LoginButton';
-// import { useAuthTokenContext } from '../../context/AuthTokenContext';
 
 export const Header = memo(() => {
   console.log('Render Header');
 
-  // const { userData } = useAuthTokenContext();
-
-  // <ТЕСТ>
-  // Запрос данных пользователя с сервера
-  // вызов без аргумента возвращает объект
-  // вызов с аргументом = конкретные данные из объекта пользователя
-  // const { mutateAsync } = useMutation({
-  //   mutationFn: (property) => shopApi.getUserInfo(userData.group, property),
-  // });
-
-  // const getInfo = async (property) => {
-  //   await mutateAsync(property);
-  // };
-  // </ТЕСТ>
+  const checkoutCount = getIsCheckedIds(useSelector(getCheckoutSelector)).length;
+  console.log({ checkoutCount });
 
   return (
     <header className="main__header navbar navbar-expand-md">
@@ -50,41 +38,37 @@ export const Header = memo(() => {
         </Link>
         <div
           className="
-          header__nav__links
+          header__nav__user-btns
           d-flex align-items-center
-          gap-0
-          gap-sm-1
-          gap-md-2
-          gap-lg-4
+          gap-0 gap-sm-1 gap-md-2 gap-lg-4
           ms-sm-auto
+          me-sm-4 me-md-0
           order-md-3
           fa-lg"
         >
           <NavLink to="/favorite" className="nav-link">
             <i className="fa-regular fa-heart" />
           </NavLink>
-          {/* <button onClick={() => getInfo('avatar')} type="button" className="btn nav-link">
-            ТЕСТ
-          </button> */}
           <LoginButton />
           <NavLink to="/checkout" className="nav-link position-relative">
-            {/* <span
+            <span
               className={clsx(
-                'position-absolute',
+                'position-absolute top-0 start-100 fs-6',
                 'translate-middle',
                 'badge',
                 'rounded-pill',
-                'bg-danger',
-                styles[navbar__badge],
+                'cart__couter-icon bg-gradient',
+                { 'd-none': !checkoutCount },
               )}
             >
-              1
-            </span> */}
+              {checkoutCount}
+            </span>
             <i className="fa-solid fa-shopping-cart" />
           </NavLink>
         </div>
         <button
           className="navbar-toggler order-md-4"
+          style={{ marginRight: '-1.65rem' }}
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"

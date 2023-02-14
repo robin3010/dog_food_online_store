@@ -27,10 +27,25 @@ export function CheckoutSummary({ checkoutList }) {
 
   if (!isCheckedIds.length) {
     return (
-      <div className="col-3">
+      <div className={`col-12 col-lg-3 px-0 ${styles.summary__position}`}>
         <div className="card">
-          <div className="card-body d-flex flex-column">
-            <div className="card-text text-center mb-2">
+          <div className="
+          card-body
+          d-flex
+          flex-column
+          flex-sm-row
+          flex-lg-column
+          justify-content-between
+          py-3"
+          >
+            <div className="
+            card-text
+            text-center
+            align-self-center
+            align-self-sm-end
+            align-self-lg-center
+            mb-2"
+            >
               Выберите товары, чтобы перейти к оформлению
             </div>
             <label className="btn btn-secondary" htmlFor="checkAll">

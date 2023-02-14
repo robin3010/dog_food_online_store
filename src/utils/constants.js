@@ -13,3 +13,11 @@ export const searchParamsKeys = {
   tags: 'tags',
   sort: 'sort',
 };
+
+export const placeholderStylesClasses = `
+  d-flex
+  flex-column
+  justify-content-center
+  align-items-center
+  mx-lg-5
+  text-center`;
