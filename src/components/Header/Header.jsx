@@ -4,14 +4,16 @@ import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../logo.png';
 import { getCheckoutSelector } from '../../redux/slices/checkoutSlice';
-import { getIsCheckedIds } from '../Pages/Checkout/checkoutUtils/checkoutUtils';
+import { getAuthTokenSelector } from '../../redux/slices/userSlice';
+import { getCheckoutIds } from '../Pages/Checkout/checkoutUtils/checkoutUtils';
 import { LoginButton } from './LoginButton/LoginButton';
 
 export const Header = memo(() => {
   console.log('Render Header');
 
-  const checkoutCount = getIsCheckedIds(useSelector(getCheckoutSelector)).length;
-  console.log({ checkoutCount });
+  const checkoutCount = getCheckoutIds(useSelector(getCheckoutSelector)).length;
+  const authToken = useSelector(getAuthTokenSelector);
+  console.log({ checkoutCount, authToken });
 
   return (
     <header className="main__header navbar navbar-expand-md">
@@ -47,7 +49,7 @@ export const Header = memo(() => {
           fa-lg"
         >
           <NavLink to="/favorite" className="nav-link">
-            <i className="fa-regular fa-heart" />
+            <i className="fa-solid fa-heart" />
           </NavLink>
           <LoginButton />
           <NavLink to="/checkout" className="nav-link position-relative">
@@ -58,7 +60,7 @@ export const Header = memo(() => {
                 'badge',
                 'rounded-pill',
                 'cart__couter-icon bg-gradient',
-                { 'd-none': !checkoutCount },
+                { 'd-none': !checkoutCount || !authToken },
               )}
             >
               {checkoutCount}
