@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getTagsHash } from '../../components/Filters/filterUtils/filterUtils';
 import { initState } from '../initState';
 
-export const filtersSlice = createSlice({
+const filtersSlice = createSlice({
   name: 'filters',
   initialState: initState.filters,
   reducers: {

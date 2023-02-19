@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../../logo.png';
+import logo from '../../images/logo.png';
 import { getCheckoutSelector } from '../../redux/slices/checkoutSlice';
 import { getAuthTokenSelector } from '../../redux/slices/userSlice';
 import { getCheckoutIds } from '../Pages/Checkout/checkoutUtils/checkoutUtils';
@@ -58,7 +58,8 @@ export const Header = memo(() => {
                 'position-absolute top-0 start-100 fs-6',
                 'translate-middle',
                 'badge',
-                'rounded-pill',
+                'rounded-circle',
+                { 'rounded-pill': checkoutCount > 9 },
                 'cart__couter-icon bg-gradient',
                 { 'd-none': !checkoutCount || !authToken },
               )}

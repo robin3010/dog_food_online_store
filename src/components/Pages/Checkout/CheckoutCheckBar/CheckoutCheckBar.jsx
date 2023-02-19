@@ -5,7 +5,6 @@ import {
   clearCart,
   removeSelectedItemsFromCart,
 } from '../../../../redux/slices/checkoutSlice';
-import loginStyles from '../../Login/Login.module.css';
 import checkoutStyles from '../Checkout.module.css';
 import { getIsAllChecked, getIsCheckedIds } from '../checkoutUtils/checkoutUtils';
 
@@ -25,8 +24,8 @@ export function CheckoutCheckBar({ checkoutList }) {
     dispatch(clearCart());
   };
 
-  const removeSelectedHandler = (ids) => {
-    dispatch(removeSelectedItemsFromCart(ids));
+  const removeSelectedHandler = () => {
+    dispatch(removeSelectedItemsFromCart(isCheckedIds));
   };
 
   return (
@@ -39,10 +38,7 @@ export function CheckoutCheckBar({ checkoutList }) {
               <input
                 type="checkbox"
                 onChange={changeAllSelectHandler}
-                className={clsx(
-                  'form-check-input',
-                  loginStyles['form-login-check-input'],
-                )}
+                className="form-check-input"
                 name="checkAll"
                 id="checkAll"
                 checked={isAllChecked}
@@ -57,7 +53,7 @@ export function CheckoutCheckBar({ checkoutList }) {
                 checkoutStyles.remove,
                 { [checkoutStyles.disabled]: !isCheckedIds.length },
               )}
-              onClick={() => removeSelectedHandler(isCheckedIds)}
+              onClick={removeSelectedHandler}
               type="button"
             >
               Удалить выбранные

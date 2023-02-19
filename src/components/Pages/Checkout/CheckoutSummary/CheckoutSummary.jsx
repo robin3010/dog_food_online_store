@@ -4,7 +4,6 @@ import {
   changeAllIsCheckedState,
 } from '../../../../redux/slices/checkoutSlice';
 import { getIsCheckedIds, getSelectedItemsCount, getTotal } from '../checkoutUtils/checkoutUtils';
-import loginStyles from '../../Login/Login.module.css';
 import styles from '../Checkout.module.css';
 import { formatPrice } from '../../../../utils/utils';
 
@@ -108,8 +107,8 @@ export function CheckoutSummary({ checkoutList }) {
           </div>
           <button
             type="button"
-            onClick={() => chekoutProceedHandler(isCheckedIds)}
-            className={`btn mt-0 p-1 p-sm-3 ${loginStyles['btn-login-primary']}`}
+            onClick={chekoutProceedHandler}
+            className="btn mt-0 p-1 p-sm-3 btn-primary"
           >
             Перейти к оформлению
           </button>

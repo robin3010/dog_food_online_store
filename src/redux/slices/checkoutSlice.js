@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { initState } from '../initState';
 
-export const checkoutSlice = createSlice({
+const checkoutSlice = createSlice({
   name: 'checkout',
   initialState: initState.checkout,
   reducers: {

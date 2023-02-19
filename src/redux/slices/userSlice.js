@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { renameIdKey, withoutProperty } from '../reduxUtils/reduxUtils';
 import { initState } from '../initState';
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: 'user',
   initialState: initState.user,
   reducers: {

@@ -5,7 +5,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { signUpValidationScheme } from './loginValidation';
-import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
@@ -62,6 +61,7 @@ export function SignUp() {
                     type="email"
                     className={clsx('form-control', {
                       'is-invalid': errors.email && touched.email,
+                      'is-valid': !errors.email && touched.email,
                     })}
                     name="email"
                     placeholder="E-mail"
@@ -76,6 +76,7 @@ export function SignUp() {
                     type="text"
                     className={clsx('form-control', {
                       'is-invalid': errors.group && touched.group,
+                      'is-valid': !errors.group && touched.group,
                     })}
                     name="group"
                     placeholder="Группа"
@@ -90,6 +91,7 @@ export function SignUp() {
                 type="password"
                 className={clsx('form-control', {
                   'is-invalid': errors.password && touched.password,
+                  'is-valid': !errors.password && touched.password,
                 })}
                 name="password"
                 placeholder="Пароль"
@@ -102,6 +104,7 @@ export function SignUp() {
                 type="password"
                 className={clsx('form-control', {
                   'is-invalid': errors.confirmPassword && touched.confirmPassword,
+                  'is-valid': !errors.confirmPassword && touched.confirmPassword,
                 })}
                 name="confirmPassword"
                 placeholder="Подтвердите пароль"
@@ -113,7 +116,7 @@ export function SignUp() {
               <LoginErrorAlert loginError={isError} error={error} />
               <button
                 type="submit"
-                className={`btn ${loginStyles['btn-login-primary']}`}
+                className="btn btn-primary"
                 disabled={Object.keys(errors).length > 0 || !touched.email || isLoading}
               >
                 Зарегистрироваться
@@ -121,7 +124,7 @@ export function SignUp() {
               <NavLink
                 to="/login/signin"
                 type="button"
-                className={`btn ${loginStyles['btn-login-outline-secondary']}`}
+                className="btn btn-outline-secondary"
               >
                 Уже зарегистрированы? Войти
               </NavLink>

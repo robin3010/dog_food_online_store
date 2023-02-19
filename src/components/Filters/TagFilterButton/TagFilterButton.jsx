@@ -9,8 +9,8 @@ export function TagFilterButton({ tag }) {
   const tagsQuery = searchParams.get(searchParamsKeys.tags);
   const tagsSelected = tagsQuery ? tagsQuery.split(',') : [];
 
-  const setTagFilterHandler = (tags, tagName) => {
-    const newTagFilter = setTagsFilter(tags, tagName);
+  const setTagFilterHandler = () => {
+    const newTagFilter = setTagsFilter(tagsSelected, tag);
 
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
@@ -19,18 +19,20 @@ export function TagFilterButton({ tag }) {
   };
 
   return (
-    <button
-      onClick={() => setTagFilterHandler(tagsSelected, tag)}
-      type="button"
-      className={clsx(
-        'btn',
-        'btn-light',
-        'rounded-4',
-        'text-capitalize',
-        { active: tagsSelected.find((t) => t === tag) },
-      )}
-    >
-      {tag}
-    </button>
+    <div className="col">
+      <button
+        onClick={setTagFilterHandler}
+        type="button"
+        className={clsx(
+          'btn',
+          'btn-light',
+          'rounded-4',
+          'text-capitalize',
+          { active: tagsSelected.find((t) => t === tag) },
+        )}
+      >
+        {tag}
+      </button>
+    </div>
   );
 }

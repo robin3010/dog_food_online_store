@@ -13,13 +13,13 @@ export const Filters = memo(() => {
 
   return (
     <div className="card mb-4">
-      <div className="d-flex flex-wrap gap-2 p-3">
+      <div className="row row-cols-auto align-items-center g-2 p-3">
         <Search />
         {tagsCollection.map((tag) => (
           <TagFilterButton key={tag} tag={tag} />
         ))}
       </div>
-      <div className="px-3 pb-2">
+      <div className="d-flex flex-wrap gap-3 row-gap-1 align-items-center px-3 pb-2">
         <span className="text-muted">Сортировать:</span>
         {Object.keys(conditionsSet).map((k) => (
           <ConditionFilterButton

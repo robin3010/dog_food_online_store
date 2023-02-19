@@ -1,12 +1,85 @@
 :root {
-  --main-text-color: rgb(28, 34, 46);
+  --main-color: rgb(28, 34, 46);
+  --btn-main-color: #d92c3e;
+  --btn-main-color-darker: hsl(354, 69%, 46%);
+  --btn-main-color-darkest: hsl(354, 69%, 42%);
+  --btn-sec-color: #2d3850;
 }
 
+.btn-primary {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--btn-main-color);
+  --bs-btn-border-color: var(--btn-main-color);
+  --bs-btn-border-radius: .5rem;
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: var(--btn-main-color-darker);
+  --bs-btn-hover-border-color: var(--btn-main-color-darker);
+  --bs-btn-focus-shadow-rgb: 217, 44, 62;
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: var(--btn-main-color-darkest);
+  --bs-btn-active-border-color: var(--btn-main-color-darkest);
+  --bs-btn-disabled-color: var(--bs-white);
+  --bs-btn-disabled-bg: var(--btn-main-color);
+  --bs-btn-disabled-border-color: var(--btn-main-color);
+  --bs-gradient: none;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--btn-sec-color);
+  --bs-btn-border-color: var(--btn-sec-color);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--btn-sec-color);
+  --bs-btn-hover-border-color: var(--btn-sec-color);
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--btn-sec-color);
+  --bs-btn-active-border-color: var(--btn-sec-color);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--btn-sec-color);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: var(--btn-sec-color);
+}
+
+.btn-alt-outline-secondary {
+  --bs-btn-color: var(--btn-sec-color);
+  --bs-btn-border-color: var(--btn-sec-color);
+  --bs-btn-hover-color: var(--main-color);
+  --bs-btn-hover-bg: hsl(0, 0%, 98%);
+  --bs-btn-hover-border-color: var(--btn-sec-color);
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: var(--main-color);
+  --bs-btn-active-bg: hsl(0, 0%, 96%);
+  --bs-btn-active-border-color: var(--main-color);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--btn-sec-color);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: var(--btn-sec-color);
+}
+
+.form-check-input:checked {
+  background-color: var(--btn-main-color);
+  border-color: var(--btn-main-color);
+}
+
+.form-check-input:focus {
+  border-color: #f07d89;
+  outline: 0;
+  box-shadow: none;
+}
+
+.form-control:focus {
+  color: var(--main-color);
+  background-color: var(--bs-form-control-bg);
+  border-color: hsla(221, 28%, 45%, .5);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem hsla(221, 28%, 75%, .5);
+}
 
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  color: var(--main-text-color);
+  color: var(--main-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -46,7 +119,7 @@ body {
 }
 
 .header__nav {
-  color: var(--main-text-color)!important;
+  color: var(--main-color)!important;
 }
 
 .header__nav__links a.nav-link,
@@ -68,12 +141,12 @@ body {
 
 .header__nav__links a.nav-link.active {
   margin-bottom: -0.2rem;
-  border-bottom: 0.2rem solid var(--main-text-color);
-  /* box-shadow: 0 .2rem 0 var(--main-text-color); */
+  border-bottom: 0.2rem solid var(--main-color);
+  /* box-shadow: 0 .2rem 0 var(--main-color); */
 }
 
 .cart__couter-icon {
-  background-color: #d92c3e;
+  background-color: var(--btn-main-color);
 }
 
 .navbar__brand-text {
@@ -82,7 +155,7 @@ body {
 }
 
 .header__user-avatar {
-  border: 3px solid var(--main-text-color);
+  border: 3px solid var(--main-color);
   box-shadow: 0 0px 6px .5px rgba(28, 34, 46, .3);
   width: 3rem;
   height: 3rem;
@@ -118,7 +191,7 @@ body {
 }
 
 
-/* PDODUCTS PAGES */
+/* PRODUCTS PAGES */
 .product__card button {
   padding: 0.75rem;
   line-height: normal;
@@ -129,6 +202,10 @@ body {
   white-space: nowrap;
   overflow: hidden;
   max-width: 7.5rem;
+}
+
+.product__card-price_bg {
+  background-image: linear-gradient(270deg, hsl(220deg 24% 40% / 30%), var(--bs-tertiary-bg));
 }
 
 .product__card-img {

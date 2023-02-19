@@ -14,19 +14,21 @@ import { CheckoutCheckBar } from './CheckoutCheckBar/CheckoutCheckBar';
 import { CheckoutProductItem } from './CheckoutProductItem/CheckoutProductItem';
 import { CheckoutSummary } from './CheckoutSummary/CheckoutSummary';
 import { addCheckoutItemParams, getCheckoutIds } from './checkoutUtils/checkoutUtils';
+import emptyCartPlaceholderImg from '../../../images/empty_cart.png';
 
-function CheckoutListReturn({ checkoutList }) {
-  if (!checkoutList.length) {
+function CheckoutListReturn({ checkoutList, checkout }) {
+  if (!checkout.length) {
     return (
-      <div className="card px-3 py-4">
+      <div className="card px-3 py-4" style={{ fontSize: '.875rem' }}>
         <div className={placeholderStylesClasses}>
           <div className="mb-3">
-            <h2 className="mb-3">
+            <img src={emptyCartPlaceholderImg} className="w-75 mb-3 opacity-75" alt="" />
+            <h3 className="mb-3">
               Корзина пуста
-            </h2>
-            <h4>
+            </h3>
+            <h5>
               Посмотрите предложения в каталоге
-            </h4>
+            </h5>
           </div>
           <PlaceholderButtons filters={false} list />
         </div>
@@ -54,6 +56,8 @@ export function Checkout() {
   const checkout = useSelector(getCheckoutSelector);
   const authToken = useSelector(getAuthTokenSelector);
 
+  const checkoutIds = getCheckoutIds(checkout);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,16 +67,22 @@ export function Checkout() {
   }, [authToken]);
 
   const {
-    data: checkoutList, isLoading, isError, error, refetch,
+    data: checkoutList, isLoading, isFetching, isError, error, refetch,
   } = useQuery({
-    queryKey: getCheckoutListQueryKey(getCheckoutIds(checkout)),
-    queryFn: () => shopApi.getGoodsByIds(getCheckoutIds(checkout), authToken),
+    queryKey: getCheckoutListQueryKey(checkoutIds),
+    queryFn: () => shopApi.getGoodsByIds(checkoutIds, authToken),
     enabled: !!authToken,
+    keepPreviousData: true,
+    onSuccess: (res) => res.filter((item) => !checkoutIds.includes(item.id)),
   });
 
-  const checkoutListFormatted = checkoutList?.length
-    ? addCheckoutItemParams(formatGoodsList(checkoutList), checkout)
-    : checkout;
+  // const checkoutList = data && data.filter((item) => !checkoutIds.includes(item.id));
+  // console.log({ test, checkoutIds });
+
+  const checkoutListFormatted = (
+    checkoutList?.length
+    && addCheckoutItemParams(formatGoodsList(checkoutList), checkout)
+  );
   console.log({ checkoutListFormatted });
 
   return (
@@ -80,7 +90,9 @@ export function Checkout() {
       <div className="container p-3 p-md-4 py-lg-5">
         <CheckoutListReturnWithQuery
           checkoutList={checkoutListFormatted}
+          checkout={checkout}
           isLoading={isLoading}
+          isFetching={isFetching}
           isError={isError}
           error={error}
           refetch={refetch}

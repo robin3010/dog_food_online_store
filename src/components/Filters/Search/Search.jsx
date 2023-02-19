@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { shopApi } from '../../../api/shopApi';
@@ -8,17 +8,18 @@ import { useDebounce } from '../../hooks/useDebounce';
 
 export function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState(
-    () => searchParams.get(searchParamsKeys.q) ?? '',
-  );
+  // const [search, setSearch] = useState(
+  //   () => searchParams.get(searchParamsKeys.q) ?? '',
+  // );
+  const searchQuery = searchParams.get(searchParamsKeys.q) ?? '';
 
-  const debouncedSearch = useDebounce(search, 750);
+  const debouncedSearch = useDebounce(searchQuery, 750);
 
   const dispatch = useDispatch();
 
   const setSearchHandler = (e) => {
     const newSearchValue = e.target.value;
-    setSearch(newSearchValue);
+    // setSearch(newSearchValue);
 
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
@@ -32,12 +33,14 @@ export function Search() {
   }, [debouncedSearch, dispatch]);
 
   return (
-    <input
-      onChange={setSearchHandler}
-      value={search}
-      className="form-control form-control-sm rounded-4 w-50"
-      type="text"
-      placeholder="Поиск"
-    />
+    <div className="col-12 col-md-6">
+      <input
+        onChange={setSearchHandler}
+        value={searchQuery}
+        className="form-control form-control rounded-4"
+        type="search"
+        placeholder="Поиск"
+      />
+    </div>
   );
 }

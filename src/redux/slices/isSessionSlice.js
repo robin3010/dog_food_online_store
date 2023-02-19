@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { initState } from '../initState';
 
-export const isSessionSlice = createSlice({
+const isSessionSlice = createSlice({
   name: 'isSession',
   initialState: initState.isSession,
   reducers: {

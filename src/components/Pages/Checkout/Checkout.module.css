@@ -9,7 +9,7 @@
 .removeSm:hover small,
 .remove:hover,
 .wishlist.active small {
-  color: #d92c3e;
+  color: var(--btn-main-color);
 }
 
 .wishlist.active:hover small {
@@ -26,10 +26,10 @@
   --bs-btn-color: var(--bs-light-text);
   --bs-btn-bg: var(--bs-tertiary-bg);
   --bs-btn-border-color: var(--bs-border-color);
-  --bs-btn-hover-color: #2d3850;
+  --bs-btn-hover-color: var(--btn-sec-color);
   --bs-btn-hover-bg: var(--bs-secondary-bg);
   --bs-btn-hover-border-color: var(--bs-border-color);
-  --bs-btn-active-color: #2d3850;
+  --bs-btn-active-color: var(--btn-sec-color);
   --bs-btn-active-bg: var(--bs-secondary-bg);
   --bs-btn-active-border-color: var(--bs-border-color);
   --bs-btn-disabled-color: #a5aaaf;
@@ -46,7 +46,7 @@
 }
 
 .quantity-counter:focus {
-  color: var(--main-text-color);
+  color: var(--main-color);
   background-color: var(--bs-form-control-bg);
   border-color: var(--bs-border-color);
   /* outline: 0; */

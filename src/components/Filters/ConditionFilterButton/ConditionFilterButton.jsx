@@ -26,14 +26,14 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
     return undefined;
   };
 
-  const sortHandler = (condition, lastSortValue) => {
-    let sortFilterName = condition;
-    if (condition === productParams.price) {
-      if (lastSortValue === productParams.price_up) sortFilterName = productParams.price_down;
-      if (lastSortValue !== productParams.price_up) sortFilterName = productParams.price_up;
+  const sortHandler = () => {
+    let sortFilterName = conditionKey;
+    if (conditionKey === productParams.price) {
+      if (lastSort === productParams.price_up) sortFilterName = productParams.price_down;
+      if (lastSort !== productParams.price_up) sortFilterName = productParams.price_up;
     }
 
-    dispatch(sortGoodsList({ condition, sortFilterName }));
+    dispatch(sortGoodsList({ condition: conditionKey, sortFilterName }));
 
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
@@ -43,10 +43,10 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
 
   return (
     <button
-      onClick={() => sortHandler(conditionKey, lastSort)}
+      onClick={sortHandler}
       type="button"
       className={clsx(
-        'btn',
+        'btn p-0',
         'border-0',
         { 'fw-semibold': lastSort === conditionKey },
       )}

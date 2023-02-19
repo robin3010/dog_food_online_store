@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { formatGoodsList, sortGoods } from '../../utils/utils';
 import { initState } from '../initState';
 
-export const goodsSlice = createSlice({
+const goodsSlice = createSlice({
   name: 'goods',
   initialState: initState.goods,
   reducers: {

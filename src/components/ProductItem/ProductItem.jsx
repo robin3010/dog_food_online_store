@@ -24,9 +24,9 @@ export function ProductItem({ item }) {
 
   const itemIndex = checkout.findIndex((el) => el.id === item.id);
 
-  const addToCartHandler = (elem) => {
+  const addToCartHandler = () => {
     if (itemIndex === -1) {
-      return dispatch(addItemToCart(elem));
+      return dispatch(addItemToCart(item));
     }
     return navigate('/checkout');
   };
@@ -54,7 +54,7 @@ export function ProductItem({ item }) {
           <div className="d-flex product__card">
             <div className="d-flex w-100 me-auto p-1 ps-0">
               <div
-                className="d-flex bg-secondary bg-opacity-10
+                className="d-flex product__card-price_bg
                 border border-tertiary rounded w-100"
               >
                 <p className="m-auto ms-2 fw-semibold product__card-price">
@@ -72,7 +72,7 @@ export function ProductItem({ item }) {
             </div>
             <div className="p-1 pe-0">
               <button
-                onClick={() => addToCartHandler(item)}
+                onClick={addToCartHandler}
                 type="button"
                 className={clsx(
                   'btn',

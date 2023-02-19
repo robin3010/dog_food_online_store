@@ -12,7 +12,6 @@ import {
 } from '../../../../utils/utils';
 import { Price } from '../../../ProductItem/ProductDynamicElements/ProductDynamicElements';
 import styles from '../Checkout.module.css';
-import loginStyles from '../../Login/Login.module.css';
 
 export function CheckoutProductItem({ item }) {
   const {
@@ -29,10 +28,10 @@ export function CheckoutProductItem({ item }) {
   const [input, setInput] = useState(count);
   const dispatch = useDispatch();
 
-  const countChangeHandler = (e, itemId) => {
+  const countChangeHandler = (e) => {
     const newCountValue = +e.target.value || input;
     const payload = {
-      id: itemId,
+      id,
       count: newCountValue,
     };
     // console.log({ payload });
@@ -41,20 +40,20 @@ export function CheckoutProductItem({ item }) {
     dispatch(itemCountChange(payload));
   };
 
-  const countIncrementHandler = (itemId) => {
-    dispatch(itemCountIncrement(itemId));
+  const countIncrementHandler = () => {
+    dispatch(itemCountIncrement(id));
   };
 
-  const countDecrementHandler = (itemId) => {
-    dispatch(itemCountDecrement(itemId));
+  const countDecrementHandler = () => {
+    dispatch(itemCountDecrement(id));
   };
 
-  const removeItemHandler = (itemId) => {
-    dispatch(removeItemFromCart(itemId));
+  const removeItemHandler = () => {
+    dispatch(removeItemFromCart(id));
   };
 
-  const selectItemHandler = (itemId) => {
-    dispatch(changeIsCheckedState(itemId));
+  const selectItemHandler = () => {
+    dispatch(changeIsCheckedState(id));
   };
 
   return (
@@ -66,12 +65,8 @@ export function CheckoutProductItem({ item }) {
         >
           <input
             type="checkbox"
-            onChange={() => selectItemHandler(id)}
-            className={clsx(
-              'form-check-input',
-              'm-0',
-              loginStyles['form-login-check-input'],
-            )}
+            onChange={selectItemHandler}
+            className="form-check-input m-0"
             checked={isChecked}
           />
         </div>
@@ -94,7 +89,7 @@ export function CheckoutProductItem({ item }) {
                 <small>В избранное</small>
               </button>
               <button
-                onClick={() => removeItemHandler(id)}
+                onClick={removeItemHandler}
                 className={`border-0 bg-transparent p-0 ${styles.removeSm}`}
                 type="button"
               >
@@ -113,7 +108,7 @@ export function CheckoutProductItem({ item }) {
               >
                 <button
                   type="button"
-                  onClick={() => countDecrementHandler(id)}
+                  onClick={countDecrementHandler}
                   className={clsx(
                     'btn',
                     'border-end-0',
@@ -125,7 +120,7 @@ export function CheckoutProductItem({ item }) {
                 </button>
                 <input
                   type="number"
-                  onChange={(e) => countChangeHandler(e, id)}
+                  onChange={countChangeHandler}
                   className={clsx(
                     'border-start-0',
                     'border-end-0',
@@ -139,7 +134,7 @@ export function CheckoutProductItem({ item }) {
                 />
                 <button
                   type="button"
-                  onClick={() => countIncrementHandler(id)}
+                  onClick={countIncrementHandler}
                   className={clsx(
                     'btn',
                     'border-start-0',

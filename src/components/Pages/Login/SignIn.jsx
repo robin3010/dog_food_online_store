@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { signInValidationScheme } from './loginValidation';
-import loginStyles from './Login.module.css';
 import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
@@ -63,6 +62,7 @@ export function SignIn() {
                 type="email"
                 className={clsx('form-control', {
                   'is-invalid': errors.email && touched.email,
+                  'is-valid': !errors.email && touched.email,
                 })}
                 name="email"
                 placeholder="E-mail"
@@ -79,6 +79,7 @@ export function SignIn() {
                 type="password"
                 className={clsx('form-control', {
                   'is-invalid': errors.password && touched.password,
+                  'is-valid': !errors.password && touched.password,
                 })}
                 name="password"
                 placeholder="Пароль"
@@ -93,10 +94,7 @@ export function SignIn() {
             <div className="form-check d-flex justify-content-start mb-3">
               <Field
                 type="checkbox"
-                className={clsx(
-                  'form-check-input',
-                  loginStyles['form-login-check-input'],
-                )}
+                className="form-check-input"
                 name="remember"
                 id="remember"
               />
@@ -108,7 +106,7 @@ export function SignIn() {
               <LoginErrorAlert loginError={isError} error={error} />
               <button
                 type="submit"
-                className={`btn ${loginStyles['btn-login-primary']}`}
+                className="btn btn-primary"
                 disabled={Object.keys(errors).length > 0 || !touched.email || isLoading}
               >
                 Войти
@@ -116,7 +114,7 @@ export function SignIn() {
               <NavLink
                 to="/login/signup"
                 type="button"
-                className={`btn ${loginStyles['btn-login-outline-secondary']}`}
+                className="btn btn-outline-secondary"
               >
                 Регистрация
               </NavLink>
@@ -124,7 +122,7 @@ export function SignIn() {
           </Form>
         )}
       </Formik>
-      {isLoading ? <ModalLoader /> : ''}
+      {isLoading && <ModalLoader />}
     </>
   );
 }

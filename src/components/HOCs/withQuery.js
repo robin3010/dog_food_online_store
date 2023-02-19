@@ -1,9 +1,13 @@
 import { Loader } from '../Loaders/Loader';
-import loginStyles from '../Pages/Login/Login.module.css';
+import { ModalLoader } from '../Loaders/ModalLoader';
 
 export const withQuery = (WrappedComponent) => function withQueryFunc({
-  isLoading, isError, error, refetch, ...rest
+  isLoading, isFetching, isError, error, refetch, ...rest
 }) {
+  console.log({ isLoading, isFetching });
+
+  if (isLoading) return <Loader />;
+
   if (isError) {
     return (
       <div className="card py-4 text-center">
@@ -13,7 +17,7 @@ export const withQuery = (WrappedComponent) => function withQueryFunc({
         <button
           type="button"
           onClick={refetch}
-          className={`btn mx-auto ${loginStyles['btn-login-primary']}`}
+          className="btn mx-auto btn-primary"
           disabled={isLoading}
         >
           Попробовать снова
@@ -22,7 +26,14 @@ export const withQuery = (WrappedComponent) => function withQueryFunc({
     );
   }
 
-  if (isLoading) return <Loader />;
+  if (isFetching) {
+    return (
+      <>
+        <WrappedComponent {...rest} />
+        <ModalLoader />
+      </>
+    );
+  }
 
   return <WrappedComponent {...rest} />;
 };

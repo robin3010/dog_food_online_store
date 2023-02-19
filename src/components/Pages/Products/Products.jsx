@@ -21,44 +21,61 @@ import { getFilteredByTags } from '../../Filters/filterUtils/filterUtils';
 import { withQuery } from '../../HOCs/withQuery';
 import { PlaceholderButtons } from '../../PlaceholderButtons/PlaceholderButtons';
 import { ProductItem } from '../../ProductItem/ProductItem';
+import noFilterResultsImg from '../../../images/result_not_found.png';
 
-function ProductsReturn({ goods, filters }) {
+function ProductsReturn({ goods, filters: { search, tags }, fetchStatus }) {
+  const isFilters = !!search || !!tags.length;
+  const searchPhrase = (
+    <>
+      {'По запросу '}
+      <b className="text-break px-3">
+        «
+        {search}
+        »
+      </b>
+    </>
+  );
+
   if (!goods.length) {
-    if (filters) {
+    if (isFilters) {
       return (
         <div className="card px-3 py-4">
           <div className={placeholderStylesClasses}>
             <div className="mb-3">
-              <h2 className="mb-3">
-                Ничего не нашлось... :(
+              <img src={noFilterResultsImg} className="w-75" alt="" />
+              <h2 className="mb-3 px-3">
+                {search ? searchPhrase : 'Похоже,'}
+                {' ничего не найдено'}
               </h2>
               <h4>
-                попробуйте изменить запрос
+                Попробуйте изменить запрос
               </h4>
             </div>
-            <PlaceholderButtons filters={filters} list={goods} />
+            <PlaceholderButtons filters={isFilters} list={goods} />
           </div>
         </div>
       );
     }
 
-    return (
-      <div className="card px-3 py-4">
-        <div className={placeholderStylesClasses}>
-          <div className="mb-3">
-            <h2 className="mb-3">
-              Все товары закончились... :(
-            </h2>
-            <h4>
-              ...но мы везём новые,
-              <br />
-              загляните чуть позже!
-            </h4>
+    if (fetchStatus !== 'fetching') {
+      return (
+        <div className="card px-3 py-4">
+          <div className={placeholderStylesClasses}>
+            <div className="mb-3">
+              <h2 className="mb-3">
+                Все товары закончились... :(
+              </h2>
+              <h4>
+                ...но мы везём новые,
+                <br />
+                загляните чуть позже!
+              </h4>
+            </div>
+            <PlaceholderButtons filters={isFilters} list={goods} />
           </div>
-          <PlaceholderButtons filters={filters} list={goods} />
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   return (
@@ -109,19 +126,18 @@ export function Products() {
   };
 
   const {
-    isLoading, isError, error, refetch,
+    isLoading, isError, error, refetch, isFetching, fetchStatus,
   } = useQuery({
     queryKey: getGoodsListQueryKey(search, tagsSelected, lastSort),
     queryFn: () => shopApi.getGoodsList(authToken),
     enabled: !!authToken,
+    keepPreviousData: true,
     onSuccess: (res) => applyFilters(res),
   });
 
+  console.log(getGoodsListQueryKey(search, tagsSelected, lastSort));
+
   const filteredData = goods && getFilteredByTags(goods, tagsSelected);
-  const isFiltersActive = Object.values({
-    search: !!search,
-    tagsSelected: !!tagsSelected.length,
-  }).some((f) => f === true);
 
   return (
     <section className="bg-body-secondary flex-grow-1">
@@ -129,11 +145,13 @@ export function Products() {
         <Filters />
         <ProductsReturnWithQuery
           goods={filteredData}
-          filters={isFiltersActive}
+          filters={{ search, tags: tagsSelected }}
           isLoading={isLoading}
+          isFetching={isFetching}
           isError={isError}
           error={error}
           refetch={refetch}
+          fetchStatus={fetchStatus}
         />
       </div>
     </section>
