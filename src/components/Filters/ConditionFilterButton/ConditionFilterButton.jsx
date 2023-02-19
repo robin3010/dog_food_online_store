@@ -1,12 +1,9 @@
 import clsx from 'clsx';
-import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { sortGoodsList } from '../../../redux/slices/goodsSlice';
 import { productParams, searchParamsKeys } from '../../../utils/constants';
 
 export function ConditionFilterButton({ conditionKey, conditionValue }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useDispatch();
 
   const lastSort = searchParams.get(searchParamsKeys.sort) ?? '';
 
@@ -32,8 +29,6 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
       if (lastSort === productParams.price_up) sortFilterName = productParams.price_down;
       if (lastSort !== productParams.price_up) sortFilterName = productParams.price_up;
     }
-
-    dispatch(sortGoodsList({ condition: conditionKey, sortFilterName }));
 
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),

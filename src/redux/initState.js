@@ -7,7 +7,6 @@ export const initState = {
     search: '',
     tagsCollection: [],
   },
-  goods: [],
   checkout: [],
 };
 

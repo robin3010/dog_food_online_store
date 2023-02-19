@@ -49,10 +49,10 @@ export const formatGoodsList = (list) => list.map(({ _id: id, discount, ...rest 
 export const getCheckoutItemParams = (itemId, checkout) => checkout
   .find((elem) => elem.id === itemId);
 
-export const sortGoods = (goods, cond, sortByPriceType) => {
-  if (!cond) return goods;
+export const sortGoods = (goods, condition, sortByPriceType) => {
+  if (!condition) return goods;
   if (sortByPriceType === productParams.price_up) {
-    return goods.sort((a, b) => calcCondition(a, cond) - calcCondition(b, cond));
+    return goods.sort((a, b) => calcCondition(a, condition) - calcCondition(b, condition));
   }
-  return goods.sort((a, b) => calcCondition(b, cond) - calcCondition(a, cond));
+  return goods.sort((a, b) => calcCondition(b, condition) - calcCondition(a, condition));
 };

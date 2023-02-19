@@ -4,11 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { shopApi } from '../../../api/shopApi';
 import { getSearchFilterSelector, setTagsCollection } from '../../../redux/slices/filtersSlice';
-import {
-  getGoodsSelector,
-  setGoodsList,
-  sortGoodsList,
-} from '../../../redux/slices/goodsSlice';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
 import {
   placeholderStylesClasses,
@@ -22,9 +17,13 @@ import { withQuery } from '../../HOCs/withQuery';
 import { PlaceholderButtons } from '../../PlaceholderButtons/PlaceholderButtons';
 import { ProductItem } from '../../ProductItem/ProductItem';
 import noFilterResultsImg from '../../../images/result_not_found.png';
+import { formatGoodsList, sortGoods } from '../../../utils/utils';
 
-function ProductsReturn({ goods, filters: { search, tags }, fetchStatus }) {
+function ProductsReturn({ goods, filters: { search, tags } }) {
   const isFilters = !!search || !!tags.length;
+
+  console.log({ goods });
+
   const searchPhrase = (
     <>
       {'По запросу '}
@@ -57,25 +56,23 @@ function ProductsReturn({ goods, filters: { search, tags }, fetchStatus }) {
       );
     }
 
-    if (fetchStatus !== 'fetching') {
-      return (
-        <div className="card px-3 py-4">
-          <div className={placeholderStylesClasses}>
-            <div className="mb-3">
-              <h2 className="mb-3">
-                Все товары закончились... :(
-              </h2>
-              <h4>
-                ...но мы везём новые,
-                <br />
-                загляните чуть позже!
-              </h4>
-            </div>
-            <PlaceholderButtons filters={isFilters} list={goods} />
+    return (
+      <div className="card px-3 py-4">
+        <div className={placeholderStylesClasses}>
+          <div className="mb-3">
+            <h2 className="mb-3">
+              Все товары закончились... :(
+            </h2>
+            <h4>
+              ...но мы везём новые,
+              <br />
+              загляните чуть позже!
+            </h4>
           </div>
+          <PlaceholderButtons filters={isFilters} list={goods} />
         </div>
-      );
-    }
+      </div>
+    );
   }
 
   return (
@@ -96,7 +93,6 @@ export function Products() {
   const authToken = useSelector(getAuthTokenSelector);
   const [searchParams] = useSearchParams();
   const search = useSelector(getSearchFilterSelector);
-  const goods = useSelector(getGoodsSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -111,22 +107,22 @@ export function Products() {
   const lastSort = searchParams.get(searchParamsKeys.sort) ?? '';
 
   const applyFilters = (fetchResponse) => {
-    dispatch(setTagsCollection(fetchResponse));
-    // dispatch(setGoodsList([]));
-    dispatch(setGoodsList(fetchResponse));
+    let formattedData = formatGoodsList(fetchResponse);
+
     if (lastSort) {
       let condition = lastSort;
       const sortFilterName = lastSort;
       if (lastSort === productParams.price_down || lastSort === productParams.price_up) {
         condition = productParams.price;
       }
-      console.log({ condition, sortFilterName });
-      dispatch(sortGoodsList({ condition, sortFilterName }));
+      formattedData = sortGoods(formattedData, condition, sortFilterName);
     }
+
+    return formattedData && getFilteredByTags(formattedData, tagsSelected);
   };
 
   const {
-    isLoading, isError, error, refetch, isFetching, fetchStatus,
+    data: goods, isLoading, isFetching, isError, error, refetch,
   } = useQuery({
     queryKey: getGoodsListQueryKey(search, tagsSelected, lastSort),
     queryFn: () => shopApi.getGoodsList(authToken),
@@ -135,23 +131,26 @@ export function Products() {
     onSuccess: (res) => applyFilters(res),
   });
 
-  console.log(getGoodsListQueryKey(search, tagsSelected, lastSort));
+  const appliedFiltersData = goods && applyFilters(goods);
 
-  const filteredData = goods && getFilteredByTags(goods, tagsSelected);
+  useEffect(() => {
+    if (goods) {
+      dispatch(setTagsCollection(goods));
+    }
+  }, [goods, dispatch]);
 
   return (
     <section className="bg-body-secondary flex-grow-1">
       <div className="container p-3 p-md-4 py-lg-5">
         <Filters />
         <ProductsReturnWithQuery
-          goods={filteredData}
+          goods={appliedFiltersData}
           filters={{ search, tags: tagsSelected }}
           isLoading={isLoading}
           isFetching={isFetching}
           isError={isError}
           error={error}
           refetch={refetch}
-          fetchStatus={fetchStatus}
         />
       </div>
     </section>

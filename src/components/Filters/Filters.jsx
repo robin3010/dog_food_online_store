@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux';
-import { memo } from 'react';
 import { getTagsCollectionSelector } from '../../redux/slices/filtersSlice';
 import { Search } from './Search/Search';
 import { TagFilterButton } from './TagFilterButton/TagFilterButton';
 import { conditionsSet } from './ConditionFilterButton/conditionsSet';
 import { ConditionFilterButton } from './ConditionFilterButton/ConditionFilterButton';
 
-export const Filters = memo(() => {
+export function Filters() {
   console.log('Render Filters');
 
   const tagsCollection = useSelector(getTagsCollectionSelector);
@@ -31,4 +30,4 @@ export const Filters = memo(() => {
       </div>
     </div>
   );
-});
+}

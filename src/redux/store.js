@@ -4,7 +4,6 @@ import { getInitState } from './initState';
 import { filtersReducer } from './slices/filtersSlice';
 import { isSessionReducer } from './slices/isSessionSlice';
 import { userReducer } from './slices/userSlice';
-import { goodsReducer } from './slices/goodsSlice';
 import { checkoutReducer } from './slices/checkoutSlice';
 
 export const store = configureStore({
@@ -12,7 +11,6 @@ export const store = configureStore({
     user: userReducer,
     isSession: isSessionReducer,
     filters: filtersReducer,
-    goods: goodsReducer,
     checkout: checkoutReducer,
   },
   preloadedState: getInitState(),
