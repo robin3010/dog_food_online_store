@@ -12,6 +12,7 @@ import {
   Price,
   ProductAvailableQuantity,
 } from './ProductDynamicElements/ProductDynamicElements';
+import '../../css/buttons.css';
 
 export function ProductItem({ item }) {
   const navigate = useNavigate();

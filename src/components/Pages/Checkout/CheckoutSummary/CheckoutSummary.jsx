@@ -10,6 +10,7 @@ import {
 } from '../../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import styles from '../Checkout.module.css';
 import { formatPrice, getGoodsSuffix } from '../../../../utils/utils';
+import '../../../../css/buttons.css';
 
 export function CheckoutSummary({ checkoutList }) {
   const dispatch = useDispatch();

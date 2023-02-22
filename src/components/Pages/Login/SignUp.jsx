@@ -5,9 +5,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { signUpValidationScheme } from './loginValidation';
-import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
+import { LoginErrorAlert } from './Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
+import '../../../css/buttons.css';
 
 const initialValues = {
   email: '',

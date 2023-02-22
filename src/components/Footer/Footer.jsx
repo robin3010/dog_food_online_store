@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import './Footer.css';
 
 export const Footer = memo(() => {
   console.log('Render Footer');

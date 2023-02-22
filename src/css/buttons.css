@@ -1,0 +1,112 @@
+.btn-primary {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--btn-main-color);
+  --bs-btn-border-color: var(--btn-main-color);
+  --bs-btn-border-radius: .5rem;
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: var(--btn-main-color-darker);
+  --bs-btn-hover-border-color: var(--btn-main-color-darker);
+  --bs-btn-focus-shadow-rgb: 217, 44, 62;
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: var(--btn-main-color-darkest);
+  --bs-btn-active-border-color: var(--btn-main-color-darkest);
+  --bs-btn-disabled-color: var(--bs-white);
+  --bs-btn-disabled-bg: var(--btn-main-color);
+  --bs-btn-disabled-border-color: var(--btn-main-color);
+  --bs-gradient: none;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--btn-sec-color);
+  --bs-btn-border-color: var(--btn-sec-color);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--btn-sec-color);
+  --bs-btn-hover-border-color: var(--btn-sec-color);
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--btn-sec-color);
+  --bs-btn-active-border-color: var(--btn-sec-color);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--btn-sec-color);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: var(--btn-sec-color);
+}
+
+.btn-alt-outline-secondary {
+  --bs-btn-color: var(--btn-sec-color);
+  --bs-btn-border-color: var(--btn-sec-color);
+  --bs-btn-hover-color: var(--main-color);
+  --bs-btn-hover-bg: hsl(0, 0%, 98%);
+  --bs-btn-hover-border-color: var(--btn-sec-color);
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: var(--main-color);
+  --bs-btn-active-bg: hsl(0, 0%, 96%);
+  --bs-btn-active-border-color: var(--main-color);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--btn-sec-color);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: var(--btn-sec-color);
+}
+
+/* ADD TO CART BUTTON */
+.btn-product-cart-add {
+  --bs-btn-color: var(--btn-sec-color);
+  --bs-btn-bg: var(--bs-tertiary-bg);
+  --bs-btn-border-color: var(--btn-sec-color);
+  --bs-btn-hover-color: var(--main-color);
+  --bs-btn-hover-bg: hsl(87deg 100% 35% / 19%);
+  --bs-btn-hover-border-color: var(--btn-sec-color);
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: var(--main-color);
+  --bs-btn-active-bg: hsl(87deg 100% 35% / 35%);
+  --bs-btn-active-border-color: var(--btn-sec-color);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--btn-sec-color);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: var(--btn-sec-color);
+}
+
+.btn-product-cart-add.added {
+  background-image: linear-gradient(315deg, transparent, rgba(255, 255, 255, 0.5));
+  background-origin: border-box;
+  border-color: transparent;
+}
+
+.btn-product-cart-add.added:not(:hover):not(:active) {
+  background-color: hsl(87deg 100% 35% / 80%);
+}
+
+.btn-product-cart-add.added:hover {
+  background-color: hsl(87deg 100% 35% / 92%);
+}
+
+
+/* WISHLIST BUTTON */
+.btn-wishlist {
+  --bs-btn-color: #bbb;
+  --bs-btn-bg: var(--bs-tertiary-bg);
+  --bs-btn-border-color: #bbb;
+  --bs-btn-hover-color: hsla(354, 91%, 64%, .5);
+  --bs-btn-hover-bg: hsla(354, 91%, 82%, .1);
+  --bs-btn-hover-border-color: hsla(354, 91%, 64%, .5);
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: hsl(354, 91%, 45%);
+  --bs-btn-active-bg: var(--bs-tertiary-bg);
+  --bs-btn-active-border-color: hsl(354, 91%, 45%);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #bbb;
+  --bs-btn-disabled-bg: var(--bs-tertiary-bg);
+  --bs-btn-disabled-border-color: #bbb;
+}
+
+.btn-wishlist.added {
+  color: var(--discount-color);
+  border-color: var(--discount-color);
+}
+
+.btn-wishlist.added:hover {
+  color: hsla(354, 91%, 64%, .7);
+  border-color: hsla(354, 91%, 64%, .7);
+  background-color: #dddddd1f;
+}

@@ -6,11 +6,12 @@ import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { signInValidationScheme } from './loginValidation';
-import { LoginErrorAlert } from '../../Errors/LoginErrorAlert';
+import { LoginErrorAlert } from './Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
 import { login } from '../../../redux/slices/userSlice';
 import { updateValue } from '../../../redux/slices/isSessionSlice';
+import '../../../css/buttons.css';
 
 const initialValues = {
   email: '',

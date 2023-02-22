@@ -7,6 +7,7 @@ import { getCheckoutSelector } from '../../redux/slices/checkoutSlice';
 import { getAuthTokenSelector } from '../../redux/slices/userSlice';
 import { getItemsIds } from '../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import { LoginButton } from './LoginButton/LoginButton';
+import './Header.css';
 import { getWishlistSelector } from '../../redux/slices/wishlistSlice';
 
 export const Header = memo(() => {

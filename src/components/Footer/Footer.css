@@ -1,0 +1,14 @@
+.main__footer {
+  margin: 0;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  background: linear-gradient(
+    to bottom right,
+    rgb(251 255 244),
+    rgb(229 203 217)
+  );
+}
+
+.main__footer hr {
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  opacity: 1;
+}

@@ -1,5 +1,6 @@
 import { Loader } from '../Loaders/Loader';
 import { ModalLoader } from '../Loaders/ModalLoader';
+import '../../css/buttons.css';
 
 export const withQuery = (WrappedComponent) => function withQueryFunc({
   isLoading, isFetching, isError, error, refetch, ...rest
