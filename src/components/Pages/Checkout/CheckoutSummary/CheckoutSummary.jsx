@@ -3,16 +3,20 @@ import clsx from 'clsx';
 import {
   changeAllIsCheckedState,
 } from '../../../../redux/slices/checkoutSlice';
-import { getIsCheckedIds, getSelectedItemsCount, getTotal } from '../checkoutUtils/checkoutUtils';
+import {
+  getIsCheckedIds,
+  getSelectedItemsCount,
+  getTotal,
+} from '../../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import styles from '../Checkout.module.css';
-import { formatPrice } from '../../../../utils/utils';
+import { formatPrice, getGoodsSuffix } from '../../../../utils/utils';
 
 export function CheckoutSummary({ checkoutList }) {
   const dispatch = useDispatch();
 
   const isCheckedIds = getIsCheckedIds(checkoutList);
   const selectedItemsCount = getSelectedItemsCount(checkoutList);
-  const { totalPrice, totalDiscount, totalPriceDiscounted } = getTotal(checkoutList);
+  const { totalPrice, totalDiscount, totalPriceDiscounted } = getTotal(checkoutList, true);
 
   const selectAllItemsHandler = () => {
     dispatch(changeAllIsCheckedState(true));
@@ -82,7 +86,10 @@ export function CheckoutSummary({ checkoutList }) {
           <div className="d-flex gap-3 gap-lg-0 justify-content-between align-items-end">
             <div className="card-text">
               <small>Итого:</small>
-              <h5>{`${selectedItemsCount} товаров`}</h5>
+              <h5>
+                {selectedItemsCount}
+                {getGoodsSuffix(selectedItemsCount)}
+              </h5>
             </div>
             <div className="card-text text-end">
               <small className={clsx(
@@ -97,12 +104,15 @@ export function CheckoutSummary({ checkoutList }) {
           </div>
           <div className="d-none d-lg-flex justify-content-between align-items-end">
             <div className="card-text">
-              <p>{`${selectedItemsCount} товаров`}</p>
-              <p>Общая скидка</p>
+              <p>
+                {selectedItemsCount}
+                {getGoodsSuffix(selectedItemsCount)}
+              </p>
+              <p className="discount">Общая скидка</p>
             </div>
             <div className="card-text text-end">
               <p>{formatPrice(totalPriceDiscounted)}</p>
-              <p>{formatPrice(totalDiscount)}</p>
+              <p className="discount">{formatPrice(totalDiscount)}</p>
             </div>
           </div>
           <button

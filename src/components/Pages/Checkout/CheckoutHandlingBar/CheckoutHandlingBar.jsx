@@ -3,12 +3,15 @@ import { useDispatch } from 'react-redux';
 import {
   changeAllIsCheckedState,
   clearCart,
-  removeSelectedItemsFromCart,
+  removeSelectedFromCart,
 } from '../../../../redux/slices/checkoutSlice';
 import checkoutStyles from '../Checkout.module.css';
-import { getIsAllChecked, getIsCheckedIds } from '../checkoutUtils/checkoutUtils';
+import {
+  getIsAllChecked,
+  getIsCheckedIds,
+} from '../../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 
-export function CheckoutCheckBar({ checkoutList }) {
+export function CheckoutHandlingBar({ checkoutList }) {
   const dispatch = useDispatch();
 
   const isAllChecked = getIsAllChecked(checkoutList);
@@ -25,7 +28,7 @@ export function CheckoutCheckBar({ checkoutList }) {
   };
 
   const removeSelectedHandler = () => {
-    dispatch(removeSelectedItemsFromCart(isCheckedIds));
+    dispatch(removeSelectedFromCart(isCheckedIds));
   };
 
   return (

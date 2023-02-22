@@ -9,3 +9,8 @@ export const getCheckoutListQueryKey = (ids) => [
   'checkoutListFetch',
   { ...ids },
 ];
+
+export const getWishlistQueryKey = (ids) => [
+  'wishlistFetch',
+  { ...ids },
+];

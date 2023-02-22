@@ -10,11 +10,14 @@ import { getCheckoutListQueryKey } from '../../../utils/queryUtils';
 import { formatGoodsList } from '../../../utils/utils';
 import { withQuery } from '../../HOCs/withQuery';
 import { PlaceholderButtons } from '../../PlaceholderButtons/PlaceholderButtons';
-import { CheckoutCheckBar } from './CheckoutCheckBar/CheckoutCheckBar';
 import { CheckoutProductItem } from './CheckoutProductItem/CheckoutProductItem';
 import { CheckoutSummary } from './CheckoutSummary/CheckoutSummary';
-import { addCheckoutItemParams, getCheckoutIds } from './checkoutUtils/checkoutUtils';
+import {
+  combineItemParams,
+  getItemsIds,
+} from '../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import emptyCartPlaceholderImg from '../../../images/empty_cart.png';
+import { CheckoutHandlingBar } from './CheckoutHandlingBar/CheckoutHandlingBar';
 
 function CheckoutListReturn({ checkoutList, checkout }) {
   if (!checkout.length) {
@@ -56,7 +59,7 @@ export function Checkout() {
   const checkout = useSelector(getCheckoutSelector);
   const authToken = useSelector(getAuthTokenSelector);
 
-  const checkoutIds = getCheckoutIds(checkout);
+  const checkoutIds = getItemsIds(checkout);
 
   const navigate = useNavigate();
 
@@ -81,7 +84,7 @@ export function Checkout() {
 
   const checkoutListFormatted = (
     checkoutList?.length
-    && addCheckoutItemParams(formatGoodsList(checkoutList), checkout)
+    && combineItemParams(formatGoodsList(checkoutList), checkout)
   );
   console.log({ checkoutListFormatted });
 

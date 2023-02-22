@@ -5,13 +5,15 @@ import { Link, NavLink } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import { getCheckoutSelector } from '../../redux/slices/checkoutSlice';
 import { getAuthTokenSelector } from '../../redux/slices/userSlice';
-import { getCheckoutIds } from '../Pages/Checkout/checkoutUtils/checkoutUtils';
+import { getItemsIds } from '../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import { LoginButton } from './LoginButton/LoginButton';
+import { getWishlistSelector } from '../../redux/slices/wishlistSlice';
 
 export const Header = memo(() => {
   console.log('Render Header');
 
-  const checkoutCount = getCheckoutIds(useSelector(getCheckoutSelector)).length;
+  const checkoutCount = getItemsIds(useSelector(getCheckoutSelector)).length;
+  const wishlistCount = getItemsIds(useSelector(getWishlistSelector)).length;
   const authToken = useSelector(getAuthTokenSelector);
   console.log({ checkoutCount, authToken });
 
@@ -48,7 +50,20 @@ export const Header = memo(() => {
           order-md-3
           fa-lg"
         >
-          <NavLink to="/favorite" className="nav-link">
+          <NavLink to="/favorite" className="nav-link position-relative">
+            <span
+              className={clsx(
+                'position-absolute top-0 start-100 fs-6',
+                'translate-middle',
+                'badge',
+                'rounded-circle',
+                { 'rounded-pill': wishlistCount > 9 },
+                'cart__couter-icon bg-gradient',
+                { 'd-none': !wishlistCount || !authToken },
+              )}
+            >
+              {wishlistCount}
+            </span>
             <i className="fa-solid fa-heart" />
           </NavLink>
           <LoginButton />

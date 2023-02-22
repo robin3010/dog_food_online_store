@@ -1,10 +1,15 @@
 import clsx from 'clsx';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   changeIsCheckedState,
-  itemCountChange, itemCountDecrement, itemCountIncrement, removeItemFromCart,
+  itemCountChange, itemCountDecrement, itemCountIncrement, removeFromCart,
 } from '../../../../redux/slices/checkoutSlice';
+import {
+  addToWishlist,
+  getWishlistSelector,
+  removeFromWishlist,
+} from '../../../../redux/slices/wishlistSlice';
 import { productParams } from '../../../../utils/constants';
 import {
   calcCondition,
@@ -28,6 +33,16 @@ export function CheckoutProductItem({ item }) {
   const [input, setInput] = useState(count);
   const dispatch = useDispatch();
 
+  const wishlist = useSelector(getWishlistSelector);
+  const isWishlisted = wishlist.findIndex((el) => el.id === id) !== -1;
+
+  const WishlistHandler = () => {
+    if (!isWishlisted) {
+      return dispatch(addToWishlist(id));
+    }
+    return dispatch(removeFromWishlist(id));
+  };
+
   const countChangeHandler = (e) => {
     const newCountValue = +e.target.value || input;
     const payload = {
@@ -49,7 +64,7 @@ export function CheckoutProductItem({ item }) {
   };
 
   const removeItemHandler = () => {
-    dispatch(removeItemFromCart(id));
+    dispatch(removeFromCart(id));
   };
 
   const selectItemHandler = () => {
@@ -61,7 +76,6 @@ export function CheckoutProductItem({ item }) {
       <div className="card p-3 position-relative">
         <div
           className="position-absolute ps-2 pt-2 top-0 start-0"
-          // style={{ top: '-0.5rem', left: '-0.5rem' }}
         >
           <input
             type="checkbox"
@@ -82,11 +96,15 @@ export function CheckoutProductItem({ item }) {
             <p className="card-text">{name}</p>
             <div className="d-flex gap-3">
               <button
-                onClick={(e) => e.currentTarget.classList.toggle([styles.active])}
-                className={`border-0 bg-transparent p-0 ${styles.wishlist}`}
+                onClick={WishlistHandler}
+                className={clsx(
+                  'border-0 bg-transparent p-0',
+                  styles.wishlist,
+                  { [styles.active]: isWishlisted },
+                )}
                 type="button"
               >
-                <small>В избранное</small>
+                <small>{isWishlisted ? 'Убрать из избранного' : 'В избранное'}</small>
               </button>
               <button
                 onClick={removeItemHandler}

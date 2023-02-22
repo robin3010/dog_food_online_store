@@ -8,6 +8,7 @@ export const initState = {
     tagsCollection: [],
   },
   checkout: [],
+  wishlist: [],
 };
 
 export const getInitState = () => {

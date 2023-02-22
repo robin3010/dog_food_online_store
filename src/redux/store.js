@@ -5,6 +5,7 @@ import { filtersReducer } from './slices/filtersSlice';
 import { isSessionReducer } from './slices/isSessionSlice';
 import { userReducer } from './slices/userSlice';
 import { checkoutReducer } from './slices/checkoutSlice';
+import { wishlistReducer } from './slices/wishlistSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     isSession: isSessionReducer,
     filters: filtersReducer,
     checkout: checkoutReducer,
+    wishlist: wishlistReducer,
   },
   preloadedState: getInitState(),
 });

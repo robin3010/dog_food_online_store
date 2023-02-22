@@ -22,6 +22,7 @@ import { Delivery } from './components/Pages/Delivery/Delivery';
 import { Contacts } from './components/Pages/Contacts/Contacts';
 import { store } from './redux/store';
 import { Checkout } from './components/Pages/Checkout/Checkout';
+import { Wishlist } from './components/Pages/Wishlist/Wishlist';
 
 const rootRouter = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const rootRouter = createBrowserRouter([
       {
         path: 'checkout',
         element: <Checkout />,
+      },
+      {
+        path: 'favorite',
+        element: <Wishlist />,
       },
       {
         path: 'login/',

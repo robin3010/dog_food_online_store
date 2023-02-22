@@ -46,13 +46,19 @@ export const formatGoodsList = (list) => list.map(({ _id: id, discount, ...rest 
   });
 });
 
-export const getCheckoutItemParams = (itemId, checkout) => checkout
-  .find((elem) => elem.id === itemId);
-
 export const sortGoods = (goods, condition, sortByPriceType) => {
   if (!condition) return goods;
   if (sortByPriceType === productParams.price_up) {
     return goods.sort((a, b) => calcCondition(a, condition) - calcCondition(b, condition));
   }
   return goods.sort((a, b) => calcCondition(b, condition) - calcCondition(a, condition));
+};
+
+export const getGoodsSuffix = (count) => {
+  const lastNum = count % 10;
+  const lastTwoNum = count % 100;
+  if (lastTwoNum > 10 && lastTwoNum < 20) return ' товаров';
+  if (lastNum > 1 && lastNum < 5) return ' товара';
+  if (lastNum === 1) return ' товар';
+  return ' товаров';
 };

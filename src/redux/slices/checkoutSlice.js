@@ -5,15 +5,12 @@ const checkoutSlice = createSlice({
   name: 'checkout',
   initialState: initState.checkout,
   reducers: {
-    addItemToCart: {
+    addToCart: {
       reducer(state, action) {
         const itemIndex = state.findIndex((item) => item.id === action.payload.id);
         if (itemIndex === -1) {
           state.push(action.payload);
         }
-        // if (itemIndex !== -1) {
-        //   state.splice(itemIndex, 1);
-        // }
       },
       prepare(item) {
         return {
@@ -26,10 +23,10 @@ const checkoutSlice = createSlice({
         };
       },
     },
-    removeItemFromCart(state, action) {
+    removeFromCart(state, action) {
       return state.filter((item) => item.id !== action.payload);
     },
-    removeSelectedItemsFromCart(state, action) {
+    removeSelectedFromCart(state, action) {
       return state.filter((item) => action.payload.every((id) => id !== item.id));
     },
     clearCart() {
@@ -74,9 +71,9 @@ const checkoutSlice = createSlice({
 });
 
 export const {
-  addItemToCart,
-  removeItemFromCart,
-  removeSelectedItemsFromCart,
+  addToCart,
+  removeFromCart,
+  removeSelectedFromCart,
   clearCart,
   itemCountIncrement,
   itemCountDecrement,
@@ -86,8 +83,5 @@ export const {
 } = checkoutSlice.actions;
 
 export const getCheckoutSelector = (state) => state.checkout;
-
-// export const getCheckoutItemSelector = (id, state) => state.checkout
-//   .find((item) => item.id === id);
 
 export const checkoutReducer = checkoutSlice.reducer;

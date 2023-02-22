@@ -1,7 +1,12 @@
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addItemToCart, getCheckoutSelector } from '../../redux/slices/checkoutSlice';
+import { addToCart, getCheckoutSelector } from '../../redux/slices/checkoutSlice';
+import {
+  addToWishlist,
+  getWishlistSelector,
+  removeFromWishlist,
+} from '../../redux/slices/wishlistSlice';
 import { calcCondition } from '../../utils/utils';
 import {
   Price,
@@ -12,6 +17,7 @@ export function ProductItem({ item }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const checkout = useSelector(getCheckoutSelector);
+  const wishlist = useSelector(getWishlistSelector);
 
   const {
     name,
@@ -20,13 +26,23 @@ export function ProductItem({ item }) {
     discount,
     stock,
     available,
+    id,
   } = item;
 
-  const itemIndex = checkout.findIndex((el) => el.id === item.id);
+  const isAddedToCart = checkout.findIndex((el) => el.id === id) !== -1;
+
+  const isWishlisted = wishlist.findIndex((el) => el.id === id) !== -1;
+
+  const WishlistHandler = () => {
+    if (!isWishlisted) {
+      return dispatch(addToWishlist(id));
+    }
+    return dispatch(removeFromWishlist(id));
+  };
 
   const addToCartHandler = () => {
-    if (itemIndex === -1) {
-      return dispatch(addItemToCart(item));
+    if (!isAddedToCart) {
+      return dispatch(addToCart(item));
     }
     return navigate('/checkout');
   };
@@ -64,8 +80,14 @@ export function ProductItem({ item }) {
             </div>
             <div className="p-1">
               <button
+                onClick={WishlistHandler}
                 type="button"
-                className="btn btn-outline-danger card__btn"
+                className={clsx(
+                  'btn',
+                  'border-2',
+                  'btn-wishlist',
+                  { added: isWishlisted },
+                )}
               >
                 <i className="fa-regular fa-heart fa-lg" />
               </button>
@@ -76,11 +98,19 @@ export function ProductItem({ item }) {
                 type="button"
                 className={clsx(
                   'btn',
-                  'btn-secondary',
-                  { 'bg-warning': itemIndex !== -1 },
+                  'border-2',
+                  'btn-product-cart-add',
+                  { added: isAddedToCart },
                 )}
+                disabled={!available}
               >
-                <i className="fa-solid fa-shopping-cart fa-lg" />
+                <i className={clsx(
+                  'fa-solid',
+                  { 'fa-shopping-cart': !isAddedToCart, cart__icon: !isAddedToCart },
+                  { 'fa-check': isAddedToCart },
+                  'fa-lg',
+                )}
+                />
               </button>
             </div>
           </div>
