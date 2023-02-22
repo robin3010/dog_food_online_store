@@ -20,8 +20,11 @@ export function Search() {
   const setSearchHandler = (e) => {
     const newSearchValue = e.target.value;
     // setSearch(newSearchValue);
-
-    setSearchParams({
+    if (newSearchValue === '') {
+      searchParams.delete(searchParamsKeys.q);
+      return setSearchParams(searchParams);
+    }
+    return setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
       [searchParamsKeys.q]: newSearchValue,
     });

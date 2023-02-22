@@ -11,8 +11,10 @@ import { calcCondition } from '../../utils/utils';
 import {
   Price,
   ProductAvailableQuantity,
+  WishlistButtonTooltip,
 } from './ProductDynamicElements/ProductDynamicElements';
 import '../../css/buttons.css';
+import '../../css/tooltip.css';
 
 export function ProductItem({ item }) {
   const navigate = useNavigate();
@@ -79,7 +81,8 @@ export function ProductItem({ item }) {
                 </p>
               </div>
             </div>
-            <div className="p-1">
+            <div className="p-1 btn-tooltip tooltip-up">
+              <WishlistButtonTooltip isWishlisted={isWishlisted} />
               <button
                 onClick={WishlistHandler}
                 type="button"

@@ -11,8 +11,11 @@ export function TagFilterButton({ tag }) {
 
   const setTagFilterHandler = () => {
     const newTagFilter = setTagsFilter(tagsSelected, tag);
-
-    setSearchParams({
+    if (!newTagFilter.length) {
+      searchParams.delete(searchParamsKeys.tags);
+      return setSearchParams(searchParams);
+    }
+    return setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
       [searchParamsKeys.tags]: newTagFilter.join(),
     });

@@ -22,34 +22,40 @@ import { CheckoutHandlingBar } from './CheckoutHandlingBar/CheckoutHandlingBar';
 function CheckoutListReturn({ checkoutList, checkout }) {
   if (!checkout.length) {
     return (
-      <div className="card px-3 py-4" style={{ fontSize: '.875rem' }}>
-        <div className={placeholderStylesClasses}>
-          <div className="mb-3">
-            <img src={emptyCartPlaceholderImg} className="w-75 mb-3 opacity-75" alt="" />
-            <h3 className="mb-3">
-              Корзина пуста
-            </h3>
-            <h5>
-              Посмотрите предложения в каталоге
-            </h5>
+      <>
+        <h3 className="mb-3">Корзина</h3>
+        <div className="card px-3 py-4" style={{ fontSize: '.875rem' }}>
+          <div className={placeholderStylesClasses}>
+            <div className="mb-3">
+              <img src={emptyCartPlaceholderImg} className="w-75 mb-3 opacity-75" alt="" />
+              <h3 className="mb-3">
+                Корзина пуста
+              </h3>
+              <h5>
+                Посмотрите предложения в каталоге
+              </h5>
+            </div>
+            <PlaceholderButtons filters={false} list />
           </div>
-          <PlaceholderButtons filters={false} list />
         </div>
-      </div>
+      </>
     );
   }
   return (
-    <div className="row g-4" style={{ fontSize: '.875rem' }}>
-      <div className="col-12 col-lg-9">
-        <CheckoutCheckBar checkoutList={checkoutList} />
-        <div className="row gy-3">
-          {checkoutList.map((item) => (
-            <CheckoutProductItem key={item.id} item={{ ...item }} />
-          ))}
+    <>
+      <h3 className="mb-3">Корзина</h3>
+      <div className="row g-4" style={{ fontSize: '.875rem' }}>
+        <div className="col-12 col-lg-9">
+          <CheckoutHandlingBar checkoutList={checkoutList} />
+          <div className="row gy-3">
+            {checkoutList.map((item) => (
+              <CheckoutProductItem key={item.id} item={{ ...item }} />
+            ))}
+          </div>
         </div>
+        <CheckoutSummary checkoutList={checkoutList} />
       </div>
-      <CheckoutSummary checkoutList={checkoutList} />
-    </div>
+    </>
   );
 }
 

@@ -15,7 +15,10 @@ import {
   calcCondition,
   formatPrice,
 } from '../../../../utils/utils';
-import { Price } from '../../../ProductItem/ProductDynamicElements/ProductDynamicElements';
+import {
+  ItemCountLimitTooltip,
+  Price,
+} from '../../../ProductItem/ProductDynamicElements/ProductDynamicElements';
 import styles from '../Checkout.module.css';
 
 export function CheckoutProductItem({ item }) {
@@ -117,9 +120,10 @@ export function CheckoutProductItem({ item }) {
           </div>
           <div className="col">
             <div
-              className="d-flex flex-column align-items-center"
+              className="d-flex flex-column align-items-center btn-tooltip tooltip-down"
               style={{ width: '6rem' }}
             >
+              <ItemCountLimitTooltip stock={stock} count={count} />
               <div
                 className="input-group input-group-sm"
                 role="group"
