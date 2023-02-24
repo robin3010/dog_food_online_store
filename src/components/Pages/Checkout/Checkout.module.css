@@ -3,6 +3,7 @@
 .remove,
 .remove.disabled {
   color: #6c757d;
+  transition: all .3s cubic-bezier(.645, .045, .355, 1);
 }
 
 .wishlist:hover small,

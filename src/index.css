@@ -15,6 +15,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.btn, .nav-link {
+  transition: all .3s cubic-bezier(.645, .045, .355, 1);
+}
+
 .form-check-input:checked {
   background-color: var(--btn-main-color);
   border-color: var(--btn-main-color);
