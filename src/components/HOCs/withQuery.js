@@ -5,8 +5,6 @@ import '../../css/buttons.css';
 export const withQuery = (WrappedComponent) => function withQueryFunc({
   isLoading, isFetching, isError, error, refetch, ...rest
 }) {
-  console.log({ isLoading, isFetching });
-
   if (isLoading) return <Loader />;
 
   if (isError) {

@@ -128,7 +128,7 @@ export function Products() {
     queryFn: () => shopApi.getGoodsList(authToken),
     enabled: !!authToken,
     keepPreviousData: true,
-    onSuccess: (res) => applyFilters(res),
+    // onSuccess: (res) => applyFilters(res),
   });
 
   const appliedFiltersData = goods && applyFilters(goods);

@@ -16,7 +16,6 @@ export const Header = memo(() => {
   const checkoutCount = getItemsIds(useSelector(getCheckoutSelector)).length;
   const wishlistCount = getItemsIds(useSelector(getWishlistSelector)).length;
   const authToken = useSelector(getAuthTokenSelector);
-  console.log({ checkoutCount, authToken });
 
   return (
     <header className="main__header navbar navbar-expand-md">
@@ -54,12 +53,12 @@ export const Header = memo(() => {
           <NavLink to="/favorite" className="nav-link position-relative">
             <span
               className={clsx(
-                'position-absolute top-0 start-100 fs-6',
+                'position-absolute fs-6',
                 'translate-middle',
                 'badge',
                 'rounded-circle',
                 { 'rounded-pill': wishlistCount > 9 },
-                'cart__couter-icon bg-gradient',
+                'header__couter-icon bg-gradient',
                 { 'd-none': !wishlistCount || !authToken },
               )}
             >
@@ -71,12 +70,12 @@ export const Header = memo(() => {
           <NavLink to="/checkout" className="nav-link position-relative">
             <span
               className={clsx(
-                'position-absolute top-0 start-100 fs-6',
+                'position-absolute fs-6',
                 'translate-middle',
                 'badge',
                 'rounded-circle',
                 { 'rounded-pill': checkoutCount > 9 },
-                'cart__couter-icon bg-gradient',
+                'header__couter-icon bg-gradient',
                 { 'd-none': !checkoutCount || !authToken },
               )}
             >

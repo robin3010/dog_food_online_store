@@ -76,23 +76,23 @@ export function Checkout() {
   }, [authToken]);
 
   const {
-    data: checkoutList, isLoading, isFetching, isError, error, refetch,
+    data, isLoading, isFetching, isError, error, refetch,
   } = useQuery({
     queryKey: getCheckoutListQueryKey(checkoutIds),
     queryFn: () => shopApi.getGoodsByIds(checkoutIds, authToken),
     enabled: !!authToken,
     keepPreviousData: true,
-    onSuccess: (res) => res.filter((item) => !checkoutIds.includes(item.id)),
   });
 
-  // const checkoutList = data && data.filter((item) => !checkoutIds.includes(item.id));
-  // console.log({ test, checkoutIds });
+  const checkoutList = data
+    ? formatGoodsList(data).filter((item) => checkoutIds.includes(item.id))
+    : [];
 
   const checkoutListFormatted = (
-    checkoutList?.length
-    && combineItemParams(formatGoodsList(checkoutList), checkout)
+    checkoutList
+    && combineItemParams(checkoutList, checkout)
   );
-  console.log({ checkoutListFormatted });
+  // console.log({ checkoutListFormatted });
 
   return (
     <section className="bg-body-secondary flex-grow-1">

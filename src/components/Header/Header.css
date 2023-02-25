@@ -38,8 +38,10 @@
   border-bottom: 0.2rem solid var(--main-color);
 }
 
-.cart__couter-icon {
+.header__couter-icon {
   background-color: var(--btn-main-color);
+  top: 7%;
+  left: 93%;
 }
 
 .navbar__brand-text {

@@ -71,20 +71,23 @@ export function Wishlist() {
   }, [authToken]);
 
   const {
-    data: wishlistFetched, isLoading, isFetching, isError, error, refetch,
+    data, isLoading, isFetching, isError, error, refetch,
   } = useQuery({
     queryKey: getWishlistQueryKey(wishlistIds),
     queryFn: () => shopApi.getGoodsByIds(wishlistIds, authToken),
     enabled: !!authToken,
     keepPreviousData: true,
-    onSuccess: (res) => res.filter((item) => !wishlistIds.includes(item.id)),
   });
 
+  const wishlistFetched = data
+    ? formatGoodsList(data).filter((item) => wishlistIds.includes(item.id))
+    : [];
+
   const wishlistFormatted = (
-    wishlistFetched?.length
+    wishlistFetched
     && combineItemParams(formatGoodsList(wishlistFetched), wishlist)
   );
-  console.log({ wishlistFormatted });
+  // console.log({ wishlistFormatted });
 
   return (
     <section className="bg-body-secondary flex-grow-1">

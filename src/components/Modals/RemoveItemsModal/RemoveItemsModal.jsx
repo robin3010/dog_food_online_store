@@ -1,54 +1,53 @@
 import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
+import clsx from 'clsx';
 import { ModalContainer } from '../ModalContainer';
 import '../../../css/buttons.css';
-import { removeFromCart } from '../../../redux/slices/checkoutSlice';
+import { removeTypeConfig, REMOVE_TYPE_DATASET } from '../modalsUtils';
 
-export function DeleteItemsModal({
-  isOpen, setIsOpen, name: title, ids,
+export function RemoveItemsModal({
+  isOpen, setIsOpen, ids, type = REMOVE_TYPE_DATASET.item, name: title,
 }) {
-  // const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
-  const closeDeleteModal = () => {
+  const closeRemoveModal = () => {
     setIsOpen(false);
   };
 
-  const deleteHandler = () => {
-    dispatch(removeFromCart(ids));
-    closeDeleteModal();
-    // navigate('..', {
-    //   relative: 'path',
-    // });
+  const removeHandler = () => {
+    dispatch(removeTypeConfig[type].func(ids));
+    closeRemoveModal();
   };
 
   return (
 
-    <ModalContainer isOpen={isOpen} closeHandler={closeDeleteModal}>
+    <ModalContainer isOpen={isOpen} closeHandler={closeRemoveModal}>
       <>
         <h5 className="card-header text-center">
           Подтверждение
         </h5>
         <div className="card-body">
           <p className="text-center">
-            {'Удалить товар '}
-            <b>
+            {removeTypeConfig[type]?.message}
+            <b className={clsx(
+              { 'd-none': type !== REMOVE_TYPE_DATASET.item },
+            )}
+            >
               &quot;
               {title}
-              &quot;?
+              &quot;
             </b>
+            ?
           </p>
           <div className="d-flex justify-content-center gap-2">
             <button
-              onClick={deleteHandler}
+              onClick={removeHandler}
               type="button"
               className="btn btn-primary"
             >
-              Удалить
+              {removeTypeConfig[type]?.buttonTitle}
             </button>
             <button
-              onClick={closeDeleteModal}
+              onClick={closeRemoveModal}
               type="button"
               className="btn btn-outline-secondary"
             >

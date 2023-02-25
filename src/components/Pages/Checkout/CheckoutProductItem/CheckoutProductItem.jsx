@@ -15,7 +15,7 @@ import {
   calcCondition,
   formatPrice,
 } from '../../../../utils/utils';
-import { DeleteItemsModal } from '../../../Modals/DeleteItemsModal/DeleteItemsModal';
+import { RemoveItemsModal } from '../../../Modals/RemoveItemsModal/RemoveItemsModal';
 import {
   ItemCountLimitTooltip,
   Price,
@@ -54,7 +54,6 @@ export function CheckoutProductItem({ item }) {
       id,
       count: newCountValue,
     };
-    // console.log({ payload });
     setInput(newCountValue);
 
     dispatch(itemCountChange(payload));
@@ -70,18 +69,14 @@ export function CheckoutProductItem({ item }) {
     // setInput(input - 1);
   };
 
-  // const removeItemHandler = () => {
-  //   dispatch(removeFromCart(id));
-  // };
-
   const selectItemHandler = () => {
     dispatch(changeIsCheckedState(id));
   };
 
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
 
-  const openDeleteModalHandler = () => {
-    setIsDeleteModalOpen(true);
+  const openRemoveModalHandler = () => {
+    setIsRemoveModalOpen(true);
   };
 
   return (
@@ -121,8 +116,7 @@ export function CheckoutProductItem({ item }) {
                   <small>{isWishlisted ? 'Убрать из избранного' : 'В избранное'}</small>
                 </button>
                 <button
-                  // onClick={removeItemHandler}
-                  onClick={openDeleteModalHandler}
+                  onClick={openRemoveModalHandler}
                   className={`border-0 bg-transparent p-0 ${styles.removeSm}`}
                   type="button"
                 >
@@ -194,9 +188,9 @@ export function CheckoutProductItem({ item }) {
           </div>
         </div>
       </div>
-      <DeleteItemsModal
-        isOpen={isDeleteModalOpen}
-        setIsOpen={setIsDeleteModalOpen}
+      <RemoveItemsModal
+        isOpen={isRemoveModalOpen}
+        setIsOpen={setIsRemoveModalOpen}
         name={name}
         ids={id}
       />
