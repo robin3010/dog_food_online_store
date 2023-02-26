@@ -140,19 +140,17 @@ export function Products() {
   }, [goods, dispatch]);
 
   return (
-    <section className="bg-body-secondary flex-grow-1">
-      <div className="container p-3 p-md-4 py-lg-5">
-        <Filters />
-        <ProductsReturnWithQuery
-          goods={appliedFiltersData}
-          filters={{ search, tags: tagsSelected }}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          isError={isError}
-          error={error}
-          refetch={refetch}
-        />
-      </div>
-    </section>
+    <>
+      <Filters />
+      <ProductsReturnWithQuery
+        goods={appliedFiltersData}
+        filters={{ search, tags: tagsSelected }}
+        isLoading={isLoading}
+        isFetching={isFetching}
+        isError={isError}
+        error={error}
+        refetch={refetch}
+      />
+    </>
   );
 }

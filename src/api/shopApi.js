@@ -5,9 +5,6 @@ class ShopApi {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
     this.search = '';
-    // this.userName = '';
-    // this.userId = '';
-    // this.userGroup = '';
   }
 
   setSearch(search) {
@@ -56,11 +53,6 @@ class ShopApi {
     this.checkFetchErrors.call(fetchSignIn);
 
     const response = await fetchSignIn.json();
-
-    // this.userName = response.data.name;
-    // this.userId = response.data._id;
-    // this.userGroup = response.data.group;
-
     return response;
   }
 
@@ -76,27 +68,38 @@ class ShopApi {
     this.checkFetchErrors.call(fetchSignUp);
   }
 
-  // пока не используется
-  // async getUserInfo(group, property) {
-  //   this.checkAuthToken();
+  async getUserInfo(authToken, group) {
+    this.checkAuthToken(authToken);
 
-  //   const fetchUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me`, {
-  //     headers: {
-  //       authorization: this.getAuthHeader(),
-  //     },
-  //   });
+    const fetchUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me`, {
+      headers: {
+        authorization: this.getAuthHeader(authToken),
+      },
+    });
 
-  //   // this.checkFetchErrors.call(fetchUserInfo);
+    this.checkFetchErrors.call(fetchUserInfo);
 
-  //   const userInfo = await fetchUserInfo.json();
+    const userInfo = await fetchUserInfo.json();
+    return userInfo;
+  }
 
-  //   if (property) {
-  //     console.log(userInfo[property]);
-  //     return userInfo[property];
-  //   }
-  //   console.log(userInfo);
-  //   return userInfo;
-  // }
+  async editUserInfo(authToken, group, editedData) {
+    this.checkAuthToken(authToken);
+
+    const editUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this.getAuthHeader(authToken),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedData),
+    });
+
+    this.checkFetchErrors.call(editUserInfo);
+
+    const editedUserInfo = await editUserInfo.json();
+    return editedUserInfo;
+  }
 
   async getGoodsList(authToken) {
     console.log('start fetching getGoodsList');

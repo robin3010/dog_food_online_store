@@ -62,3 +62,5 @@ export const getGoodsSuffix = (count) => {
   if (lastNum === 1) return ' товар';
   return ' товаров';
 };
+
+export const removeExtraWhitespaces = (value) => value.trim().replace(/\s{2,}/g, '');

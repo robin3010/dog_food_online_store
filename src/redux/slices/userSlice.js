@@ -1,27 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { renameIdKey, withoutProperty } from '../reduxUtils/reduxUtils';
+import { renameIdKey } from '../reduxUtils/reduxUtils';
 import { initState } from '../initState';
 
 const userSlice = createSlice({
   name: 'user',
   initialState: initState.user,
   reducers: {
-    login: {
-      reducer(_, action) {
-        console.log(action.payload);
-        return action.payload;
-      },
-      prepare(apiUserData) {
-        const withoutEmail = withoutProperty(apiUserData.data, 'email');
-        const renamedIdKey = renameIdKey(withoutEmail);
-
-        return {
-          payload: {
-            ...renamedIdKey,
-            authToken: apiUserData.token,
-          },
-        };
-      },
+    login(_, action) {
+      return {
+        ...renameIdKey(action.payload.data),
+        authToken: action.payload.token,
+      };
+    },
+    setUserInfo(state, action) {
+      return {
+        ...state,
+        ...renameIdKey(action.payload),
+      };
     },
     logout() {
       return initState.user;
@@ -29,7 +24,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, setUserInfo, logout } = userSlice.actions;
 
 export const getUserDataSelector = (state) => state.user;
 export const getAuthTokenSelector = (state) => state.user.authToken;

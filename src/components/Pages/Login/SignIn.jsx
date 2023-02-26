@@ -10,7 +10,7 @@ import { LoginErrorAlert } from './Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
 import { login } from '../../../redux/slices/userSlice';
-import { updateValue } from '../../../redux/slices/isSessionSlice';
+import { setIsSession } from '../../../redux/slices/isSessionSlice';
 import '../../../css/buttons.css';
 
 const initialValues = {
@@ -28,7 +28,6 @@ export function SignIn() {
     mutateAsync, isLoading, isError, error,
   } = useMutation({
     mutationFn: (userData) => shopApi.signIn(userData),
-    // onSuccess: ({ data }) => saveUserData(data),
   });
 
   const signInHandler = async (values) => {
@@ -38,12 +37,10 @@ export function SignIn() {
       password,
     };
 
-    dispatch(updateValue(values.remember));
+    dispatch(setIsSession(values.remember));
     dispatch(login(await mutateAsync(validData)));
 
     navigate('/products');
-
-    // setTimeout(() => navigate('/products'));
   };
 
   return (

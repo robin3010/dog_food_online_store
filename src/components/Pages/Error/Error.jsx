@@ -19,7 +19,7 @@ export function ErrorPage() {
       <p>
         <i>{error.statusText || error.message}</i>
       </p>
-      <a href="/" style={{ textDecoration: 'none' }}>Вернуться на Главную</a>
+      <a href="./" style={{ textDecoration: 'none' }}>Вернуться на Главную</a>
     </div>
   );
 }

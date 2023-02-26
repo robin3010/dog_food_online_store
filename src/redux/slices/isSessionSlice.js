@@ -5,12 +5,12 @@ const isSessionSlice = createSlice({
   name: 'isSession',
   initialState: initState.isSession,
   reducers: {
-    updateValue(_, action) {
+    setIsSession(_, action) {
       return !action.payload;
     },
   },
 });
 
-export const { updateValue } = isSessionSlice.actions;
+export const { setIsSession } = isSessionSlice.actions;
 
 export const isSessionReducer = isSessionSlice.reducer;

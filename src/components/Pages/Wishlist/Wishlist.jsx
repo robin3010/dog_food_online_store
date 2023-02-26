@@ -90,18 +90,14 @@ export function Wishlist() {
   // console.log({ wishlistFormatted });
 
   return (
-    <section className="bg-body-secondary flex-grow-1">
-      <div className="container p-3 p-md-4 py-lg-5">
-        <WishlistReturnWithQuery
-          wishlistFetched={wishlistFormatted}
-          wishlist={wishlist}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          isError={isError}
-          error={error}
-          refetch={refetch}
-        />
-      </div>
-    </section>
+    <WishlistReturnWithQuery
+      wishlistFetched={wishlistFormatted}
+      wishlist={wishlist}
+      isLoading={isLoading}
+      isFetching={isFetching}
+      isError={isError}
+      error={error}
+      refetch={refetch}
+    />
   );
 }

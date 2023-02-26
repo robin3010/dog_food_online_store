@@ -22,6 +22,7 @@ import { Contacts } from './components/Pages/Contacts/Contacts';
 import { store } from './redux/store';
 import { Checkout } from './components/Pages/Checkout/Checkout';
 import { Wishlist } from './components/Pages/Wishlist/Wishlist';
+import { UserDetail } from './components/Pages/UserDetail/UserDetail';
 
 const rootRouter = createBrowserRouter([
   {
@@ -46,12 +47,16 @@ const rootRouter = createBrowserRouter([
         element: <Contacts />,
       },
       {
-        path: 'checkout',
-        element: <Checkout />,
-      },
-      {
         path: 'favorite',
         element: <Wishlist />,
+      },
+      {
+        path: 'user',
+        element: <UserDetail />,
+      },
+      {
+        path: 'checkout',
+        element: <Checkout />,
       },
       {
         path: 'login/',

@@ -1,23 +1,28 @@
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink } from 'react-router-dom';
-import { getAuthTokenSelector, getUserDataSelector, logout } from '../../../redux/slices/userSlice';
-
-const defaultAvatar = 'https://react-learning.ru/image-compressed/default-image.jpg';
-const defaultFirstName = 'Покупатель';
+import { getUserDataSelector, logout, setUserInfo } from '../../../redux/slices/userSlice';
+import { shopApi } from '../../../api/shopApi';
+import { renameIdKey } from '../../../redux/reduxUtils/reduxUtils';
+import defaultAvatar from '../../../images/default_avatar.png';
 
 function LoggedIn() {
-  const userData = useSelector(getUserDataSelector);
+  const userInfo = useSelector(getUserDataSelector);
   const dispatch = useDispatch();
 
-  let firstName = defaultFirstName;
-  let avatar = defaultAvatar;
+  const defaultApiAvatar = 'https://react-learning.ru/image-compressed/default-image.jpg';
+  const defaultFirstName = 'Покупатель';
 
-  if (Object.keys(userData).length) {
-    const userName = userData.name;
-    firstName = userName.replace(/\s.*/, '') || defaultFirstName;
-    avatar = userData.avatar || defaultAvatar;
-  }
+  const setAvatar = () => {
+    if (userInfo.avatar === defaultApiAvatar || !userInfo.avatar) {
+      return defaultAvatar;
+    }
+    return userInfo.avatar;
+  };
+
+  const firstName = userInfo?.name.replace(/\s.*/, '') || defaultFirstName;
+  const avatar = setAvatar();
 
   return (
     <div className="btn-group">
@@ -26,15 +31,9 @@ function LoggedIn() {
         type="button"
         data-bs-toggle="dropdown"
         data-bs-display="static"
-        data-bs-auto-close="outside"
+        data-bs-auto-close="true"
         aria-expanded="false"
       >
-        <i className={clsx(
-          'fa-solid',
-          'fa-user',
-          { 'd-none': avatar !== defaultAvatar },
-        )}
-        />
         <img
           src={avatar}
           alt=""
@@ -44,15 +43,14 @@ function LoggedIn() {
             'bg-opacity-10',
             'opacity-75',
             'header__user-avatar',
-            { 'd-none': avatar === defaultAvatar },
           )}
         />
       </button>
       <ul className="dropdown-menu dropdown-menu-sm-end text-center">
         <li>
-          <span className="dropdown-item-text fw-semibold py-2">
+          <Link to="/user" className="btn nav-link dropdown-item fw-semibold text-decoration-none">
             {firstName}
-          </span>
+          </Link>
         </li>
         <hr className="my-2" />
         <li>
@@ -79,9 +77,26 @@ function LoggedOut() {
 }
 
 export function LoginButton() {
-  const authToken = useSelector(getAuthTokenSelector);
+  const { authToken, group } = useSelector(getUserDataSelector);
+  const dispatch = useDispatch();
+
+  useQuery({
+    queryKey: ['fetchUserInfo'],
+    queryFn: () => shopApi.getUserInfo(authToken, group),
+    enabled: !!authToken,
+    // keepPreviousData: true,
+    onSuccess: (res) => {
+      dispatch(setUserInfo(res));
+      renameIdKey(res);
+    },
+  });
 
   if (!authToken) return <LoggedOut />;
 
-  return <LoggedIn />;
+  // const userInfo = isLoading ? getInitState().user : data;
+  // console.log(getInitState().user);
+
+  return (
+    <LoggedIn />
+  );
 }

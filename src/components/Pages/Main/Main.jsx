@@ -3,9 +3,10 @@ export function Main() {
     <div className="d-flex
       flex-column
       justify-content-center
-      align-items-center
-      m-auto
-      text-center"
+      text-center
+      py-5
+      bg-body
+      w-100"
     >
       <h1>
         Добро пожаловать
