@@ -23,6 +23,7 @@ import { store } from './redux/store';
 import { Checkout } from './components/Pages/Checkout/Checkout';
 import { Wishlist } from './components/Pages/Wishlist/Wishlist';
 import { UserDetail } from './components/Pages/UserDetail/UserDetail';
+import { ProductDetail } from './components/Pages/ProductDetail/ProductDetail';
 
 const rootRouter = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const rootRouter = createBrowserRouter([
       {
         path: 'products',
         element: <Products />,
+      },
+      {
+        path: 'products/:productId',
+        element: <ProductDetail />,
       },
       {
         path: 'delivery',

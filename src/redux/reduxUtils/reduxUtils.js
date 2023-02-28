@@ -3,8 +3,3 @@ export const withoutProperty = (fullUserData, property) => {
 
   return rest;
 };
-
-export const renameIdKey = ({ _id: id, ...rest }) => ({
-  id,
-  ...rest,
-});

@@ -6,9 +6,9 @@ import { shopApi } from '../../../api/shopApi';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
 import { placeholderStylesClasses } from '../../../utils/constants';
 import { getWishlistQueryKey } from '../../../utils/queryUtils';
-import { formatGoodsList } from '../../../utils/utils';
+import { formatGoods } from '../../../utils/utils';
 import { withQuery } from '../../HOCs/withQuery';
-import { PlaceholderButtons } from '../../PlaceholderButtons/PlaceholderButtons';
+import { PlaceholderButtons } from '../../Buttons/PlaceholderButtons/PlaceholderButtons';
 import emptyWishlistPlaceholderImg from '../../../images/empty_wishlist.png';
 import { getWishlistSelector } from '../../../redux/slices/wishlistSlice';
 import { WishlistProductItem } from './WishlistProductItem/WishlistProductItem';
@@ -80,7 +80,7 @@ export function Wishlist() {
   });
 
   const wishlistFetched = data
-    ? formatGoodsList(data).filter((item) => wishlistIds.includes(item.id))
+    ? formatGoods(data).filter((item) => wishlistIds.includes(item.id))
     : [];
 
   const wishlistFormatted = (

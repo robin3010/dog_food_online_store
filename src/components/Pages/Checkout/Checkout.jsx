@@ -7,9 +7,9 @@ import { getCheckoutSelector } from '../../../redux/slices/checkoutSlice';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
 import { placeholderStylesClasses } from '../../../utils/constants';
 import { getCheckoutListQueryKey } from '../../../utils/queryUtils';
-import { formatGoodsList } from '../../../utils/utils';
+import { formatGoods } from '../../../utils/utils';
 import { withQuery } from '../../HOCs/withQuery';
-import { PlaceholderButtons } from '../../PlaceholderButtons/PlaceholderButtons';
+import { PlaceholderButtons } from '../../Buttons/PlaceholderButtons/PlaceholderButtons';
 import { CheckoutProductItem } from './CheckoutProductItem/CheckoutProductItem';
 import { CheckoutSummary } from './CheckoutSummary/CheckoutSummary';
 import {
@@ -76,7 +76,7 @@ export function Checkout() {
   }, [authToken]);
 
   const {
-    data, isLoading, isFetching, isError, error, refetch,
+    data, isLoading, isError, error, refetch,
   } = useQuery({
     queryKey: getCheckoutListQueryKey(checkoutIds),
     queryFn: () => shopApi.getGoodsByIds(checkoutIds, authToken),
@@ -85,7 +85,7 @@ export function Checkout() {
   });
 
   const checkoutList = data
-    ? formatGoodsList(data).filter((item) => checkoutIds.includes(item.id))
+    ? formatGoods(data).filter((item) => checkoutIds.includes(item.id))
     : [];
 
   const checkoutListFormatted = (
@@ -99,7 +99,7 @@ export function Checkout() {
       checkoutList={checkoutListFormatted}
       checkout={checkout}
       isLoading={isLoading}
-      isFetching={isFetching}
+      // isFetching={isFetching}
       isError={isError}
       error={error}
       refetch={refetch}

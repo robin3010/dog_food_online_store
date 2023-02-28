@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
-import '../../css/buttons.css';
+import '../../../css/buttons.css';
 
 export function PlaceholderButtons({ filters, list }) {
   const listValue = Array.isArray(list) ? list.length : list;

@@ -1,16 +1,18 @@
 import { productParams } from './constants';
+import defaultAvatar from '../images/default_avatar.png';
+
+export const getAvgRating = (reviews) => {
+  const ratesArray = reviews.map((el) => el[productParams.rating]);
+
+  const avgRating = ratesArray
+    .reduce((acc, curr) => acc + Math.round(curr), 0) / reviews.length || 0;
+  return avgRating;
+};
 
 // Функция преобразования значений по требуемому условию
 // для дальнейшей сортировки массива данных по этому условию
 export const calcCondition = (item, condition) => {
   const value = item[condition];
-
-  const getAvgRating = () => {
-    const ratesArray = item.reviews.map((el) => el[condition]);
-
-    const avgRating = ratesArray.reduce((acc, curr) => acc + curr, 0) / item.reviews.length || 0;
-    return avgRating;
-  };
 
   switch (condition) {
     case productParams.price:
@@ -23,9 +25,10 @@ export const calcCondition = (item, condition) => {
       return +value;
 
     case productParams.rating:
-      return getAvgRating();
+      return getAvgRating(item.reviews);
 
-    default: return value.length;
+    default:
+      return value.length;
   }
 };
 
@@ -36,15 +39,29 @@ export const formatPrice = (price) => price?.toLocaleString('ru-RU', {
   // minimumFractionDigits: 0,
 });
 
-// Переименование ключа id; приведение значений ключа discount к диапазону [0 - 100]
-export const formatGoodsList = (list) => list.map(({ _id: id, discount, ...rest }) => {
-  const discountValue = +discount > 100 ? 100 : +discount;
-  return ({
-    id,
-    discount: discountValue,
-    ...rest,
-  });
-});
+
+// Переименование ключа id;
+// приведение значений ключа discount к диапазону [0 - 100];
+// округление оценок
+export const formatGoods = (data) => {
+  const getFormatted = ({
+    _id: id, discount, reviews, ...rest
+  }) => {
+    const discountValue = +discount > 100 ? 100 : +discount;
+
+    return ({
+      id,
+      discount: discountValue,
+      reviews: roundRating(reviews),
+      ...rest,
+    });
+  };
+
+  if (Array.isArray(data)) {
+    return data.map((item) => getFormatted(item));
+  }
+  return getFormatted(data);
+};
 
 export const sortGoods = (goods, condition, sortByPriceType) => {
   if (!condition) return goods;
@@ -64,3 +81,23 @@ export const getGoodsSuffix = (count) => {
 };
 
 export const removeExtraWhitespaces = (value) => value.trim().replace(/\s{2,}/g, '');
+
+export const setAvatar = (avatar) => {
+  const defaultApiAvatar = 'https://react-learning.ru/image-compressed/default-image.jpg';
+  if (avatar === defaultApiAvatar || !avatar) {
+    return defaultAvatar;
+  }
+  return avatar;
+};
+
+export const renameIdKey = (data) => {
+  const getRenamed = ({ _id: id, ...rest }) => ({
+    id,
+    ...rest,
+  });
+
+  if (Array.isArray(data)) {
+    return data.map((item) => getRenamed(item));
+  }
+  return getRenamed(data);
+};

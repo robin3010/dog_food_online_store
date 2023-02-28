@@ -14,3 +14,9 @@ export const getWishlistQueryKey = (ids) => [
   'wishlistFetch',
   { ...ids },
 ];
+
+export const getProductDetailQueryKey = (productId) => [
+  'productDetailFetch',
+  productId,
+];
+

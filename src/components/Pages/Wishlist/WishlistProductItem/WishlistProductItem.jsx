@@ -1,31 +1,18 @@
-// import { useDispatch } from 'react-redux';
-// import { removeFromWishlist } from '../../../../redux/slices/wishlistSlice';
-import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import {
-  addToCart,
-  getCheckoutSelector,
-} from '../../../../redux/slices/checkoutSlice';
-import {
-  addToWishlist,
   changeIsCheckedState,
-  getWishlistSelector,
-  removeFromWishlist,
 } from '../../../../redux/slices/wishlistSlice';
 import { calcCondition } from '../../../../utils/utils';
+import { WishlistButton } from '../../../Buttons/WishlistButton/WishlistButton';
+import { AddToCartButton } from '../../../Buttons/AddToCartButton/AddToCartButton';
 import {
-  Price,
   ProductAvailableQuantity,
-  WishlistButtonTooltip,
-} from '../../../ProductItem/ProductDynamicElements/ProductDynamicElements';
-import '../../../../css/buttons.css';
+} from '../../../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
+import { ProductPrice } from '../../../ProductElements/ProductPrice/ProductPrice';
 
 export function WishlistProductItem({ item }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const checkout = useSelector(getCheckoutSelector);
-  const wishlist = useSelector(getWishlistSelector);
 
   const {
     name,
@@ -37,24 +24,6 @@ export function WishlistProductItem({ item }) {
     id,
     isChecked,
   } = item;
-
-  const isAddedToCart = checkout.findIndex((el) => el.id === id) !== -1;
-
-  const isWishlisted = wishlist.findIndex((el) => el.id === id) !== -1;
-
-  const WishlistHandler = () => {
-    if (!isWishlisted) {
-      return dispatch(addToWishlist(id));
-    }
-    return dispatch(removeFromWishlist(id));
-  };
-
-  const addToCartHandler = () => {
-    if (!isAddedToCart) {
-      return dispatch(addToCart(item));
-    }
-    return navigate('/checkout');
-  };
 
   const selectItemHandler = () => {
     dispatch(changeIsCheckedState(id));
@@ -92,38 +61,12 @@ export function WishlistProductItem({ item }) {
           </div>
           <div className="col">
             <div className="d-flex flex-column justify-content-between h-100">
-              <div className="d-flex flex-column align-items-end fw-semibold">
-                <Price price={price} discount={discount} column />
+              <div className="d-flex flex-column align-items-end fw-semibold pb-3">
+                <ProductPrice price={price} discount={discount} column />
               </div>
-              <div className="d-flex justify-content-end gap-3 product__card">
-                <button
-                  onClick={WishlistHandler}
-                  type="button"
-                  className={clsx(
-                    'btn',
-                    'border-2',
-                    'btn-wishlist',
-                    'btn-tooltip tooltip-up',
-                    { added: isWishlisted },
-                  )}
-                >
-                  <WishlistButtonTooltip isWishlisted={isWishlisted} />
-                  <i className="fa-regular fa-heart fa-lg" />
-                </button>
-                <button
-                  onClick={addToCartHandler}
-                  type="button"
-                  className={clsx(
-                    'btn',
-                    'border-2',
-                    'btn-product-cart-add',
-                    { added: isAddedToCart },
-                  )}
-                  style={{ minWidth: '6.5rem' }}
-                  disabled={!available}
-                >
-                  {!isAddedToCart ? 'Купить' : 'В корзине'}
-                </button>
+              <div className="d-flex justify-content-end gap-2 product__card">
+                <WishlistButton id={id} />
+                <AddToCartButton item={item} textual />
               </div>
             </div>
           </div>

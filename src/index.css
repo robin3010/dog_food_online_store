@@ -72,13 +72,13 @@ body {
   right: 0.078rem;
 }
 
-
+/* 
 .product__card-price {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   max-width: 7.5rem;
-}
+} */
 
 .product__card-price_bg {
   background-image: linear-gradient(270deg, hsl(220deg 24% 40% / 30%), var(--bs-tertiary-bg));
@@ -98,11 +98,19 @@ body {
   object-fit: contain;
 }
 
-/* .product__cart_btn-active {
-  background: hsl(87deg 100% 35% / 80%);
-  border-color: transparent;
-  background-image: linear-gradient(315deg, transparent, rgba(255, 255, 255, 0.5));
-} */
+/* PRODUCT DETAIL */
+.product__detail .product__card-img {
+  height: 256px;
+  width: 256px;
+}
+
+.vendor__logo {
+  border: 2px solid var(--main-color);
+  box-shadow: 0 0px 2px .5px rgba(28, 34, 46, .3);
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+}
 
 
 /* CHECKOUT */

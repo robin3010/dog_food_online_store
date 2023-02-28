@@ -1,27 +1,13 @@
-import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { addToCart, getCheckoutSelector } from '../../redux/slices/checkoutSlice';
-import {
-  addToWishlist,
-  getWishlistSelector,
-  removeFromWishlist,
-} from '../../redux/slices/wishlistSlice';
+import { Link } from 'react-router-dom';
 import { calcCondition } from '../../utils/utils';
+import { AddToCartButton } from '../Buttons/AddToCartButton/AddToCartButton';
+import { WishlistButton } from '../Buttons/WishlistButton/WishlistButton';
 import {
-  Price,
   ProductAvailableQuantity,
-  WishlistButtonTooltip,
-} from './ProductDynamicElements/ProductDynamicElements';
-import '../../css/buttons.css';
-import '../../css/tooltip.css';
+} from '../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
+import { ProductPrice } from '../ProductElements/ProductPrice/ProductPrice';
 
 export function ProductItem({ item }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const checkout = useSelector(getCheckoutSelector);
-  const wishlist = useSelector(getWishlistSelector);
-
   const {
     name,
     price,
@@ -31,24 +17,6 @@ export function ProductItem({ item }) {
     available,
     id,
   } = item;
-
-  const isAddedToCart = checkout.findIndex((el) => el.id === id) !== -1;
-
-  const isWishlisted = wishlist.findIndex((el) => el.id === id) !== -1;
-
-  const WishlistHandler = () => {
-    if (!isWishlisted) {
-      return dispatch(addToWishlist(id));
-    }
-    return dispatch(removeFromWishlist(id));
-  };
-
-  const addToCartHandler = () => {
-    if (!isAddedToCart) {
-      return dispatch(addToCart(item));
-    }
-    return navigate('/checkout');
-  };
 
   return (
     <div className="col">
@@ -77,46 +45,12 @@ export function ProductItem({ item }) {
                 border border-tertiary rounded w-100"
               >
                 <p className="m-auto ms-2 fw-semibold product__card-price">
-                  <Price price={price} discount={discount} />
+                  <ProductPrice price={price} discount={discount} />
                 </p>
               </div>
             </div>
-            <div className="p-1 btn-tooltip tooltip-up">
-              <WishlistButtonTooltip isWishlisted={isWishlisted} />
-              <button
-                onClick={WishlistHandler}
-                type="button"
-                className={clsx(
-                  'btn',
-                  'border-2',
-                  'btn-wishlist',
-                  { added: isWishlisted },
-                )}
-              >
-                <i className="fa-regular fa-heart fa-lg" />
-              </button>
-            </div>
-            <div className="p-1 pe-0">
-              <button
-                onClick={addToCartHandler}
-                type="button"
-                className={clsx(
-                  'btn',
-                  'border-2',
-                  'btn-product-cart-add',
-                  { added: isAddedToCart },
-                )}
-                disabled={!available}
-              >
-                <i className={clsx(
-                  'fa-solid',
-                  { 'fa-shopping-cart': !isAddedToCart, cart__icon: !isAddedToCart },
-                  { 'fa-check': isAddedToCart },
-                  'fa-lg',
-                )}
-                />
-              </button>
-            </div>
+            <WishlistButton id={id} />
+            <AddToCartButton item={item} textual={false} />
           </div>
         </footer>
       </div>

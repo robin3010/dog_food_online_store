@@ -16,10 +16,8 @@ import {
   formatPrice,
 } from '../../../../utils/utils';
 import { RemoveItemsModal } from '../../../Modals/RemoveItemsModal/RemoveItemsModal';
-import {
-  ItemCountLimitTooltip,
-  Price,
-} from '../../../ProductItem/ProductDynamicElements/ProductDynamicElements';
+import { ProductPrice } from '../../../ProductElements/ProductPrice/ProductPrice';
+import { ItemCountLimitTooltip } from '../../../ProductElements/ProductTooltips/ProductTooltips';
 import styles from '../Checkout.module.css';
 
 export function CheckoutProductItem({ item }) {
@@ -182,7 +180,7 @@ export function CheckoutProductItem({ item }) {
             </div>
             <div className="col">
               <div className="d-flex flex-column align-items-end fw-semibold">
-                <Price price={price * count} discount={discount} column />
+                <ProductPrice price={price * count} discount={discount} column />
               </div>
             </div>
           </div>

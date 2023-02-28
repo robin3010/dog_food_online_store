@@ -102,7 +102,6 @@ class ShopApi {
   }
 
   async getGoodsList(authToken) {
-    console.log('start fetching getGoodsList');
     this.checkAuthToken(authToken);
 
     const searchQuery = this.search && this.getSearchQuery();
@@ -121,24 +120,25 @@ class ShopApi {
     return response.products;
   }
 
-  async getGoodsByIds(ids, authToken) {
-    console.log('start fetching getCheckoutList');
+  async getProductById(productId, authToken) {
     this.checkAuthToken(authToken);
 
-    const getItemById = async (itemId) => {
-      const fetchItemById = await fetch(`${BASE_URL}/products/${itemId}`, {
-        headers: {
-          authorization: this.getAuthHeader(authToken),
-        },
-      });
+    const fetchProductById = await fetch(`${BASE_URL}/products/${productId}`, {
+      headers: {
+        authorization: this.getAuthHeader(authToken),
+      },
+    });
 
-      this.checkFetchErrors.call(fetchItemById);
+    this.checkFetchErrors.call(fetchProductById);
 
-      const response = await fetchItemById.json();
-      return response;
-    };
+    const response = await fetchProductById.json();
+    return response;
+  }
 
-    const fetchGoodsById = await Promise.all(ids.map((id) => getItemById(id)));
+  async getGoodsByIds(goodsIds, authToken) {
+    const fetchGoodsById = await Promise.all(
+      goodsIds.map((id) => this.getProductById(id, authToken)),
+    );
     return fetchGoodsById;
   }
 }

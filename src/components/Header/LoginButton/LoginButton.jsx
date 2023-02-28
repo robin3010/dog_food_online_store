@@ -4,25 +4,16 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink } from 'react-router-dom';
 import { getUserDataSelector, logout, setUserInfo } from '../../../redux/slices/userSlice';
 import { shopApi } from '../../../api/shopApi';
-import { renameIdKey } from '../../../redux/reduxUtils/reduxUtils';
-import defaultAvatar from '../../../images/default_avatar.png';
+import { renameIdKey, setAvatar } from '../../../utils/utils';
 
 function LoggedIn() {
   const userInfo = useSelector(getUserDataSelector);
   const dispatch = useDispatch();
 
-  const defaultApiAvatar = 'https://react-learning.ru/image-compressed/default-image.jpg';
   const defaultFirstName = 'Покупатель';
 
-  const setAvatar = () => {
-    if (userInfo.avatar === defaultApiAvatar || !userInfo.avatar) {
-      return defaultAvatar;
-    }
-    return userInfo.avatar;
-  };
-
   const firstName = userInfo?.name.replace(/\s.*/, '') || defaultFirstName;
-  const avatar = setAvatar();
+  const avatar = setAvatar(userInfo.avatar);
 
   return (
     <div className="btn-group">
@@ -38,7 +29,7 @@ function LoggedIn() {
           src={avatar}
           alt=""
           className={clsx(
-            'rounded-5',
+            'rounded-circle',
             'bg-tertiary',
             'bg-opacity-10',
             'opacity-75',
@@ -92,9 +83,6 @@ export function LoginButton() {
   });
 
   if (!authToken) return <LoggedOut />;
-
-  // const userInfo = isLoading ? getInitState().user : data;
-  // console.log(getInitState().user);
 
   return (
     <LoggedIn />

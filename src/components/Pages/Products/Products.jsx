@@ -14,15 +14,13 @@ import { getGoodsListQueryKey } from '../../../utils/queryUtils';
 import { Filters } from '../../Filters/Filters';
 import { getFilteredByTags } from '../../Filters/filterUtils/filterUtils';
 import { withQuery } from '../../HOCs/withQuery';
-import { PlaceholderButtons } from '../../PlaceholderButtons/PlaceholderButtons';
+import { PlaceholderButtons } from '../../Buttons/PlaceholderButtons/PlaceholderButtons';
 import { ProductItem } from '../../ProductItem/ProductItem';
 import noFilterResultsImg from '../../../images/result_not_found.png';
-import { formatGoodsList, sortGoods } from '../../../utils/utils';
+import { formatGoods, sortGoods } from '../../../utils/utils';
 
 function ProductsReturn({ goods, filters: { search, tags } }) {
   const isFilters = !!search || !!tags.length;
-
-  console.log({ goods });
 
   const searchPhrase = (
     <>
@@ -88,8 +86,6 @@ function ProductsReturn({ goods, filters: { search, tags } }) {
 const ProductsReturnWithQuery = withQuery(ProductsReturn);
 
 export function Products() {
-  console.log('Render Products');
-
   const authToken = useSelector(getAuthTokenSelector);
   const [searchParams] = useSearchParams();
   const search = useSelector(getSearchFilterSelector);
@@ -107,16 +103,11 @@ export function Products() {
   const lastSort = searchParams.get(searchParamsKeys.sort) ?? '';
 
   const applyFilters = (fetchResponse) => {
-    let formattedData = formatGoodsList(fetchResponse);
+    const condition = lastSort.startsWith(`${productParams.price}_`)
+      ? productParams.price
+      : lastSort;
 
-    if (lastSort) {
-      let condition = lastSort;
-      const sortFilterName = lastSort;
-      if (lastSort === productParams.price_down || lastSort === productParams.price_up) {
-        condition = productParams.price;
-      }
-      formattedData = sortGoods(formattedData, condition, sortFilterName);
-    }
+    const formattedData = sortGoods(formatGoods(fetchResponse), condition, lastSort);
 
     return formattedData && getFilteredByTags(formattedData, tagsSelected);
   };
@@ -128,7 +119,6 @@ export function Products() {
     queryFn: () => shopApi.getGoodsList(authToken),
     enabled: !!authToken,
     keepPreviousData: true,
-    // onSuccess: (res) => applyFilters(res),
   });
 
   const appliedFiltersData = goods && applyFilters(goods);
