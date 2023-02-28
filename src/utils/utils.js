@@ -39,6 +39,14 @@ export const formatPrice = (price) => price?.toLocaleString('ru-RU', {
   // minimumFractionDigits: 0,
 });
 
+export const formatTime = (time) => new Date(time)
+  .toLocaleString('ru-RU', { dateStyle: 'medium', timeStyle: 'short' })
+  .replace(/г\.,/, 'в');
+
+export const roundRating = (reviews) => reviews.map(({ rating, ...review }) => ({
+  rating: rating.toFixed(),
+  ...review,
+}));
 
 // Переименование ключа id;
 // приведение значений ключа discount к диапазону [0 - 100];

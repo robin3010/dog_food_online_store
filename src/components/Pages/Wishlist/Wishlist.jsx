@@ -83,15 +83,15 @@ export function Wishlist() {
     ? formatGoods(data).filter((item) => wishlistIds.includes(item.id))
     : [];
 
-  const wishlistFormatted = (
+  const wishlistCombined = (
     wishlistFetched
-    && combineItemParams(formatGoodsList(wishlistFetched), wishlist)
+    && combineItemParams(wishlistFetched, wishlist)
   );
-  // console.log({ wishlistFormatted });
+  // console.log({ wishlistCombined });
 
   return (
     <WishlistReturnWithQuery
-      wishlistFetched={wishlistFormatted}
+      wishlistFetched={wishlistCombined}
       wishlist={wishlist}
       isLoading={isLoading}
       isFetching={isFetching}

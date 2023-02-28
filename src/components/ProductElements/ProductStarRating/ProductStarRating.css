@@ -1,0 +1,22 @@
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+  font-size: .875rem;
+}
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: #bbb;
+}
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: var(--discount-color);
+}

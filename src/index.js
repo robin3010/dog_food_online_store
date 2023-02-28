@@ -24,6 +24,10 @@ import { Checkout } from './components/Pages/Checkout/Checkout';
 import { Wishlist } from './components/Pages/Wishlist/Wishlist';
 import { UserDetail } from './components/Pages/UserDetail/UserDetail';
 import { ProductDetail } from './components/Pages/ProductDetail/ProductDetail';
+import { ProductReviews } from './components/Pages/ProductDetail/ProductReviews/ProductReviews';
+import {
+  ProductDescription,
+} from './components/Pages/ProductDetail/ProductDescription/ProductDescription';
 
 const rootRouter = createBrowserRouter([
   {
@@ -42,6 +46,20 @@ const rootRouter = createBrowserRouter([
       {
         path: 'products/:productId',
         element: <ProductDetail />,
+        children: [
+          {
+            index: true,
+            element: <ProductDescription />,
+          },
+          {
+            path: 'description',
+            element: <ProductDescription />,
+          },
+          {
+            path: 'reviews',
+            element: <ProductReviews />,
+          },
+        ],
       },
       {
         path: 'delivery',

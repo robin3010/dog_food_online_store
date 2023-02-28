@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import {
-  useParams,
+  NavLink, Outlet, useMatch, useParams,
 } from 'react-router-dom';
 import { shopApi } from '../../../api/shopApi';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
 import { productParams } from '../../../utils/constants';
 import { getProductDetailQueryKey } from '../../../utils/queryUtils';
 import {
-  calcCondition, formatGoods,
+  calcCondition, formatGoods, getAvgRating, setAvatar,
 } from '../../../utils/utils';
 import { AddToCartButton } from '../../Buttons/AddToCartButton/AddToCartButton';
 import { WishlistButton } from '../../Buttons/WishlistButton/WishlistButton';
@@ -18,6 +18,8 @@ import {
   ProductAvailableQuantity,
 } from '../../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
 import { ProductPrice } from '../../ProductElements/ProductPrice/ProductPrice';
+import { ProductReviewsCount } from '../../ProductElements/ProductReviewsCount/ProductReviewsCount';
+import { ProductStarRating } from '../../ProductElements/ProductStarRating/ProductStarRating';
 
 function ProductDetailReturn({ item, isReviewsOpen }) {
   const {
@@ -34,6 +36,8 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
     wight,
   } = item;
 
+  const avgRating = parseFloat(getAvgRating(reviews).toFixed(2));
+  const reviewsCount = calcCondition(item, productParams.reviews);
 
   return (
     <>
@@ -51,6 +55,10 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
                 <p className="card-text">{description}</p>
                 <div>
                   {/* <span>{`likes ${calcCondition(item, 'likes')}`}</span> */}
+                  <div className="d-flex gap-2">
+                    <ProductStarRating rating={avgRating} />
+                    <ProductReviewsCount reviewsCount={reviewsCount} />
+                  </div>
                   {/* <span>{`discount ${calcCondition(item, 'discount')}`}</span> */}
                 </div>
               </div>
@@ -84,6 +92,24 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
             </div>
           </div>
         </div>
+        <div className="card">
+          <div className="row g-0">
+            <nav className="nav nav-tabs nav-fill fw-bolder fs-5">
+              <NavLink
+                to="./description"
+                className={clsx(
+                  'nav-link',
+                  { active: !isReviewsOpen },
+                )}
+              >
+                Описание
+              </NavLink>
+              <NavLink to="./reviews" className="nav-link">Отзывы</NavLink>
+            </nav>
+            <hr />
+            <Outlet context={description} />
+          </div>
+        </div>
       </div>
     </>
   );
@@ -94,6 +120,8 @@ const ProductDetailReturnWithQuery = withQuery(ProductDetailReturn);
 export function ProductDetail() {
   const { productId } = useParams();
   const authToken = useSelector(getAuthTokenSelector);
+
+  const isReviewsOpen = useMatch('/products/:productId/reviews');
 
   const {
     data, isLoading, isFetching, isError, error, refetch,
@@ -107,6 +135,7 @@ export function ProductDetail() {
   return (
     <ProductDetailReturnWithQuery
       item={item}
+      isReviewsOpen={isReviewsOpen}
       isLoading={isLoading}
       isFetching={isFetching}
       isError={isError}
