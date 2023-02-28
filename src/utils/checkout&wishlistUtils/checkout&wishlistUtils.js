@@ -13,14 +13,9 @@ export const getSelectedItemsCount = (itemsList) => itemsList.reduce((acc, curr)
 }, 0);
 
 export const getTotal = (itemsList, selected) => {
-  let selectedItems = itemsList;
-  if (selected) {
-    selectedItems = itemsList.filter((item) => item.isChecked);
-  }
-  // console.log({ selectedItems });
+  const selectedItems = selected ? itemsList.filter((item) => item.isChecked) : itemsList;
 
   return selectedItems.reduce((acc, curr) => {
-    // console.log(acc.totalPrice, acc.totalDiscount, acc.totalPriceDiscounted);
     const totalPrice = acc.totalPrice || 0;
     const totalDiscount = acc.totalDiscount || 0;
     const totalPriceDiscounted = acc.totalPriceDiscounted || 0;

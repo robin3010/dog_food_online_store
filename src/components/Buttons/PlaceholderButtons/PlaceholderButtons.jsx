@@ -5,13 +5,8 @@ import '../../../css/buttons.css';
 export function PlaceholderButtons({ filters, list }) {
   const listValue = Array.isArray(list) ? list.length : list;
 
-  // const [searchParams, setSearchParams] = useSearchParams();
-
   const navigate = useNavigate();
   const clearSearchHandler = () => {
-    // setSearch('');
-    // searchParams.delete('q');
-    // setSearchParams(searchParams);
     navigate('/products');
   };
 
@@ -41,8 +36,6 @@ export function PlaceholderButtons({ filters, list }) {
         </button>
       </Link>
       <div
-        // to="/products"
-        // onClick={clearSearchHandler}
         className={clsx('col', { 'd-none': !listValue && !filters })}
       >
         <button

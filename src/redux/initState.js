@@ -33,27 +33,6 @@ export const getInitState = () => {
     }, {});
   };
 
-  // const userDataFromStorage = webStorage.getItem(STORE_SLICES.user);
-  // const initUserData = userDataFromStorage
-  //   ? JSON.parse(userDataFromStorage)
-  //   : initState.user;
-
-  // const checkoutFromStorage = webStorage.getItem(STORE_SLICES.checkout);
-  // const initCheckout = checkoutFromStorage
-  //   ? JSON.parse(checkoutFromStorage)
-  //   : initState.checkout;
-
-  // console.log(Object.keys(initUserData).length);
-  // if (Object.keys(initUserData).length) {
-  //   shopApi.setAuthToken(initUserData.user.authToken);
-  // }
-
-  // return {
-  //   user: initUserData,
-  //   isSession: isSessionFromLS,
-  //   checkout: initCheckout,
-  // };
-
   return {
     ...getDataFromStorage(STORE_SLICES),
   };

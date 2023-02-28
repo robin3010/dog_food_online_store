@@ -71,7 +71,7 @@ export function Wishlist() {
   }, [authToken]);
 
   const {
-    data, isLoading, isFetching, isError, error, refetch,
+    data, isLoading, isError, error, refetch,
   } = useQuery({
     queryKey: getWishlistQueryKey(wishlistIds),
     queryFn: () => shopApi.getGoodsByIds(wishlistIds, authToken),
@@ -87,14 +87,12 @@ export function Wishlist() {
     wishlistFetched
     && combineItemParams(wishlistFetched, wishlist)
   );
-  // console.log({ wishlistCombined });
 
   return (
     <WishlistReturnWithQuery
       wishlistFetched={wishlistCombined}
       wishlist={wishlist}
       isLoading={isLoading}
-      isFetching={isFetching}
       isError={isError}
       error={error}
       refetch={refetch}

@@ -11,8 +11,6 @@ import './Header.css';
 import { getWishlistSelector } from '../../redux/slices/wishlistSlice';
 
 export const Header = memo(() => {
-  console.log('Render Header');
-
   const checkoutCount = getItemsIds(useSelector(getCheckoutSelector)).length;
   const wishlistCount = getItemsIds(useSelector(getWishlistSelector)).length;
   const authToken = useSelector(getAuthTokenSelector);
@@ -34,7 +32,7 @@ export const Header = memo(() => {
             src={logo}
             alt="Logo"
             width="60px"
-            className="d-inline-block align-text-center me-0 me-sm-2"
+            className="d-inline-block me-0 me-sm-2"
           />
           <span className="navbar__brand-text align-middle d-none d-sm-inline">
             Dog Food

@@ -36,7 +36,6 @@ export const formatPrice = (price) => price?.toLocaleString('ru-RU', {
   style: 'currency',
   currency: 'RUB',
   maximumFractionDigits: 0,
-  // minimumFractionDigits: 0,
 });
 
 export const formatTime = (time) => new Date(time)

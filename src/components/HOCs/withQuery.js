@@ -1,10 +1,13 @@
 import { Loader } from '../Loaders/Loader';
 import { ModalLoader } from '../Loaders/ModalLoader';
 import '../../css/buttons.css';
+import { delayedRender } from './delayedRender';
 
 export const withQuery = (WrappedComponent) => function withQueryFunc({
   isLoading, isFetching, isError, error, refetch, ...rest
 }) {
+  const DelayedModalLoader = delayedRender(ModalLoader);
+
   if (isLoading) return <Loader />;
 
   if (isError) {
@@ -29,7 +32,7 @@ export const withQuery = (WrappedComponent) => function withQueryFunc({
     return (
       <>
         <WrappedComponent {...rest} />
-        <ModalLoader />
+        <DelayedModalLoader delay={1000} />
       </>
     );
   }

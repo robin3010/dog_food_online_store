@@ -6,14 +6,11 @@
   height: 100%;
   z-index: 9990;
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
   background-color: rgba(0, 0, 0, .4);
   backdrop-filter: blur(3px);
 }
 
 .modal__content{ 
-  /* padding: 12px 24px; */
   margin: auto;
   min-width: 320px;
   max-width: 480px;

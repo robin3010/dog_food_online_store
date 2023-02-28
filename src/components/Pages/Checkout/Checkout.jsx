@@ -92,14 +92,12 @@ export function Checkout() {
     checkoutList
     && combineItemParams(checkoutList, checkout)
   );
-  // console.log({ checkoutListFormatted });
 
   return (
     <CheckoutListReturnWithQuery
       checkoutList={checkoutListFormatted}
       checkout={checkout}
       isLoading={isLoading}
-      // isFetching={isFetching}
       isError={isError}
       error={error}
       refetch={refetch}

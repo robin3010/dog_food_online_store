@@ -80,8 +80,6 @@ export function AddReviewForm() {
               <button
                 type="submit"
                 className="btn btn-primary mt-2 ms-auto"
-                // data-bs-toggle="collapse"
-                // data-bs-target="#collapseAddReview"
                 disabled={values.text === initialValues.text}
               >
                 Отправить

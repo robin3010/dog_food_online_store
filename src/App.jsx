@@ -5,7 +5,6 @@ import { Header } from './components/Header/Header';
 
 function App() {
   const { pathname } = useLocation();
-  console.log({ pathname });
 
   return (
     <div className="d-flex flex-column min-vh-100">

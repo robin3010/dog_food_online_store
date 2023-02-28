@@ -8,9 +8,6 @@ import { useDebounce } from '../../hooks/useDebounce';
 
 export function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [search, setSearch] = useState(
-  //   () => searchParams.get(searchParamsKeys.q) ?? '',
-  // );
   const searchQuery = searchParams.get(searchParamsKeys.q) ?? '';
 
   const debouncedSearch = useDebounce(searchQuery, 750);
@@ -19,7 +16,6 @@ export function Search() {
 
   const setSearchHandler = (e) => {
     const newSearchValue = e.target.value;
-    // setSearch(newSearchValue);
     if (newSearchValue === '') {
       searchParams.delete(searchParamsKeys.q);
       return setSearchParams(searchParams);

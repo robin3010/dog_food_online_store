@@ -75,7 +75,6 @@ export function LoginButton() {
     queryKey: ['fetchUserInfo'],
     queryFn: () => shopApi.getUserInfo(authToken, group),
     enabled: !!authToken,
-    // keepPreviousData: true,
     onSuccess: (res) => {
       dispatch(setUserInfo(res));
       renameIdKey(res);

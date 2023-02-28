@@ -59,12 +59,10 @@ export function CheckoutProductItem({ item }) {
 
   const countIncrementHandler = () => {
     dispatch(itemCountIncrement(id));
-    // setInput(input + 1);
   };
 
   const countDecrementHandler = () => {
     dispatch(itemCountDecrement(id));
-    // setInput(input - 1);
   };
 
   const selectItemHandler = () => {

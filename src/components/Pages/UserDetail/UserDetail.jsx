@@ -33,7 +33,6 @@ export function UserDetail() {
       [curr[0]]: removeExtraWhitespaces(curr[1]),
     }), {});
 
-    console.log({ values, formattedValues });
     dispatch(setUserInfo(await mutateAsync(formattedValues)));
   };
 
@@ -67,7 +66,6 @@ export function UserDetail() {
                           'is-valid': !errors.name && touched.name,
                         })}
                         name="name"
-                          // value={userInfo.name ?? ''}
                         placeholder="Имя пользователя"
                       />
                       <label htmlFor="name">Имя пользователя</label>
@@ -85,7 +83,6 @@ export function UserDetail() {
                           'is-valid': !errors.about && touched.about,
                         })}
                         name="about"
-                          // value={userInfo.about ?? ''}
                         placeholder="О себе"
                       />
                       <label htmlFor="about">О себе</label>

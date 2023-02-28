@@ -6,8 +6,6 @@ import { conditionsSet } from './ConditionFilterButton/conditionsSet';
 import { ConditionFilterButton } from './ConditionFilterButton/ConditionFilterButton';
 
 export function Filters() {
-  console.log('Render Filters');
-
   const tagsCollection = useSelector(getTagsCollectionSelector);
 
   return (
