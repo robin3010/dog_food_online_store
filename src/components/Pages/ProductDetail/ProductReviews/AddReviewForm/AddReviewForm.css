@@ -1,0 +1,20 @@
+input#rating::-webkit-slider-thumb {
+  background: var(--btn-sec-color);
+  box-shadow: none;
+}
+
+input#rating::-webkit-slider-runnable-track {
+  transition: all .3s cubic-bezier(.645, .045, .355, 1);
+}
+
+input#rating::-webkit-slider-runnable-track {
+  background-color: var(--discount-color);
+}
+
+input#rating::-webkit-slider-runnable-track:hover {
+  background-color: var(--btn-main-color); 
+}
+
+input#rating::-webkit-slider-runnable-track:active {
+  background-color: var(--btn-main-color-darker);
+}

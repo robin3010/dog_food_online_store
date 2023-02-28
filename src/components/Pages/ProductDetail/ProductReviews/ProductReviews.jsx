@@ -7,6 +7,7 @@ import { getProductReviewsQueryKey } from '../../../../utils/queryUtils';
 import { getAvgRating, renameIdKey, roundRating } from '../../../../utils/utils';
 import { withQuery } from '../../../HOCs/withQuery';
 import { ProductStarRating } from '../../../ProductElements/ProductStarRating/ProductStarRating';
+import { AddReviewForm } from './AddReviewForm/AddReviewForm';
 import { ProductReview } from './ProductReview/ProductReview';
 
 function ProductReviewsReturn({ reviews, avgRating }) {
@@ -32,6 +33,7 @@ function ProductReviewsReturn({ reviews, avgRating }) {
           <span>Общий Рейтинг: </span>
           <ProductStarRating rating={avgRating} />
         </div>
+        <AddReviewForm />
       </div>
       {reviews.map((review, index) => (
         <ProductReview
