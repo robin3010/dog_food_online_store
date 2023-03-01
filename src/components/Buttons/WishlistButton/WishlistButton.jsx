@@ -25,7 +25,7 @@ export function WishlistButton({ id }) {
   };
 
   return (
-    <div className="ps-0 p-1 ps-sm-1 btn-tooltip tooltip-up">
+    <div className="p-1 ps-0 btn-tooltip tooltip-up">
       <WishlistButtonTooltip isWishlisted={isWishlisted} />
       <button
         onClick={WishlistHandler}

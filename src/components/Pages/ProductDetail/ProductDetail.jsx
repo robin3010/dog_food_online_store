@@ -9,14 +9,13 @@ import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
 import { productParams } from '../../../utils/constants';
 import { getProductDetailQueryKey } from '../../../utils/queryUtils';
 import {
-  calcCondition, formatGoods, getAvgRating, setAvatar,
+  calcCondition, formatGoods, setAvatar,
 } from '../../../utils/utils';
 import { AddToCartButton } from '../../Buttons/AddToCartButton/AddToCartButton';
 import { WishlistButton } from '../../Buttons/WishlistButton/WishlistButton';
 import { withQuery } from '../../HOCs/withQuery';
-import {
-  ProductAvailableQuantity,
-} from '../../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
+import { ProductAvailableQuantity } from '../../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
+import { ProductDiscountBadge } from '../../ProductElements/ProductDiscountBadge/ProductDiscountBadge';
 import { ProductPrice } from '../../ProductElements/ProductPrice/ProductPrice';
 import { ProductReviewsCount } from '../../ProductElements/ProductReviewsCount/ProductReviewsCount';
 import { ProductStarRating } from '../../ProductElements/ProductStarRating/ProductStarRating';
@@ -25,25 +24,25 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
   const {
     author,
     available,
+    avgRating,
     description,
     discount,
     id,
     name,
     pictures,
     price,
-    reviews,
     stock,
     wight,
   } = item;
 
-  const avgRating = parseFloat(getAvgRating(reviews).toFixed(2));
   const reviewsCount = calcCondition(item, productParams.reviews);
 
   return (
     <>
       <h3>{name}</h3>
       <div className="row row-cols-1 g-0">
-        <div className="card mb-3">
+        <div className="card mb-3 position-relative">
+          <ProductDiscountBadge discount={discount} />
           <div className="row row-cols-1 g-0 gx-lg-4 product__card product__detail">
             <div className="col-12 col-lg">
               <div className="product__card-img rounded d-block mx-auto my-4 mx-lg-0 ms-lg-4">
@@ -65,16 +64,14 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
               <footer className="px-4 pb-4 ps-lg-0">
                 <ProductAvailableQuantity available={available} stock={stock} />
                 <div className="d-flex flex-wrap flex-sm-nowrap">
-                  <div className="d-flex w-100 me-auto p-1 ps-0">
-                    <div
-                      className="d-flex align-items-center product__card-price_bg
-                        border border-tertiary rounded w-100"
-                    >
-                      <div className="ms-2 py-2 py-sm-0 fw-semibold">
-                        <ProductPrice price={price} discount={discount} />
-                      </div>
-                      <span className="ms-auto me-2">{wight}</span>
+                  <div
+                    className="d-flex w-100 product__card-price_bg align-items-center
+                  border border-tertiary rounded m-1 me-2 ms-0 py-2 py-sm-0"
+                  >
+                    <div className="d-flex flex-wrap my-auto ms-2 fw-semibold product__card-price">
+                      <ProductPrice price={price} discount={discount} />
                     </div>
+                    <span className="ms-auto me-2">{wight}</span>
                   </div>
                   <WishlistButton id={id} />
                   <AddToCartButton item={item} textual />

@@ -60,7 +60,7 @@ export function ProductReviews() {
   });
 
   const reviews = data && renameIdKey(roundRating(data));
-  const avgRating = reviews?.length ? parseFloat(getAvgRating(reviews).toFixed(2)) : 0;
+  const avgRating = reviews?.length ? getAvgRating(reviews) : 0;
 
   return (
     <ProductReviewsReturnWithQuery

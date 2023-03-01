@@ -39,17 +39,17 @@ export function UserDetail() {
   return (
     <>
       <h3 className="mb-3">Профиль</h3>
-      <div className="card mb-3">
+      <div className="card p-4">
         <div className="row g-0 justify-content-evenly">
-          <div className="col-12 col-md-auto">
+          <div className="col-12 col-lg-auto">
             <img
               src={userInfo.avatar}
-              className="img-fluid rounded d-block mx-auto my-4 mx-md-0 ms-md-4"
+              className="img-fluid rounded d-block mx-auto"
               alt="..."
             />
           </div>
-          <div className="col-md-6">
-            <div className="card-body p-4">
+          <div className="col-lg-6">
+            <div className="card-body p-lg-0">
               <Formik
                 initialValues={initialValues}
                 validationSchema={editUserInfoValidationScheme}
@@ -92,7 +92,7 @@ export function UserDetail() {
                         className="invalid-feedback"
                       />
                     </div>
-                    <div className="mb-3">
+                    <div className="form-floating mb-3">
                       <input
                         type="email"
                         className="form-control"
@@ -100,8 +100,9 @@ export function UserDetail() {
                         value={email ?? ''}
                         disabled
                       />
+                      <label htmlFor="email">E-mail</label>
                     </div>
-                    <div className="mb-3">
+                    <div className="form-floating mb-3">
                       <input
                         type="text"
                         className="form-control"
@@ -109,6 +110,7 @@ export function UserDetail() {
                         value={group ?? ''}
                         disabled
                       />
+                      <label htmlFor="group">Группа</label>
                     </div>
                     <button
                       type="submit"

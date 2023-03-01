@@ -56,7 +56,7 @@ export const Header = memo(() => {
                 'badge',
                 'rounded-circle',
                 { 'rounded-pill': wishlistCount > 9 },
-                'header__couter-icon bg-gradient',
+                'header__badge bg-gradient',
                 { 'd-none': !wishlistCount || !authToken },
               )}
             >
@@ -73,7 +73,7 @@ export const Header = memo(() => {
                 'badge',
                 'rounded-circle',
                 { 'rounded-pill': checkoutCount > 9 },
-                'header__couter-icon bg-gradient',
+                'header__badge bg-gradient',
                 { 'd-none': !checkoutCount || !authToken },
               )}
             >

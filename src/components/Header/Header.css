@@ -12,10 +12,6 @@
   z-index: 99;
 }
 
-.header__nav {
-  color: var(--main-color)!important;
-}
-
 .header__nav__links a.nav-link,
 .header__nav__links button.nav-link,
 .header__nav__user-btns a.nav-link,
@@ -24,13 +20,12 @@
   margin: 0;
 }
 
-.header__nav__user-btns a.nav-link {
-  opacity: .8;
+.header__nav__user-btns a.nav-link:hover {
+  color: rgba(28, 34, 46, .85);
 }
 
-.header__nav__user-btns a.nav-link:hover,
 .header__nav__user-btns a.nav-link.active {
-  opacity: 1;
+  color: var(--main-color);
 }
 
 .header__nav__links a.nav-link.active {
@@ -38,7 +33,7 @@
   border-bottom: 0.2rem solid var(--main-color);
 }
 
-.header__couter-icon {
+.header__badge {
   background-color: var(--btn-main-color);
   top: 7%;
   left: 93%;
@@ -54,6 +49,7 @@
   box-shadow: 0 0px 6px .5px rgba(28, 34, 46, .3);
   width: 3rem;
   height: 3rem;
+  object-fit: cover;
 }
 
 .navbar-toggler{

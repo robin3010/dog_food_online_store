@@ -1,9 +1,5 @@
 import { useDispatch } from 'react-redux';
-
-import {
-  changeIsCheckedState,
-} from '../../../../redux/slices/wishlistSlice';
-import { calcCondition } from '../../../../utils/utils';
+import { changeIsCheckedState } from '../../../../redux/slices/wishlistSlice';
 import { WishlistButton } from '../../../Buttons/WishlistButton/WishlistButton';
 import { AddToCartButton } from '../../../Buttons/AddToCartButton/AddToCartButton';
 import {
@@ -15,14 +11,14 @@ export function WishlistProductItem({ item }) {
   const dispatch = useDispatch();
 
   const {
-    name,
-    price,
-    pictures,
-    discount,
-    stock,
     available,
+    discount,
     id,
     isChecked,
+    name,
+    pictures,
+    price,
+    stock,
   } = item;
 
   const selectItemHandler = () => {
@@ -43,23 +39,22 @@ export function WishlistProductItem({ item }) {
           />
         </div>
         <div className="row g-3">
-          <div className="col-auto">
+          <div className="col-12 col-sm-auto">
             <div
-              className="product__card-img checkout__product_card-img"
+              className="mx-auto mx-sm-0 product__card-img checkout__product_card-img"
             >
               <img src={pictures} alt="..." />
             </div>
           </div>
-          <div className="col">
+          <div className="col-12 col-sm">
             <div className="d-flex flex-column justify-content-between h-100">
               <p className="card-text">{name}</p>
               <div className="d-flex gap-3">
                 <ProductAvailableQuantity available={available} stock={stock} />
-                <span>{`rating ${calcCondition(item, 'rating')}`}</span>
               </div>
             </div>
           </div>
-          <div className="col">
+          <div className="col-12 col-sm">
             <div className="d-flex flex-column justify-content-between h-100">
               <div className="d-flex flex-column align-items-end fw-semibold pb-3">
                 <ProductPrice price={price} discount={discount} column />

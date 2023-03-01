@@ -2,11 +2,11 @@ import { productParams } from './constants';
 import defaultAvatar from '../images/default_avatar.png';
 
 export const getAvgRating = (reviews) => {
-  const ratesArray = reviews.map((el) => el[productParams.rating]);
+  const ratesArray = reviews.map((el) => el.rating);
 
   const avgRating = ratesArray
     .reduce((acc, curr) => acc + Math.round(curr), 0) / reviews.length || 0;
-  return avgRating;
+  return avgRating && parseFloat(avgRating.toFixed(2));
 };
 
 // Функция преобразования значений по требуемому условию
@@ -50,16 +50,19 @@ export const roundRating = (reviews) => reviews.map(({ rating, ...review }) => (
 // Переименование ключа id;
 // приведение значений ключа discount к диапазону [0 - 100];
 // округление оценок
+// добавление переменной со средней оценкой товара
 export const formatGoods = (data) => {
   const getFormatted = ({
     _id: id, discount, reviews, ...rest
   }) => {
     const discountValue = +discount > 100 ? 100 : +discount;
+    const reviewsRoundedRating = roundRating(reviews);
 
     return ({
       id,
       discount: discountValue,
-      reviews: roundRating(reviews),
+      reviews: reviewsRoundedRating,
+      avgRating: getAvgRating(reviewsRoundedRating),
       ...rest,
     });
   };
