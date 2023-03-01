@@ -27,7 +27,7 @@ module.exports = {
     // semi: ['error', 'never'],
     'import/no-cycle': 0,
     'import/prefer-default-export': 0,
-    'max-len': ['error', { code: 100 }],
+    'max-len': ['error', { code: 100, ignorePattern: '^import' }],
     'no-console': 0,
     'no-underscore-dangle': 0,
     'react/jsx-uses-react': 0,

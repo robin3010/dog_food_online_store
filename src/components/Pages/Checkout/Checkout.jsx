@@ -13,8 +13,7 @@ import { PlaceholderButtons } from '../../Buttons/PlaceholderButtons/Placeholder
 import { CheckoutProductItem } from './CheckoutProductItem/CheckoutProductItem';
 import { CheckoutSummary } from './CheckoutSummary/CheckoutSummary';
 import {
-  combineItemParams,
-  getItemsIds,
+  combineItemParams, getItemsIds,
 } from '../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import emptyCartPlaceholderImg from '../../../images/empty_cart.png';
 import { CheckoutHandlingBar } from './CheckoutHandlingBar/CheckoutHandlingBar';

@@ -6,9 +6,7 @@ import { shopApi } from '../../../api/shopApi';
 import { getSearchFilterSelector, setTagsCollection } from '../../../redux/slices/filtersSlice';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
 import {
-  placeholderStylesClasses,
-  productParams,
-  searchParamsKeys,
+  placeholderStylesClasses, productParams, searchParamsKeys,
 } from '../../../utils/constants';
 import { getGoodsListQueryKey } from '../../../utils/queryUtils';
 import { Filters } from '../../Filters/Filters';

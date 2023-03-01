@@ -8,7 +8,6 @@ import { signUpValidationScheme } from './loginValidation';
 import { LoginErrorAlert } from './Errors/LoginErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
-import '../../../css/buttons.css';
 
 const initialValues = {
   email: '',

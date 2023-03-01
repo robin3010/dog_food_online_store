@@ -1,6 +1,5 @@
 import { Loader } from '../Loaders/Loader';
 import { ModalLoader } from '../Loaders/ModalLoader';
-import '../../css/buttons.css';
 import { delayedRender } from './delayedRender';
 
 export const withQuery = (WrappedComponent) => function withQueryFunc({

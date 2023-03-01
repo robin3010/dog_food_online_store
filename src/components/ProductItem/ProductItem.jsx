@@ -3,6 +3,7 @@ import { productParams } from '../../utils/constants';
 import { calcCondition } from '../../utils/utils';
 import { AddToCartButton } from '../Buttons/AddToCartButton/AddToCartButton';
 import { WishlistButton } from '../Buttons/WishlistButton/WishlistButton';
+import { ProductAvailableQuantity } from '../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
 import { ProductDiscountBadge } from '../ProductElements/ProductDiscountBadge/ProductDiscountBadge';
 import { ProductPrice } from '../ProductElements/ProductPrice/ProductPrice';
 import { ProductReviewsCount } from '../ProductElements/ProductReviewsCount/ProductReviewsCount';

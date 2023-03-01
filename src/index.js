@@ -2,12 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
-  createBrowserRouter,
-  RouterProvider,
+  createBrowserRouter, RouterProvider,
 } from 'react-router-dom';
 import {
-  QueryClient,
-  QueryClientProvider,
+  QueryClient, QueryClientProvider,
 } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import App from './App';
@@ -25,9 +23,7 @@ import { Wishlist } from './components/Pages/Wishlist/Wishlist';
 import { UserDetail } from './components/Pages/UserDetail/UserDetail';
 import { ProductDetail } from './components/Pages/ProductDetail/ProductDetail';
 import { ProductReviews } from './components/Pages/ProductDetail/ProductReviews/ProductReviews';
-import {
-  ProductDescription,
-} from './components/Pages/ProductDetail/ProductDescription/ProductDescription';
+import { ProductDescription } from './components/Pages/ProductDetail/ProductDescription/ProductDescription';
 
 const rootRouter = createBrowserRouter([
   {

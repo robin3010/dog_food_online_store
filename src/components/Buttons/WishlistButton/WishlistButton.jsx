@@ -1,13 +1,9 @@
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  addToWishlist,
-  getWishlistSelector,
-  removeFromWishlist,
+  addToWishlist, getWishlistSelector, removeFromWishlist,
 } from '../../../redux/slices/wishlistSlice';
-import {
-  WishlistButtonTooltip,
-} from '../../ProductElements/ProductTooltips/ProductTooltips';
+import { WishlistButtonTooltip } from '../../ProductElements/ProductTooltips/ProductTooltips';
 import '../../../css/tooltip.css';
 
 export function WishlistButton({ id }) {

@@ -14,8 +14,7 @@ import { getWishlistSelector } from '../../../redux/slices/wishlistSlice';
 import { WishlistProductItem } from './WishlistProductItem/WishlistProductItem';
 import { WishlistHandlingBar } from './WishlistHandlingBar/WishlistHandlingBar';
 import {
-  combineItemParams,
-  getItemsIds,
+  combineItemParams, getItemsIds,
 } from '../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 
 function WishlistReturn({ wishlistFetched, wishlist }) {

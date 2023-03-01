@@ -2,18 +2,14 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  changeIsCheckedState,
-  itemCountChange, itemCountDecrement, itemCountIncrement,
+  changeIsCheckedState, itemCountChange, itemCountDecrement, itemCountIncrement,
 } from '../../../../redux/slices/checkoutSlice';
 import {
-  addToWishlist,
-  getWishlistSelector,
-  removeFromWishlist,
+  addToWishlist, getWishlistSelector, removeFromWishlist,
 } from '../../../../redux/slices/wishlistSlice';
 import { productParams } from '../../../../utils/constants';
 import {
-  calcCondition,
-  formatPrice,
+  calcCondition, formatPrice,
 } from '../../../../utils/utils';
 import { RemoveItemsModal } from '../../../Modals/RemoveItemsModal/RemoveItemsModal';
 import { ProductPrice } from '../../../ProductElements/ProductPrice/ProductPrice';

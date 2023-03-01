@@ -2,9 +2,7 @@ import { useDispatch } from 'react-redux';
 import { changeIsCheckedState } from '../../../../redux/slices/wishlistSlice';
 import { WishlistButton } from '../../../Buttons/WishlistButton/WishlistButton';
 import { AddToCartButton } from '../../../Buttons/AddToCartButton/AddToCartButton';
-import {
-  ProductAvailableQuantity,
-} from '../../../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
+import { ProductAvailableQuantity } from '../../../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
 import { ProductPrice } from '../../../ProductElements/ProductPrice/ProductPrice';
 
 export function WishlistProductItem({ item }) {

@@ -1,14 +1,10 @@
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import {
-  changeAllIsCheckedState,
-} from '../../../../redux/slices/wishlistSlice';
+import { changeAllIsCheckedState } from '../../../../redux/slices/wishlistSlice';
 import checkoutStyles from '../../Checkout/Checkout.module.css';
 import {
-  getIsAllChecked,
-  getIsCheckedIds,
-  getTotal,
+  getIsAllChecked, getIsCheckedIds, getTotal,
 } from '../../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import { formatPrice, getGoodsSuffix } from '../../../../utils/utils';
 import { RemoveItemsModal } from '../../../Modals/RemoveItemsModal/RemoveItemsModal';
