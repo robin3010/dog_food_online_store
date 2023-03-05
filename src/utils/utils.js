@@ -27,6 +27,8 @@ export const calcCondition = (item, condition) => {
         return value - ((value * item.discount) / 100);
       }
       return value;
+    case productParams.created_at:
+      return new Date(value).getTime();
 
     case productParams.discount:
       return +value;

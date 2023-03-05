@@ -20,7 +20,7 @@ export function ConditionFilterButton({ conditionKey, conditionValue }) {
         />
       );
     }
-    return undefined;
+    return null;
   };
 
   const sortHandler = () => {

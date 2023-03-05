@@ -78,7 +78,7 @@ export function UserDetail() {
                     <div className="form-floating mb-3">
                       <Field
                         component="textarea"
-                        className={clsx('form-control', {
+                        className={clsx('form-control fix-overlap', {
                           'is-invalid': errors.about,
                           'is-valid': !errors.about && touched.about,
                         })}

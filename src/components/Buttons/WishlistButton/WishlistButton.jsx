@@ -6,7 +6,7 @@ import {
 import { WishlistButtonTooltip } from '../../ProductElements/ProductTooltips/ProductTooltips';
 import '../../../css/tooltip.css';
 
-export function WishlistButton({ id }) {
+export function WishlistButton({ id, position = 'up' }) {
   const dispatch = useDispatch();
   const wishlist = useSelector(getWishlistSelector);
 
@@ -21,7 +21,7 @@ export function WishlistButton({ id }) {
   };
 
   return (
-    <div className="p-1 ps-0 btn-tooltip tooltip-up">
+    <div className={`p-1 ps-0 btn-tooltip tooltip-${position}`}>
       <WishlistButtonTooltip isWishlisted={isWishlisted} />
       <button
         onClick={WishlistHandler}

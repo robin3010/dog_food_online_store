@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import logo from '../../images/logo.png';
 import { getCheckoutSelector } from '../../redux/slices/checkoutSlice';
 import { getAuthTokenSelector } from '../../redux/slices/userSlice';
@@ -9,14 +10,28 @@ import { LoginButton } from './LoginButton/LoginButton';
 import './Header.css';
 import { getWishlistSelector } from '../../redux/slices/wishlistSlice';
 import { AddNewProductButton } from './AddNewProductButton/AddNewProductButton';
+import { headerAnimatedListener } from './headerUtils';
 
 export function Header() {
   const checkoutCount = getItemsIds(useSelector(getCheckoutSelector)).length;
   const wishlistCount = getItemsIds(useSelector(getWishlistSelector)).length;
   const authToken = useSelector(getAuthTokenSelector);
 
+  const { hash, key } = useLocation();
+
+  useEffect(() => {
+    if (hash === '') {
+      window.scrollTo(0, 0);
+    }
+    document.addEventListener('scroll', headerAnimatedListener);
+
+    return () => {
+      document.removeEventListener('scroll', headerAnimatedListener);
+    };
+  }, [key]);
+
   return (
-    <header className="main__header navbar navbar-expand-md">
+    <header className="main__header navbar navbar-expand-md fixed-top">
       <div
         className="
         container-fluid
@@ -95,21 +110,16 @@ export function Header() {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div
-          className="collapse navbar-collapse order-md-2"
-          id="navbarNav"
-        >
-          <div className="
+        <div className="collapse navbar-collapse order-md-2" id="navbarNav">
+          <div
+            className="
           navbar-nav
           d-flex
           align-items-center
           align-items-sm-start
           header__nav__links"
           >
-            <NavLink
-              to="/products"
-              className="nav-link"
-            >
+            <NavLink to="/products" className="nav-link">
               <span
                 data-bs-toggle="collapse"
                 data-bs-target=".navbar-collapse.show"
@@ -117,10 +127,7 @@ export function Header() {
                 Товары
               </span>
             </NavLink>
-            <NavLink
-              to="/delivery"
-              className="nav-link"
-            >
+            <NavLink to="/delivery" className="nav-link">
               <span
                 data-bs-toggle="collapse"
                 data-bs-target=".navbar-collapse.show"
@@ -128,10 +135,7 @@ export function Header() {
                 Доставка
               </span>
             </NavLink>
-            <NavLink
-              to="/contacts"
-              className="nav-link"
-            >
+            <NavLink to="/contacts" className="nav-link">
               <span
                 data-bs-toggle="collapse"
                 data-bs-target=".navbar-collapse.show"
@@ -144,4 +148,4 @@ export function Header() {
       </div>
     </header>
   );
-});
+}

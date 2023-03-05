@@ -9,6 +9,7 @@ export const productParams = {
   reviews: 'reviews',
   rating: 'rating',
   discount: 'discount',
+  created_at: 'created_at',
 };
 
 export const searchParamsKeys = {
