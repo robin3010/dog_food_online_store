@@ -16,7 +16,7 @@ export function ProductItem({ item }) {
     discount,
     id,
     name,
-    pictures,
+    clientImage,
     price,
     stock,
   } = item;
@@ -33,7 +33,7 @@ export function ProductItem({ item }) {
               <p className="text-end">{`likes ${calcCondition(item, 'likes')}`}</p>
             </div>
             <div className="product__card-img pt-3">
-              <img src={pictures} alt="..." />
+              <img src={clientImage} alt="..." />
             </div>
             <div className="card-body text-start">
               <p className="card-text">{name}</p>
@@ -44,7 +44,7 @@ export function ProductItem({ item }) {
           </div>
         </Link>
         <footer className="px-3 pb-3">
-          <div className="d-flex gap-2">
+          <div className="d-flex gap-2 mb-3">
             <ProductStarRating rating={avgRating} />
             <ProductReviewsCount reviewsCount={reviewsCount} />
           </div>

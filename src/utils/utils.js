@@ -1,5 +1,12 @@
-import { productParams } from './constants';
-import defaultAvatar from '../images/default_avatar.png';
+import { defaultImages, productParams } from './constants';
+
+export const setImage = (image, type) => {
+  const defaultApiImage = 'https://react-learning.ru/image-compressed/default-image.jpg';
+  if (image === defaultApiImage || !image) {
+    return defaultImages[type];
+  }
+  return image;
+};
 
 export const getAvgRating = (reviews) => {
   const ratesArray = reviews.map((el) => el.rating);
@@ -38,7 +45,7 @@ export const formatPrice = (price) => price?.toLocaleString('ru-RU', {
   maximumFractionDigits: 0,
 });
 
-export const formatTime = (time) => new Date(time)
+export const formatDate = (time) => new Date(time)
   .toLocaleString('ru-RU', { dateStyle: 'medium', timeStyle: 'short' })
   .replace(/г\.,/, 'в');
 
@@ -53,7 +60,7 @@ export const roundRating = (reviews) => reviews.map(({ rating, ...review }) => (
 // добавление переменной со средней оценкой товара
 export const formatGoods = (data) => {
   const getFormatted = ({
-    _id: id, discount, reviews, ...rest
+    _id: id, discount, reviews, pictures, ...rest
   }) => {
     const discountValue = +discount > 100 ? 100 : +discount;
     const reviewsRoundedRating = roundRating(reviews);
@@ -63,12 +70,23 @@ export const formatGoods = (data) => {
       discount: discountValue,
       reviews: reviewsRoundedRating,
       avgRating: getAvgRating(reviewsRoundedRating),
+      clientImage: setImage(pictures, defaultImages.type.product),
       ...rest,
     });
   };
 
   if (Array.isArray(data)) {
-    return data.map((item) => getFormatted(item));
+    const dataArrayFormatted = data.map((item) => {
+      if (item?.err) {
+        return item;
+      }
+      return getFormatted(item);
+    });
+    return dataArrayFormatted;
+  }
+  if (data.err) {
+    console.log('bad item');
+    return data;
   }
   return getFormatted(data);
 };
@@ -91,14 +109,6 @@ export const getGoodsSuffix = (count) => {
 };
 
 export const removeExtraWhitespaces = (value) => value.trim().replace(/\s{2,}/g, '');
-
-export const setAvatar = (avatar) => {
-  const defaultApiAvatar = 'https://react-learning.ru/image-compressed/default-image.jpg';
-  if (avatar === defaultApiAvatar || !avatar) {
-    return defaultAvatar;
-  }
-  return avatar;
-};
 
 export const renameIdKey = (data) => {
   const getRenamed = ({ _id: id, ...rest }) => ({

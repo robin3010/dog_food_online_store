@@ -36,6 +36,7 @@ body {
 }
 
 
+/* FORMS */
 .form-check-input:checked {
   background-color: var(--btn-main-color);
   border-color: var(--btn-main-color);
@@ -55,6 +56,27 @@ body {
   box-shadow: 0 0 0 0.25rem hsla(221, 28%, 75%, .5);
 }
 
+/* Form floating textarea label overlapped fix */
+.form-floating.fix-overlap {
+  position: relative;
+}
+
+.form-floating.fix-overlap:before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 1rem;
+  width: calc(100% - 3.5rem); /* to show scrollbar */
+  height: 32px;
+  border-radius: 4px; /* (default by BS) */
+  background-color: #fff;
+}
+
+.form-floating.fix-overlap textarea.form-control {
+  padding-top: 32px; /* height of pseudo element */
+  padding-right: 32px;
+}
+/* End of form floating textarea label overlapped fix */
 
 .overflow__hidden {
   overflow: hidden;

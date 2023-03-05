@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { signUpValidationScheme } from './loginValidation';
-import { LoginErrorAlert } from './Errors/LoginErrorAlert';
+import { FetchErrorAlert } from '../../Forms/Errors/FetchErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
 
@@ -49,10 +49,11 @@ export function SignUp() {
 
       <Formik
         initialValues={initialValues}
+        validateOnMount
         validationSchema={signUpValidationScheme}
         onSubmit={signUpHandler}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, isValid }) => (
           <Form>
             <div className="row g-2">
               <div className="col-md">
@@ -113,11 +114,11 @@ export function SignUp() {
               <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
             </div>
             <div className="d-grid gap-2">
-              <LoginErrorAlert loginError={isError} error={error} />
+              <FetchErrorAlert loginError={isError} error={error} />
               <button
                 type="submit"
                 className="btn btn-primary"
-                disabled={Object.keys(errors).length > 0 || !touched.email || isLoading}
+                disabled={!isValid || isLoading}
               >
                 Зарегистрироваться
               </button>

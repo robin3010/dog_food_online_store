@@ -1,15 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  NavLink, Outlet, useMatch, useParams,
+  NavLink, Outlet, useMatch, useNavigate, useParams,
 } from 'react-router-dom';
 import { shopApi } from '../../../api/shopApi';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
-import { productParams } from '../../../utils/constants';
+import { defaultImages, productParams } from '../../../utils/constants';
 import { getProductDetailQueryKey } from '../../../utils/queryUtils';
 import {
-  calcCondition, formatGoods, setAvatar,
+  calcCondition, formatGoods, setImage,
 } from '../../../utils/utils';
 import { AddToCartButton } from '../../Buttons/AddToCartButton/AddToCartButton';
 import { WishlistButton } from '../../Buttons/WishlistButton/WishlistButton';
@@ -19,8 +20,13 @@ import { ProductDiscountBadge } from '../../ProductElements/ProductDiscountBadge
 import { ProductPrice } from '../../ProductElements/ProductPrice/ProductPrice';
 import { ProductReviewsCount } from '../../ProductElements/ProductReviewsCount/ProductReviewsCount';
 import { ProductStarRating } from '../../ProductElements/ProductStarRating/ProductStarRating';
+import { ProductOwnerActions } from './ProductOwnerActions/ProductOwnerActions';
 
 function ProductDetailReturn({ item, isReviewsOpen }) {
+  if (item.err) return null;
+
+  console.log({ item });
+
   const {
     author,
     available,
@@ -29,7 +35,7 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
     discount,
     id,
     name,
-    pictures,
+    clientImage,
     price,
     stock,
     wight,
@@ -46,18 +52,19 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
           <div className="row row-cols-1 g-0 gx-lg-4 product__card product__detail">
             <div className="col-12 col-lg">
               <div className="product__card-img rounded d-block mx-auto my-4 mx-lg-0 ms-lg-4">
-                <img src={pictures} alt="..." />
+                <img src={clientImage} alt="..." />
               </div>
             </div>
             <div className="col-12 col-lg-8 h-100">
               <div className="card-body text-start p-4 ps-lg-0">
                 <p className="card-text">{description}</p>
-                <div>
+                <div className="d-flex justify-content-between">
                   {/* <span>{`likes ${calcCondition(item, 'likes')}`}</span> */}
                   <div className="d-flex gap-2">
                     <ProductStarRating rating={avgRating} />
                     <ProductReviewsCount reviewsCount={reviewsCount} />
                   </div>
+                  <ProductOwnerActions item={item} />
                   {/* <span>{`discount ${calcCondition(item, 'discount')}`}</span> */}
                 </div>
               </div>
@@ -73,13 +80,13 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
                     </div>
                     <span className="ms-auto me-2">{wight}</span>
                   </div>
-                  <WishlistButton id={id} />
+                  <WishlistButton id={id} position="down" />
                   <AddToCartButton item={item} textual />
                 </div>
                 <div className="pt-3">
                   Продавец:
                   <img
-                    src={setAvatar(author.avatar)}
+                    src={setImage(author.avatar, defaultImages.type.avatar)}
                     className="vendor__logo rounded-circle d-inline-block ms-2 me-1"
                     alt="..."
                   />
@@ -118,16 +125,29 @@ export function ProductDetail() {
   const { productId } = useParams();
   const authToken = useSelector(getAuthTokenSelector);
 
+  const navigate = useNavigate();
+
   const isReviewsOpen = useMatch('/products/:productId/reviews');
 
   const {
-    data, isLoading, isFetching, isError, error, refetch,
+    data, isLoading, isFetching, isSuccess, isError, error, refetch,
   } = useQuery({
     queryKey: getProductDetailQueryKey(productId),
     queryFn: () => shopApi.getProductById(productId, authToken),
   });
 
-  const item = data && formatGoods(data);
+  useEffect(() => {
+    if (!authToken) {
+      navigate('/login');
+    }
+    if (!isLoading && data.err) {
+      navigate('/products');
+    }
+  }, [authToken, data]);
+
+  // const item = data.length && formatGoods(data);
+
+  const item = isSuccess && formatGoods(data);
 
   return (
     <ProductDetailReturnWithQuery

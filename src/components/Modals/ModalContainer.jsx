@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import styles from './ModalContainer.module.css';
+import './ModalContainer.css';
 
 function ModalContent({ closeHandler, children }) {
   useEffect(() => {
@@ -12,20 +12,22 @@ function ModalContent({ closeHandler, children }) {
     };
 
     document.addEventListener('keydown', closeByEsc);
+    document.body.classList.add('overflow__hidden');
     return () => {
       document.removeEventListener('keydown', closeByEsc);
+      document.body.classList.remove('overflow__hidden');
     };
   }, []);
 
   const closeByXmark = () => closeHandler();
 
   return (
-    <div className={`card ${styles.modal__content}`}>
+    <div className="card modal__content">
       {children}
       <button
         onClick={closeByXmark}
         type="button"
-        className={styles['modal__button-close']}
+        className="modal__button-close"
       >
         <i className="fa-solid fa-xmark" />
       </button>
@@ -46,7 +48,7 @@ export function ModalContainer({ isOpen, closeHandler, children }) {
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       onMouseDown={closeByClickContainer}
-      className={styles.modal__container}
+      className="modal__container"
     >
       <ModalContent closeHandler={closeHandler}>
         {children}

@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../images/logo.png';
@@ -9,8 +8,9 @@ import { getItemsIds } from '../../utils/checkout&wishlistUtils/checkout&wishlis
 import { LoginButton } from './LoginButton/LoginButton';
 import './Header.css';
 import { getWishlistSelector } from '../../redux/slices/wishlistSlice';
+import { AddNewProductButton } from './AddNewProductButton/AddNewProductButton';
 
-export const Header = memo(() => {
+export function Header() {
   const checkoutCount = getItemsIds(useSelector(getCheckoutSelector)).length;
   const wishlistCount = getItemsIds(useSelector(getWishlistSelector)).length;
   const authToken = useSelector(getAuthTokenSelector);
@@ -42,13 +42,14 @@ export const Header = memo(() => {
           className="
           header__nav__user-btns
           d-flex align-items-center
-          gap-0 gap-sm-1 gap-md-2 gap-lg-4
+          gap-0 gap-sm-1 gap-md-2
           ms-sm-auto
           me-sm-4 me-md-0
           order-md-3
           fa-lg"
         >
-          <NavLink to="/favorite" className="nav-link position-relative">
+          <AddNewProductButton />
+          <NavLink to="/wishlist" className="nav-link position-relative">
             <span
               className={clsx(
                 'position-absolute fs-6',

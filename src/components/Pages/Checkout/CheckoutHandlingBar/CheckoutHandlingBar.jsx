@@ -7,7 +7,7 @@ import {
   getIsAllChecked, getIsCheckedIds,
 } from '../../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import { RemoveItemsModal } from '../../../Modals/RemoveItemsModal/RemoveItemsModal';
-import { REMOVE_TYPE_DATASET } from '../../../Modals/modalsUtils';
+import { REMOVE_TYPE_DATASET } from '../../../Modals/RemoveItemsModal/removeItemsModalUtils';
 
 export function CheckoutHandlingBar({ checkoutList }) {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ export function CheckoutHandlingBar({ checkoutList }) {
                   { [checkoutStyles.disabled]: !isCheckedIds.length },
                 )}
                 onClick={openRemoveModalHandler}
-                data-remove={REMOVE_TYPE_DATASET.selected}
+                data-remove={REMOVE_TYPE_DATASET.selectedCart}
                 type="button"
               >
                 Удалить выбранные
@@ -63,7 +63,7 @@ export function CheckoutHandlingBar({ checkoutList }) {
               <button
                 className={`ms-auto ${checkDeleteButtonsStyleClasses} ${checkoutStyles.remove}`}
                 onClick={openRemoveModalHandler}
-                data-remove={REMOVE_TYPE_DATASET.clear}
+                data-remove={REMOVE_TYPE_DATASET.clearCart}
                 type="button"
               >
                 Очистить корзину
@@ -75,7 +75,7 @@ export function CheckoutHandlingBar({ checkoutList }) {
       <RemoveItemsModal
         isOpen={isRemoveModalOpen}
         setIsOpen={setIsRemoveModalOpen}
-        ids={removeType === REMOVE_TYPE_DATASET.selected ? isCheckedIds : ''}
+        ids={removeType === REMOVE_TYPE_DATASET.selectedCart ? isCheckedIds : ''}
         type={removeType}
       />
     </>

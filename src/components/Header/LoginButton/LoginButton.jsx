@@ -4,7 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink } from 'react-router-dom';
 import { getUserDataSelector, logout, setUserInfo } from '../../../redux/slices/userSlice';
 import { shopApi } from '../../../api/shopApi';
-import { renameIdKey, setAvatar } from '../../../utils/utils';
+import { renameIdKey, setImage } from '../../../utils/utils';
+import { defaultImages } from '../../../utils/constants';
 
 function LoggedIn() {
   const userInfo = useSelector(getUserDataSelector);
@@ -13,7 +14,7 @@ function LoggedIn() {
   const defaultFirstName = 'Покупатель';
 
   const firstName = userInfo?.name.replace(/\s.*/, '') || defaultFirstName;
-  const avatar = setAvatar(userInfo.avatar);
+  const avatar = setImage(userInfo.avatar, defaultImages.type.avatar);
 
   return (
     <div className="btn-group">

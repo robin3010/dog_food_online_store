@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { signInValidationScheme } from './loginValidation';
-import { LoginErrorAlert } from './Errors/LoginErrorAlert';
+import { FetchErrorAlert } from '../../Forms/Errors/FetchErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
 import { login } from '../../../redux/slices/userSlice';
@@ -49,10 +49,11 @@ export function SignIn() {
 
       <Formik
         initialValues={initialValues}
+        validateOnMount
         validationSchema={signInValidationScheme}
         onSubmit={signInHandler}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, isValid }) => (
           <Form>
             <div className="form-floating mb-3">
               <Field
@@ -100,11 +101,11 @@ export function SignIn() {
               </label>
             </div>
             <div className="d-grid gap-2">
-              <LoginErrorAlert loginError={isError} error={error} />
+              <FetchErrorAlert loginError={isError} error={error} />
               <button
                 type="submit"
                 className="btn btn-primary"
-                disabled={Object.keys(errors).length > 0 || !touched.email || isLoading}
+                disabled={!isValid || isLoading}
               >
                 Войти
               </button>

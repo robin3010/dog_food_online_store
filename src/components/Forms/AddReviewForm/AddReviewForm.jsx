@@ -2,9 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Field, Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { shopApi } from '../../../../../api/shopApi';
-import { getAuthTokenSelector } from '../../../../../redux/slices/userSlice';
-import { getProductReviewsQueryKey } from '../../../../../utils/queryUtils';
+import { shopApi } from '../../../api/shopApi';
+import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
+import { getProductReviewsQueryKey } from '../../../utils/queryUtils';
 import './AddReviewForm.css';
 
 export function AddReviewForm() {
@@ -13,8 +13,13 @@ export function AddReviewForm() {
 
   const queryClient = useQueryClient();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isLoading } = useMutation({
     mutationFn: (newReview) => shopApi.addNewProductReview(productId, authToken, newReview),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: getProductReviewsQueryKey(productId),
+      });
+    },
   });
 
   const AddNewReviewHandler = async (values, { resetForm }) => {
@@ -24,10 +29,6 @@ export function AddReviewForm() {
     };
 
     await mutateAsync(formattedData);
-
-    queryClient.invalidateQueries({
-      queryKey: getProductReviewsQueryKey(productId),
-    });
 
     const $AddReviewForm = document.getElementById('collapseAddReview');
     // eslint-disable-next-line no-undef, no-new
@@ -51,9 +52,10 @@ export function AddReviewForm() {
       <div className="collapse mt-2 pe-2" id="collapseAddReview">
         <Formik
           initialValues={{ text: '', rating: 3 }}
+          validateOnMount
           onSubmit={AddNewReviewHandler}
         >
-          {({ values, initialValues }) => (
+          {({ values, isValid }) => (
             <Form>
               <Field
                 component="textarea"
@@ -80,7 +82,7 @@ export function AddReviewForm() {
               <button
                 type="submit"
                 className="btn btn-primary mt-2 ms-auto"
-                disabled={values.text === initialValues.text}
+                disabled={!isValid || isLoading}
               >
                 Отправить
               </button>

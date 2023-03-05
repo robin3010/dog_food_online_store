@@ -3,7 +3,7 @@ export function ProductReviewsCount({ reviewsCount }) {
     <div className="
     badge text-main
     bg-body-secondary bg-opacity-75
-    fs-6 py-3 mb-3
+    fs-6 py-3
     d-inline-block"
     >
       <div className="d-inline-block align-middle">

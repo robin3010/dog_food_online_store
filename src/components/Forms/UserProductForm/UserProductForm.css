@@ -1,0 +1,18 @@
+.modal__content .user-product__form { 
+  min-width: 320px;
+  max-width: 46rem;
+}
+
+.user-product__form label  { 
+  padding-left: 1.5rem;
+}
+
+.user-product__form textarea.form-control {
+  height: 7rem;
+}
+
+.user-product__form img {
+  width: 164px;
+  height: 164px;
+  object-fit: contain;
+}

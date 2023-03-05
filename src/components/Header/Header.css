@@ -44,12 +44,20 @@
   font-size: 1.4rem;
 }
 
-.header__user-avatar {
+.header__user-avatar,
+.header__new-product {
   border: 3px solid var(--main-color);
   box-shadow: 0 0px 6px .5px rgba(28, 34, 46, .3);
   width: 3rem;
   height: 3rem;
   object-fit: cover;
+}
+
+.header__new-product button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
 }
 
 .navbar-toggler{

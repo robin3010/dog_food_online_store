@@ -4,6 +4,7 @@ import { WishlistButton } from '../../../Buttons/WishlistButton/WishlistButton';
 import { AddToCartButton } from '../../../Buttons/AddToCartButton/AddToCartButton';
 import { ProductAvailableQuantity } from '../../../ProductElements/ProductAvailableQuantity/ProductAvailableQuantity';
 import { ProductPrice } from '../../../ProductElements/ProductPrice/ProductPrice';
+import { NonExistentProductCard } from '../../../Buttons/NonExistentProductCard/NonExistentProductCard';
 
 export function WishlistProductItem({ item }) {
   const dispatch = useDispatch();
@@ -14,14 +15,19 @@ export function WishlistProductItem({ item }) {
     id,
     isChecked,
     name,
-    pictures,
+    clientImage,
     price,
     stock,
+    err,
   } = item;
 
   const selectItemHandler = () => {
     dispatch(changeIsCheckedState(id));
   };
+
+  if (err) {
+    return <NonExistentProductCard id={id} listType="wishlist" />;
+  }
 
   return (
     <div className="col-12">
@@ -41,7 +47,7 @@ export function WishlistProductItem({ item }) {
             <div
               className="mx-auto mx-sm-0 product__card-img checkout__product_card-img"
             >
-              <img src={pictures} alt="..." />
+              <img src={clientImage} alt="..." />
             </div>
           </div>
           <div className="col-12 col-sm">

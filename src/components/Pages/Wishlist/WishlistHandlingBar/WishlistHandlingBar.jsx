@@ -8,7 +8,7 @@ import {
 } from '../../../../utils/checkout&wishlistUtils/checkout&wishlistUtils';
 import { formatPrice, getGoodsSuffix } from '../../../../utils/utils';
 import { RemoveItemsModal } from '../../../Modals/RemoveItemsModal/RemoveItemsModal';
-import { REMOVE_TYPE_DATASET } from '../../../Modals/modalsUtils';
+import { REMOVE_TYPE_DATASET } from '../../../Modals/RemoveItemsModal/removeItemsModalUtils';
 
 export function WishlistHandlingBar({ wishlistFetched }) {
   const dispatch = useDispatch();

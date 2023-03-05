@@ -31,7 +31,7 @@ export const withQuery = (WrappedComponent) => function withQueryFunc({
     return (
       <>
         <WrappedComponent {...rest} />
-        <DelayedModalLoader delay={1000} />
+        <DelayedModalLoader delay={100} />
       </>
     );
   }

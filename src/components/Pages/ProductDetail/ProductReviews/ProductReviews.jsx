@@ -7,7 +7,7 @@ import { getProductReviewsQueryKey } from '../../../../utils/queryUtils';
 import { getAvgRating, renameIdKey, roundRating } from '../../../../utils/utils';
 import { withQuery } from '../../../HOCs/withQuery';
 import { ProductStarRating } from '../../../ProductElements/ProductStarRating/ProductStarRating';
-import { AddReviewForm } from './AddReviewForm/AddReviewForm';
+import { AddReviewForm } from '../../../Forms/AddReviewForm/AddReviewForm';
 import { ProductReview } from './ProductReview/ProductReview';
 
 function ProductReviewsReturn({ reviews, avgRating }) {
@@ -29,7 +29,7 @@ function ProductReviewsReturn({ reviews, avgRating }) {
         rounded-2
         py-3 ps-2"
       >
-        <div>
+        <div className="mb-3">
           <span>Общий Рейтинг: </span>
           <ProductStarRating rating={avgRating} />
         </div>

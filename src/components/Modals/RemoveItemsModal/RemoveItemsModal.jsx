@@ -1,11 +1,10 @@
 import { useDispatch } from 'react-redux';
-import clsx from 'clsx';
 import { ModalContainer } from '../ModalContainer';
-import '../../../css/buttons.css';
-import { removeTypeConfig, REMOVE_TYPE_DATASET } from '../modalsUtils';
+import './RemoveItemsModal.css';
+import { removeTypeConfig, REMOVE_TYPE_DATASET } from './removeItemsModalUtils';
 
 export function RemoveItemsModal({
-  isOpen, setIsOpen, ids, type = REMOVE_TYPE_DATASET.item, name: title,
+  isOpen, setIsOpen, ids, type = REMOVE_TYPE_DATASET.item, name: title, actionFn,
 }) {
   const dispatch = useDispatch();
 
@@ -14,28 +13,23 @@ export function RemoveItemsModal({
   };
 
   const removeHandler = () => {
-    dispatch(removeTypeConfig[type].func(ids));
+    dispatch(actionFn ?? removeTypeConfig[type].func(ids));
     closeRemoveModal();
   };
 
   return (
 
     <ModalContainer isOpen={isOpen} closeHandler={closeRemoveModal}>
-      <>
+      <div className="remove-items">
         <h5 className="card-header text-center">
           Подтверждение
         </h5>
         <div className="card-body">
           <p className="text-center">
             {removeTypeConfig[type]?.message}
-            <b className={clsx(
-              { 'd-none': type !== REMOVE_TYPE_DATASET.item },
-            )}
-            >
-              &quot;
-              {title}
-              &quot;
-            </b>
+            { type === REMOVE_TYPE_DATASET.item && (
+            <b>{`\u00AB${title}\u00BB`}</b>
+            ) }
             ?
           </p>
           <div className="d-flex justify-content-center gap-2">
@@ -55,7 +49,7 @@ export function RemoveItemsModal({
             </button>
           </div>
         </div>
-      </>
+      </div>
     </ModalContainer>
 
   );

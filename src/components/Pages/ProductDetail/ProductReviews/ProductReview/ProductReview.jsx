@@ -4,8 +4,9 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { shopApi } from '../../../../../api/shopApi';
 import { getUserDataSelector } from '../../../../../redux/slices/userSlice';
+import { defaultImages } from '../../../../../utils/constants';
 import { getProductReviewsQueryKey } from '../../../../../utils/queryUtils';
-import { formatTime, setAvatar } from '../../../../../utils/utils';
+import { formatDate, setImage } from '../../../../../utils/utils';
 import { ProductStarRating } from '../../../../ProductElements/ProductStarRating/ProductStarRating';
 import checkoutStyles from '../../../Checkout/Checkout.module.css';
 
@@ -19,14 +20,15 @@ export function ProductReview({ review, last }) {
 
   const { mutateAsync } = useMutation({
     mutationFn: () => shopApi.deleteProductReview(productId, authToken, reviewId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: getProductReviewsQueryKey(productId),
+      });
+    },
   });
 
   const deleteReviewHandler = async () => {
     await mutateAsync();
-
-    queryClient.invalidateQueries({
-      queryKey: getProductReviewsQueryKey(productId),
-    });
   };
 
   const deleteButton = (author._id === userId) && (
@@ -40,15 +42,15 @@ export function ProductReview({ review, last }) {
   );
 
   const isUpdated = updated_at !== created_at;
-  const formatCreateTime = formatTime(created_at);
-  const formatUpdateTime = formatTime(updated_at);
+  const formatCreateTime = formatDate(created_at);
+  const formatUpdateTime = formatDate(updated_at);
 
   return (
     <>
       <div className="d-flex justify-content-between py-1">
         <div className="align-self-center">
           <img
-            src={setAvatar(author.avatar)}
+            src={setImage(author.avatar, defaultImages.type.avatar)}
             className="vendor__logo rounded-circle d-inline-block ms-2 me-1"
             alt="..."
           />

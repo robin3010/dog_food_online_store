@@ -1,3 +1,9 @@
+import { getGoodsByIds, getGoodsList, getProductById } from './apiMethods/goodsMethods';
+import { signIn, signUp } from './apiMethods/loginMethods';
+import { addNewProductReview, deleteProductReview, getProductReviews } from './apiMethods/reviewsMethods';
+import { editUserInfo, getUserInfo } from './apiMethods/userInfoMethods';
+import { addNewProduct, deleteProduct, editProduct } from './apiMethods/userProductMethods';
+
 /* eslint-disable class-methods-use-this */
 const BASE_URL = 'https://api.react-learning.ru';
 
@@ -5,6 +11,19 @@ class ShopApi {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
     this.search = '';
+    this.signIn = signIn;
+    this.signUp = signUp;
+    this.getUserInfo = getUserInfo;
+    this.editUserInfo = editUserInfo;
+    this.getGoodsList = getGoodsList;
+    this.getProductById = getProductById;
+    this.getGoodsByIds = getGoodsByIds;
+    this.getProductReviews = getProductReviews;
+    this.addNewProductReview = addNewProductReview;
+    this.deleteProductReview = deleteProductReview;
+    this.addNewProduct = addNewProduct;
+    this.editProduct = editProduct;
+    this.deleteProduct = deleteProduct;
   }
 
   setSearch(search) {
@@ -15,16 +34,15 @@ class ShopApi {
     return `Bearer ${authToken}`;
   }
 
-  getSearchQuery() {
-    return `/search?query=${this.search}`;
-  }
-
-  checkFetchErrors() {
+  checkFetchErrors({ settled } = false) {
     if (this.status === 400) {
       throw new Error('Некорректный запрос');
     }
     if (this.status === 401) {
       throw new Error('E-mail или пароль указаны неверно');
+    }
+    if (this.status === 404 && !settled) {
+      throw new Error(`Ошибка. Код ${this.status} ${this.statusText}`);
     }
     if (this.status === 409) {
       throw new Error('Пользователь с таким email уже существует');
@@ -32,163 +50,13 @@ class ShopApi {
     if (this.status > 499) {
       throw new Error(`${this.statusText}. Код ${this.status}`);
     }
-    if (this.status > 401) {
+    if (this.status > 401 && !settled) {
       throw new Error(`Ошибка авторизации. Код ${this.status} ${this.statusText}`);
     }
   }
 
   checkAuthToken(authToken) {
     if (!authToken) throw new Error('Вы не авторизованы');
-  }
-
-  async signIn(userData) {
-    const fetchSignIn = await fetch(`${this.baseUrl}/signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-
-    this.checkFetchErrors.call(fetchSignIn);
-
-    const response = await fetchSignIn.json();
-    return response;
-  }
-
-  async signUp(userData) {
-    const fetchSignUp = await fetch(`${this.baseUrl}/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-
-    this.checkFetchErrors.call(fetchSignUp);
-  }
-
-  async getUserInfo(authToken, group) {
-    this.checkAuthToken(authToken);
-
-    const fetchUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me`, {
-      headers: {
-        authorization: this.getAuthHeader(authToken),
-      },
-    });
-
-    this.checkFetchErrors.call(fetchUserInfo);
-
-    const userInfo = await fetchUserInfo.json();
-    return userInfo;
-  }
-
-  async editUserInfo(authToken, group, editedData) {
-    this.checkAuthToken(authToken);
-
-    const editUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me`, {
-      method: 'PATCH',
-      headers: {
-        authorization: this.getAuthHeader(authToken),
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(editedData),
-    });
-
-    this.checkFetchErrors.call(editUserInfo);
-
-    const editedUserInfo = await editUserInfo.json();
-    return editedUserInfo;
-  }
-
-  async getGoodsList(authToken) {
-    this.checkAuthToken(authToken);
-
-    const searchQuery = this.search && this.getSearchQuery();
-
-    const fetchGoodsList = await fetch(`${BASE_URL}/products${searchQuery}`, {
-      headers: {
-        authorization: this.getAuthHeader(authToken),
-      },
-    });
-
-    this.checkFetchErrors.call(fetchGoodsList);
-
-    const response = await fetchGoodsList.json();
-
-    if (searchQuery) return response;
-    return response.products;
-  }
-
-  async getProductById(productId, authToken) {
-    this.checkAuthToken(authToken);
-
-    const fetchProductById = await fetch(`${BASE_URL}/products/${productId}`, {
-      headers: {
-        authorization: this.getAuthHeader(authToken),
-      },
-    });
-
-    this.checkFetchErrors.call(fetchProductById);
-
-    const response = await fetchProductById.json();
-    return response;
-  }
-
-  async getGoodsByIds(goodsIds, authToken) {
-    const fetchGoodsById = await Promise.all(
-      goodsIds.map((id) => this.getProductById(id, authToken)),
-    );
-    return fetchGoodsById;
-  }
-
-  async getProductReviews(productId, authToken) {
-    this.checkAuthToken(authToken);
-
-    const fetchProductReviews = await fetch(`${BASE_URL}/products/review/${productId}`, {
-      headers: {
-        authorization: this.getAuthHeader(authToken),
-      },
-    });
-
-    this.checkFetchErrors.call(fetchProductReviews);
-
-    const response = await fetchProductReviews.json();
-    return response;
-  }
-
-  async addNewProductReview(productId, authToken, newReview) {
-    this.checkAuthToken(authToken);
-
-    const postNewProductReview = await fetch(`${BASE_URL}/products/review/${productId}`, {
-      method: 'POST',
-      headers: {
-        authorization: this.getAuthHeader(authToken),
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newReview),
-    });
-
-    this.checkFetchErrors.call(postNewProductReview);
-
-    const response = await postNewProductReview.json();
-    return response;
-  }
-
-  async deleteProductReview(productId, authToken, reviewId) {
-    this.checkAuthToken(authToken);
-
-    const deleteProductReview = await fetch(
-      `${BASE_URL}/products/review/${productId}/${reviewId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          authorization: this.getAuthHeader(authToken),
-        },
-      },
-    );
-
-    this.checkFetchErrors.call(deleteProductReview);
   }
 }
 

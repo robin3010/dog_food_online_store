@@ -7,7 +7,7 @@ export function ProductStarRating({ rating }) {
   const starPercentageRounded = `${starPercentage - (starPercentage % 10)}%`;
 
   return (
-    <div className="badge text-main bg-body-secondary bg-opacity-75 fs-6 py-3 mb-3">
+    <div className="badge text-main bg-body-secondary bg-opacity-75 fs-6 py-3">
       <div className="stars-outer">
         <div className="stars-inner" style={{ width: starPercentageRounded }} />
       </div>

@@ -11,6 +11,7 @@ import { productParams } from '../../../../utils/constants';
 import {
   calcCondition, formatPrice,
 } from '../../../../utils/utils';
+import { NonExistentProductCard } from '../../../Buttons/NonExistentProductCard/NonExistentProductCard';
 import { RemoveItemsModal } from '../../../Modals/RemoveItemsModal/RemoveItemsModal';
 import { ProductPrice } from '../../../ProductElements/ProductPrice/ProductPrice';
 import { ItemCountLimitTooltip } from '../../../ProductElements/ProductTooltips/ProductTooltips';
@@ -20,12 +21,13 @@ export function CheckoutProductItem({ item }) {
   const {
     name,
     price,
-    pictures,
+    clientImage,
     discount,
     stock,
     id,
     count,
     isChecked,
+    err,
   } = item;
 
   const [input, setInput] = useState(count);
@@ -71,6 +73,10 @@ export function CheckoutProductItem({ item }) {
     setIsRemoveModalOpen(true);
   };
 
+  if (err) {
+    return <NonExistentProductCard id={id} listType="checkout" />;
+  }
+
   return (
     <>
       <div className="col-12">
@@ -90,7 +96,7 @@ export function CheckoutProductItem({ item }) {
               <div
                 className="product__card-img checkout__product_card-img"
               >
-                <img src={pictures} alt="..." />
+                <img src={clientImage} alt="..." />
               </div>
             </div>
             <div className="col-6">

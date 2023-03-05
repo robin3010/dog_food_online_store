@@ -66,7 +66,7 @@ const rootRouter = createBrowserRouter([
         element: <Contacts />,
       },
       {
-        path: 'favorite',
+        path: 'wishlist',
         element: <Wishlist />,
       },
       {

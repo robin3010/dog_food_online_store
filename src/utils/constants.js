@@ -1,3 +1,6 @@
+import defaultAvatar from '../images/default_avatar.png';
+import productNoPhoto from '../images/product_nophoto.png';
+
 export const productParams = {
   likes: 'likes',
   price: 'price',
@@ -21,3 +24,12 @@ export const placeholderStylesClasses = `
   align-items-center
   mx-lg-5
   text-center`;
+
+export const defaultImages = {
+  type: {
+    avatar: 'avatar',
+    product: 'product',
+  },
+  avatar: defaultAvatar,
+  product: productNoPhoto,
+};
