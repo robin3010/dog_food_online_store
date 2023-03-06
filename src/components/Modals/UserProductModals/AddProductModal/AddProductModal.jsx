@@ -34,13 +34,9 @@ export function AddProductModal({ isOpen, setIsOpen }) {
   const submitNewProductHandler = async (values) => {
     const validData = formatNewProductData(values);
 
-    console.log(validData);
-
     const newProduct = await mutateAsync(validData);
 
     if (!isError && !isLoading) {
-      console.log(newProduct);
-
       closeAddProductModalHandler();
       navigate(`/products/${newProduct._id}`);
     }

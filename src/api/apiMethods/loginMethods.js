@@ -1,5 +1,4 @@
 export async function signIn(userData) {
-  console.log(this);
   const fetchSignIn = await fetch(`${this.baseUrl}/signin`, {
     method: 'POST',
     headers: {

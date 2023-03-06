@@ -2,7 +2,6 @@ export const getItemsIds = (items) => items.map((elem) => elem.id);
 
 export const getIsAllChecked = (itemsList) => {
   const existingItems = itemsList.filter((elem) => !elem.err);
-  console.log({ existingItems }, !existingItems.length);
 
   if (!existingItems.length) {
     return false;

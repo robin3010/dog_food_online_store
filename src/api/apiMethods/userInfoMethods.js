@@ -13,10 +13,14 @@ export async function getUserInfo(authToken, group) {
   return userInfo;
 }
 
-export async function editUserInfo(authToken, group, editedData) {
+export async function editUserInfo(authToken, group, editedData, userPic = false) {
   this.checkAuthToken(authToken);
 
-  const patchUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me`, {
+  console.log({ editedData, userPic });
+
+  const patchAvatar = userPic ? '/avatar' : '';
+
+  const patchUserInfo = await fetch(`${this.baseUrl}/v2/${group}/users/me${patchAvatar}`, {
     method: 'PATCH',
     headers: {
       authorization: this.getAuthHeader(authToken),

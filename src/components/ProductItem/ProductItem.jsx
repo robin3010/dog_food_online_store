@@ -38,16 +38,18 @@ export function ProductItem({ item }) {
             <div className="card-body text-start">
               <p className="card-text">{name}</p>
             </div>
-            <div className="product__card-overlay">
+            <div className="overlay-action">
               <i className="fa-regular fa-eye fa-2x" />
             </div>
           </div>
         </Link>
         <footer className="px-3 pb-3">
-          <div className="d-flex gap-2 mb-3">
-            <ProductStarRating rating={avgRating} />
-            <ProductReviewsCount reviewsCount={reviewsCount} />
-          </div>
+          <Link to={`/products/${id}/reviews`}>
+            <div className="d-flex gap-2 mb-3">
+              <ProductStarRating rating={avgRating} />
+              <ProductReviewsCount reviewsCount={reviewsCount} />
+            </div>
+          </Link>
           <ProductAvailableQuantity available={available} stock={stock} />
           <div className="d-flex">
             <div

@@ -1,6 +1,8 @@
 import defaultAvatar from '../images/default_avatar.png';
 import productNoPhoto from '../images/product_nophoto.png';
 
+const defaultApiImage = 'https://react-learning.ru/image-compressed/default-image.jpg';
+
 export const productParams = {
   likes: 'likes',
   price: 'price',
@@ -33,4 +35,5 @@ export const defaultImages = {
   },
   avatar: defaultAvatar,
   product: productNoPhoto,
+  api: defaultApiImage,
 };

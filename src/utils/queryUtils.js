@@ -24,3 +24,5 @@ export const getProductReviewsQueryKey = (productId) => [
   'productReviewsFetch',
   productId,
 ];
+
+export const getUserInfoQueryKey = () => ['fetchUserInfo'];

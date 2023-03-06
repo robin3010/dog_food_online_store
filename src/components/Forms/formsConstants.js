@@ -22,4 +22,5 @@ export const userProductFormInitValues = {
   price: '',
   discount: '',
   tags: '',
+  available: true,
 };

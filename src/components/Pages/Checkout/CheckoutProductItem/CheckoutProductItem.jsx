@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   changeIsCheckedState, itemCountChange, itemCountDecrement, itemCountIncrement,
 } from '../../../../redux/slices/checkoutSlice';
@@ -79,10 +80,10 @@ export function CheckoutProductItem({ item }) {
 
   return (
     <>
-      <div className="col-12">
+      <div className="col-12 checkout__product_card">
         <div className="card p-3 position-relative">
           <div
-            className="position-absolute ps-2 pt-2 top-0 start-0"
+            className="position-absolute ps-2 pt-2 top-0 start-0 z-1"
           >
             <input
               type="checkbox"
@@ -93,14 +94,21 @@ export function CheckoutProductItem({ item }) {
           </div>
           <div className="row g-3">
             <div className="col">
-              <div
-                className="product__card-img checkout__product_card-img"
-              >
-                <img src={clientImage} alt="..." />
-              </div>
+              <Link to={`/products/${id}`} className="position-relative">
+                <div className="overlayable_content d-flex flex-column">
+                  <div className="product__card-img checkout__product_card-img">
+                    <img src={clientImage} alt="..." />
+                  </div>
+                  <div className="overlay-action">
+                    <i className="fa-regular fa-eye fa-2x" />
+                  </div>
+                </div>
+              </Link>
             </div>
             <div className="col-6">
-              <p className="card-text">{name}</p>
+              <Link to={`/products/${id}`}>
+                <p>{name}</p>
+              </Link>
               <div className="d-flex gap-3">
                 <button
                   onClick={WishlistHandler}

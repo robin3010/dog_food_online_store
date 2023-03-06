@@ -9,3 +9,7 @@ export const editUserInfoValidationScheme = Yup.object({
   about: Yup.string()
     .max(200, 'Не более 200 символов'),
 });
+
+export const editUserAvatarValidationScheme = Yup.object({
+  avatar: Yup.string().url('Введите корректный url-адрес'),
+});

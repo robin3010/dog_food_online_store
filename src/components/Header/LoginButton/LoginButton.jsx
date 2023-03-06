@@ -6,14 +6,15 @@ import { getUserDataSelector, logout, setUserInfo } from '../../../redux/slices/
 import { shopApi } from '../../../api/shopApi';
 import { renameIdKey, setImage } from '../../../utils/utils';
 import { defaultImages } from '../../../utils/constants';
+import { getUserInfoQueryKey } from '../../../utils/queryUtils';
 
 function LoggedIn() {
   const userInfo = useSelector(getUserDataSelector);
   const dispatch = useDispatch();
 
-  const defaultFirstName = 'Покупатель';
+  const defaultName = 'Покупатель';
 
-  const firstName = userInfo?.name.replace(/\s.*/, '') || defaultFirstName;
+  // const firstName = userInfo?.name.replace(/\s.*/, '') || defaultFirstName;
   const avatar = setImage(userInfo.avatar, defaultImages.type.avatar);
 
   return (
@@ -41,7 +42,7 @@ function LoggedIn() {
       <ul className="dropdown-menu dropdown-menu-sm-end text-center">
         <li>
           <Link to="/user" className="btn nav-link dropdown-item fw-semibold text-decoration-none">
-            {firstName}
+            {userInfo?.name ?? defaultName}
           </Link>
         </li>
         <hr className="my-2" />
@@ -73,7 +74,7 @@ export function LoginButton() {
   const dispatch = useDispatch();
 
   useQuery({
-    queryKey: ['fetchUserInfo'],
+    queryKey: getUserInfoQueryKey(),
     queryFn: () => shopApi.getUserInfo(authToken, group),
     enabled: !!authToken,
     onSuccess: (res) => {

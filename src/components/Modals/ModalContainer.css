@@ -21,7 +21,7 @@
     hsl(328, 25%, 89%)
   );
   border-radius: .5rem;
-  text-shadow: 0 0 0 rgba(28, 34, 46, .4);
+  text-shadow: 0 0 0 rgba(var(--main-color-rgb), .4);
   position: relative;
 }
 
@@ -32,7 +32,7 @@
   width: auto;
   height: auto;
   font-size: 20px;
-  color: rgba(28, 34, 46, .7);
+  color: rgba(var(--main-color-rgb), .7);
   display: grid;
   position: absolute;
   right: 4px;
@@ -48,7 +48,7 @@
   height: 24px;
   font-size: 20px;
   border-radius: 50%;
-  color: rgba(28, 34, 46, .3);
+  color: rgba(var(--main-color-rgb), .3);
   transition: all .3s cubic-bezier(.645, .045, .355, 1);
   display: flex;
   justify-content: center;
@@ -56,5 +56,5 @@
 }
 
 .modal__button-close i:hover {
-  color: rgba(28, 34, 46, .9);
+  color: rgba(var(--main-color-rgb), .9);
 }

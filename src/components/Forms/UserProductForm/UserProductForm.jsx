@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { ModalLoader } from '../../Loaders/ModalLoader';
 import { maxValues, userProductValidationSchema } from '../../Modals/UserProductModals/userProductValidation';
 import { FetchErrorAlert } from '../Errors/FetchErrorAlert';
@@ -99,7 +99,7 @@ export function UserProductForm({
                     maxValue={maxValues.discount}
                   />
                 </div>
-                <div className="col-12 form-floating mb-3">
+                <div className="col-9 form-floating mb-3">
                   <FloatingInput
                     type="text"
                     name="tags"
@@ -107,7 +107,29 @@ export function UserProductForm({
                     label="Тэги товара (через запятую)"
                   />
                 </div>
-                <div className="col-12">
+                <div className="col-3 mb-3">
+                  <div className="
+                    form-check
+                    d-flex justify-content-center
+                    bg-body rounded
+                    fs-6 py-3"
+                  >
+                    <Field
+                      type="checkbox"
+                      className="form-check-input"
+                      name="available"
+                      id="available"
+                    />
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                    <label
+                      className="form-check-label user-select-none ps-2"
+                      htmlFor="available"
+                    >
+                      Доступен
+                    </label>
+                  </div>
+                </div>
+                <div className="col-12 mt-2">
                   <FetchErrorAlert isError={isError} error={error} />
                 </div>
                 <div className="d-flex justify-content-center gap-2">

@@ -15,7 +15,7 @@ export const userProductValidationSchema = Yup.object({
   description: Yup.string()
     .max(1000, 'Не более 1000 символов')
     .required('Обязательно'),
-  pictures: Yup.string().url('Введите корректный url'),
+  pictures: Yup.string().url('Введите корректный url-адрес'),
   wight: Yup.number()
     .positive('Должно быть больше 0')
     .integer('Только целые числа')

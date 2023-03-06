@@ -25,8 +25,6 @@ import { ProductOwnerActions } from './ProductOwnerActions/ProductOwnerActions';
 function ProductDetailReturn({ item, isReviewsOpen }) {
   if (item.err) return null;
 
-  console.log({ item });
-
   const {
     author,
     available,
@@ -57,7 +55,7 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
             </div>
             <div className="col-12 col-lg-8 h-100">
               <div className="card-body text-start p-4 ps-lg-0">
-                <p className="card-text">{description}</p>
+                <p className="card-text line-clamp">{description}</p>
                 <div className="d-flex justify-content-between">
                   {/* <span>{`likes ${calcCondition(item, 'likes')}`}</span> */}
                   <div className="d-flex gap-2">
@@ -81,7 +79,7 @@ function ProductDetailReturn({ item, isReviewsOpen }) {
                     <span className="ms-auto me-2">{wight}</span>
                   </div>
                   <WishlistButton id={id} position="down" />
-                  <AddToCartButton item={item} textual />
+                  <AddToCartButton item={item} textual position="down" />
                 </div>
                 <div className="pt-3">
                   Продавец:

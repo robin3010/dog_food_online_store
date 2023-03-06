@@ -1,3 +1,4 @@
+import { defaultImages } from '../../../utils/constants';
 import { userProductFormInitValues } from '../formsConstants';
 
 export const getFormInitialValues = (values) => {
@@ -14,6 +15,7 @@ export const getFormInitialValues = (values) => {
     ...preFill,
     wight: preFill.wight.replace(/\D*/g, ''),
     tags: preFill.tags.join(', '),
+    pictures: preFill.pictures === defaultImages.api ? '' : preFill.pictures,
   };
   return preFillFormated;
 };

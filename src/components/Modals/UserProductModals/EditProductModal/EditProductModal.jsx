@@ -34,11 +34,9 @@ export function EditProductModal({ isOpen, setIsOpen, item }) {
   const submitEditedProductHandler = async (values) => {
     const validData = formatNewProductData(values);
 
-    const newProduct = await mutateAsync(validData);
+    await mutateAsync(validData);
 
     if (!isError && !isLoading) {
-      console.log(newProduct);
-
       closeEditProductModalHandler();
     }
   };

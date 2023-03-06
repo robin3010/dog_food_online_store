@@ -1,8 +1,7 @@
 import { defaultImages, productParams } from './constants';
 
 export const setImage = (image, type) => {
-  const defaultApiImage = 'https://react-learning.ru/image-compressed/default-image.jpg';
-  if (image === defaultApiImage || !image) {
+  if (image === defaultImages.api || !image) {
     return defaultImages[type];
   }
   return image;
@@ -69,6 +68,7 @@ export const formatGoods = (data) => {
 
     return ({
       id,
+      pictures,
       discount: discountValue,
       reviews: reviewsRoundedRating,
       avgRating: getAvgRating(reviewsRoundedRating),
@@ -87,7 +87,6 @@ export const formatGoods = (data) => {
     return dataArrayFormatted;
   }
   if (data.err) {
-    console.log('bad item');
     return data;
   }
   return getFormatted(data);

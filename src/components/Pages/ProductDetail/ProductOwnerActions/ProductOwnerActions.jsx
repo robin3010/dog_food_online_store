@@ -31,9 +31,7 @@ export function ProductOwnerActions({ item }) {
     await mutateDelete(productId);
 
     if (!isLoading && !isError) {
-      navigate('..', {
-        relative: 'path',
-      });
+      navigate('/products');
     }
   };
 

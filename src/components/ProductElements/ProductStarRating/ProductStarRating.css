@@ -1,3 +1,12 @@
+.stars__wrapper {
+  border: 1px inset transparent;
+  transition: all .3s cubic-bezier(.645, .045, .355, 1);
+}
+
+.stars__wrapper:hover {
+  border: 1px inset rgba(var(--main-color-rgb), .4);
+}
+
 .stars-outer {
   display: inline-block;
   position: relative;

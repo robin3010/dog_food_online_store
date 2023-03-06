@@ -8,12 +8,15 @@ export const formatNewProductData = (values) => {
     price: +values.price,
     discount: +values.discount,
     tags: values.tags.trim().replace(/\s+|,$/g, '').split(','),
-    available: true,
+    available: values.available,
   };
 
   Object.keys(validData).forEach((key) => {
-    if (!validData[key]) {
+    if (validData[key] === undefined) {
       delete validData[key];
+    }
+    if (validData.pictures === '') {
+      delete validData.pictures;
     }
   });
 
