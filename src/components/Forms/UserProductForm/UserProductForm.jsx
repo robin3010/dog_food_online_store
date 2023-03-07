@@ -17,6 +17,13 @@ export function UserProductForm({
   const { header, submitTitle } = userProductFormVariants[type];
   const formInitValues = getFormInitialValues(formPrefill);
 
+  const getformProductPicture = ({ pictures }) => {
+    if (pictures !== defaultImages.api && pictures !== '') {
+      return pictures;
+    }
+    return productNoPhoto;
+  };
+
   return (
     <>
       <div className="user-product__form">
@@ -36,7 +43,7 @@ export function UserProductForm({
                 <div className="col-12 mb-2">
                   <div className="d-flex justify-content-center bg-body rounded">
                     <img
-                      src={values.pictures !== defaultImages.api ? values.pictures : productNoPhoto}
+                      src={getformProductPicture(values)}
                       alt="..."
                       className="py-1"
                     />

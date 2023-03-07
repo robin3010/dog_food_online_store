@@ -17,20 +17,20 @@ export const userProductValidationSchema = Yup.object({
     .required('Обязательно'),
   pictures: Yup.string().url('Введите корректный url-адрес'),
   wight: Yup.number()
-    .positive('Должно быть больше 0')
+    .min(0, 'Должно быть больше 0')
     .integer('Только целые числа')
     .max(maxValues.wight, 'Максимальное значение 1 000 000'),
   stock: Yup.number()
-    .positive('Введите положительное значение')
+    .min(0, 'Введите положительное значение')
     .integer('Только целые числа')
     .max(maxValues.stock, 'Максимальное значение 9999'),
   price: Yup.number()
-    .positive('Введите положительное значение')
+    .min(0, 'Введите положительное значение')
     .integer('Только целые числа')
     .max(maxValues.price, 'Слишком дорого!')
     .required('Обязательно'),
   discount: Yup.number()
-    .positive('Введите положительное значение')
+    .min(0, 'Введите положительное значение')
     .integer('Только целые числа')
     .max(maxValues.discount, 'Не более 99'),
   tags: Yup.string().matches(
