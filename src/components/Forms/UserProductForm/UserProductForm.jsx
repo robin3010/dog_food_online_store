@@ -7,6 +7,7 @@ import { userProductFormVariants } from '../formsConstants';
 import productNoPhoto from '../../../images/product_nophoto.png';
 import './UserProductForm.css';
 import { getFormInitialValues } from '../formsUtils/formsUtils';
+import { defaultImages } from '../../../utils/constants';
 
 export function UserProductForm({
   type, formPrefill,
@@ -35,7 +36,7 @@ export function UserProductForm({
                 <div className="col-12 mb-2">
                   <div className="d-flex justify-content-center bg-body rounded">
                     <img
-                      src={values.pictures || productNoPhoto}
+                      src={values.pictures !== defaultImages.api ? values.pictures : productNoPhoto}
                       alt="..."
                       className="py-1"
                     />
