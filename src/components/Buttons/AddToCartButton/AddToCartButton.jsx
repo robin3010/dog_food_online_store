@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addToCart, getCheckoutSelector } from '../../../redux/slices/checkoutSlice';
+import { AddToCartButtonTooltip } from '../../ProductElements/ProductTooltips/ProductTooltips';
 
-export function AddToCartButton({ item, textual }) {
+export function AddToCartButton({ item, textual, position = 'up' }) {
   const { available, id } = item;
 
   const navigate = useNavigate();
@@ -36,7 +37,8 @@ export function AddToCartButton({ item, textual }) {
   };
 
   return (
-    <div className="p-1 pe-0">
+    <div className={`p-1 pe-0 btn-tooltip tooltip-${position}`}>
+      <AddToCartButtonTooltip isAddedtoCart={isAddedToCart} />
       <button
         onClick={addToCartHandler}
         type="button"

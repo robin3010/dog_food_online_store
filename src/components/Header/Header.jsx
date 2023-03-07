@@ -11,6 +11,7 @@ import './Header.css';
 import { getWishlistSelector } from '../../redux/slices/wishlistSlice';
 import { AddNewProductButton } from './AddNewProductButton/AddNewProductButton';
 import { headerAnimatedListener } from './headerUtils';
+import { NavLinkTooltip } from '../ProductElements/ProductTooltips/ProductTooltips';
 
 export function Header() {
   const checkoutCount = getItemsIds(useSelector(getCheckoutSelector)).length;
@@ -64,7 +65,8 @@ export function Header() {
           fa-lg"
         >
           <AddNewProductButton />
-          <NavLink to="/wishlist" className="nav-link position-relative">
+          <NavLink to="/wishlist" className="nav-link btn-tooltip header-tooltip">
+            <NavLinkTooltip text="Перейти в избранное" />
             <span
               className={clsx(
                 'position-absolute fs-6',
@@ -81,7 +83,8 @@ export function Header() {
             <i className="fa-solid fa-heart" />
           </NavLink>
           <LoginButton />
-          <NavLink to="/checkout" className="nav-link position-relative">
+          <NavLink to="/checkout" className="nav-link btn-tooltip header-tooltip">
+            <NavLinkTooltip text="Перейти в корзину" />
             <span
               className={clsx(
                 'position-absolute fs-6',

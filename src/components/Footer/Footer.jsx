@@ -41,32 +41,32 @@ export const Footer = memo(() => (
         <div className="row mt-3">
           <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-3">
             <h6 className="text-uppercase fw-bold mb-3">Компания</h6>
-            <Link to="#" className="nav-link pb-2">
+            <Link to="#" className="nav-link pb-2 disabled">
               О нас
             </Link>
-            <Link to="#" className="nav-link pb-2">
+            <Link to="#" className="nav-link pb-2 disabled">
               Новости
             </Link>
-            <Link to="#" className="nav-link pb-2">
+            <Link to="#" className="nav-link pb-2 disabled">
               Отзывы
             </Link>
-            <Link to="#" className="nav-link pb-2">
+            <Link to="#" className="nav-link pb-2 disabled">
               Гарантия
             </Link>
           </div>
 
           <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-3">
             <h6 className="text-uppercase fw-bold mb-3">Помощь</h6>
-            <Link to="#" className="nav-link pb-2">
+            <Link to="/products?tags=sale" className="nav-link pb-2">
               Акции
             </Link>
             <Link to="/delivery" className="nav-link pb-2">
               Доставка и оплата
             </Link>
-            <Link to="#" className="nav-link pb-2">
+            <Link to="#" className="nav-link pb-2 disabled">
               Система скидок
             </Link>
-            <Link to="#" className="nav-link pb-2">
+            <Link to="#" className="nav-link pb-2 disabled">
               Как заказать
             </Link>
           </div>

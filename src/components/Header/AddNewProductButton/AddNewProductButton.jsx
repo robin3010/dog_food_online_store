@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getAuthTokenSelector } from '../../../redux/slices/userSlice';
 import { AddProductModal } from '../../Modals/UserProductModals/AddProductModal/AddProductModal';
+import { NavLinkTooltip } from '../../ProductElements/ProductTooltips/ProductTooltips';
 
 export function AddNewProductButton() {
   const authToken = useSelector(getAuthTokenSelector);
@@ -22,8 +23,10 @@ export function AddNewProductButton() {
         className="
             header__new-product
             nav-link rounded-circle
-            bg-body-tertiary bg-opacity-75 opacity-75"
+            btn-tooltip header-tooltip
+            bg-body-tertiary bg-opacity-75"
       >
+        <NavLinkTooltip text="Добавить товар" />
         <i className="fa-solid fa-plus" />
       </button>
       <AddProductModal

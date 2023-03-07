@@ -77,11 +77,15 @@
   object-fit: cover;
 }
 
-.header__new-product button {
+.header__new-product {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
+  opacity: .75;
+}
+
+.header__new-product:hover {
+  opacity: 1;
 }
 
 .navbar-toggler{

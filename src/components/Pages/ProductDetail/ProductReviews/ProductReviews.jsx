@@ -17,6 +17,7 @@ function ProductReviewsReturn({ reviews, avgRating }) {
         <h5 className="mb-3 fw-normal">
           Отзывов ещё нет — ваш может стать первым
         </h5>
+        <AddReviewForm />
       </div>
     );
   }
@@ -59,7 +60,9 @@ export function ProductReviews() {
     queryFn: () => shopApi.getProductReviews(productId, authToken),
   });
 
-  const reviews = data && renameIdKey(roundRating(data));
+  const reviews = data && renameIdKey(roundRating(data))
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
   const avgRating = reviews?.length ? getAvgRating(reviews) : 0;
 
   return (

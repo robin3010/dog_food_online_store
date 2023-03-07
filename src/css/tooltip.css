@@ -16,8 +16,17 @@
   z-index: 1;
   left: 50%;
   transform: translateX(-50%);
-  transition: ease-in-out .2s;
+  /* transition: ease-in-out .2s; */
+  transition: all .3s cubic-bezier(.645, .045, .355, 1);
   opacity: 0;
+}
+
+.header-tooltip .btn-tooltip__text {
+  top: 115%;
+  width: 128px;
+  height: max-content;
+  line-height: initial;
+  transition: all .3s cubic-bezier(.645, .045, .355, 1);
 }
 
 .tooltip-up .btn-tooltip__text {
