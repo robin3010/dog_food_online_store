@@ -1,24 +1,12 @@
-import {
-  Field, Form, Formik, ErrorMessage,
-} from 'formik';
-import { NavLink, useNavigate } from 'react-router-dom';
-import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
-import { signInValidationScheme } from './loginValidation';
-import { FetchErrorAlert } from '../../Forms/Errors/FetchErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
 import { login } from '../../../redux/slices/userSlice';
 import { setIsSession } from '../../../redux/slices/isSessionSlice';
+import { SignInForm } from '../../Forms/SignInForm/SignInForm';
 
-const initialValues = {
-  email: '',
-  password: '',
-  remember: false,
-};
-
-/* eslint-disable jsx-a11y/label-has-associated-control */
 export function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,82 +32,14 @@ export function SignIn() {
 
   return (
     <>
-      <h2 className="fw-bold mb-2 text-uppercase">Авторизация</h2>
+      <h2 className="fw-bold mb-2 text-main text-uppercase">Авторизация</h2>
       <p className="text-black-50 mb-4">Введите e-mail и пароль</p>
-
-      <Formik
-        initialValues={initialValues}
-        validateOnMount
-        validationSchema={signInValidationScheme}
-        onSubmit={signInHandler}
-      >
-        {({ errors, touched, isValid }) => (
-          <Form>
-            <div className="form-floating mb-3">
-              <Field
-                type="email"
-                className={clsx('form-control', {
-                  'is-invalid': errors.email && touched.email,
-                  'is-valid': !errors.email && touched.email,
-                })}
-                name="email"
-                placeholder="E-mail"
-              />
-              <label htmlFor="email">E-mail</label>
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="invalid-feedback"
-              />
-            </div>
-            <div className="form-floating mb-3">
-              <Field
-                type="password"
-                className={clsx('form-control', {
-                  'is-invalid': errors.password && touched.password,
-                  'is-valid': !errors.password && touched.password,
-                })}
-                name="password"
-                placeholder="Пароль"
-              />
-              <label htmlFor="password">Пароль</label>
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="invalid-feedback"
-              />
-            </div>
-            <div className="form-check d-flex justify-content-start mb-3">
-              <Field
-                type="checkbox"
-                className="form-check-input"
-                name="remember"
-                id="remember"
-              />
-              <label className="form-check-label user-select-none ps-2" htmlFor="remember">
-                Запомнить меня
-              </label>
-            </div>
-            <div className="d-grid gap-2">
-              <FetchErrorAlert loginError={isError} error={error} />
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={!isValid || isLoading}
-              >
-                Войти
-              </button>
-              <NavLink
-                to="/login/signup"
-                type="button"
-                className="btn btn-outline-secondary"
-              >
-                Регистрация
-              </NavLink>
-            </div>
-          </Form>
-        )}
-      </Formik>
+      <SignInForm
+        signInHandler={signInHandler}
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+      />
       {isLoading && <ModalLoader />}
     </>
   );

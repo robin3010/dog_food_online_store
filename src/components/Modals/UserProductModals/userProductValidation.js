@@ -25,7 +25,7 @@ export const userProductValidationSchema = Yup.object({
     .integer('Только целые числа')
     .max(maxValues.stock, 'Максимальное значение 9999'),
   price: Yup.number()
-    .min(0, 'Введите положительное значение')
+    .min(1, 'Должно быть больше 1')
     .integer('Только целые числа')
     .max(maxValues.price, 'Слишком дорого!')
     .required('Обязательно'),

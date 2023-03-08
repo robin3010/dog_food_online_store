@@ -1,22 +1,9 @@
-import {
-  Field, Form, Formik, ErrorMessage,
-} from 'formik';
-import { NavLink, useNavigate } from 'react-router-dom';
-import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { signUpValidationScheme } from './loginValidation';
-import { FetchErrorAlert } from '../../Forms/Errors/FetchErrorAlert';
 import { shopApi } from '../../../api/shopApi';
 import { ModalLoader } from '../../Loaders/ModalLoader';
+import { SignUpForm } from '../../Forms/SignUpForm/SignUpForm';
 
-const initialValues = {
-  email: '',
-  group: '',
-  password: '',
-  confirmPassword: '',
-};
-
-/* eslint-disable jsx-a11y/label-has-associated-control */
 export function SignUp() {
   const navigate = useNavigate();
 
@@ -35,7 +22,7 @@ export function SignUp() {
     };
 
     await mutateAsync(validData);
-    if (!isError) {
+    if (!isError && !isLoading) {
       navigate('..', {
         relative: 'path',
       });
@@ -44,96 +31,15 @@ export function SignUp() {
 
   return (
     <>
-      <h2 className="fw-bold mb-2 text-uppercase">Регистрация</h2>
+      <h2 className="fw-bold mb-2 text-main text-uppercase">Регистрация</h2>
       <p className="text-black-50 mb-4">Введите регистрационные данные</p>
-
-      <Formik
-        initialValues={initialValues}
-        validateOnMount
-        validationSchema={signUpValidationScheme}
-        onSubmit={signUpHandler}
-      >
-        {({ errors, touched, isValid }) => (
-          <Form>
-            <div className="row g-2">
-              <div className="col-md">
-                <div className="form-floating mb-3">
-                  <Field
-                    type="email"
-                    className={clsx('form-control', {
-                      'is-invalid': errors.email && touched.email,
-                      'is-valid': !errors.email && touched.email,
-                    })}
-                    name="email"
-                    placeholder="E-mail"
-                  />
-                  <label htmlFor="email">E-mail</label>
-                  <ErrorMessage name="email" component="div" className="invalid-feedback" />
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="form-floating mb-3">
-                  <Field
-                    type="text"
-                    className={clsx('form-control', {
-                      'is-invalid': errors.group && touched.group,
-                      'is-valid': !errors.group && touched.group,
-                    })}
-                    name="group"
-                    placeholder="Группа"
-                  />
-                  <label htmlFor="group">Группа</label>
-                  <ErrorMessage name="group" component="div" className="invalid-feedback" />
-                </div>
-              </div>
-            </div>
-            <div className="form-floating mb-3">
-              <Field
-                type="password"
-                className={clsx('form-control', {
-                  'is-invalid': errors.password && touched.password,
-                  'is-valid': !errors.password && touched.password,
-                })}
-                name="password"
-                placeholder="Пароль"
-              />
-              <label htmlFor="password">Пароль</label>
-              <ErrorMessage name="password" component="div" className="invalid-feedback" />
-            </div>
-            <div className="form-floating mb-3">
-              <Field
-                type="password"
-                className={clsx('form-control', {
-                  'is-invalid': errors.confirmPassword && touched.confirmPassword,
-                  'is-valid': !errors.confirmPassword && touched.confirmPassword,
-                })}
-                name="confirmPassword"
-                placeholder="Подтвердите пароль"
-              />
-              <label htmlFor="confirmPassword">Подтвердите пароль</label>
-              <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
-            </div>
-            <div className="d-grid gap-2">
-              <FetchErrorAlert loginError={isError} error={error} />
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={!isValid || isLoading}
-              >
-                Зарегистрироваться
-              </button>
-              <NavLink
-                to="/login/signin"
-                type="button"
-                className="btn btn-outline-secondary"
-              >
-                Уже зарегистрированы? Войти
-              </NavLink>
-            </div>
-          </Form>
-        )}
-      </Formik>
-      {isLoading ? <ModalLoader /> : ''}
+      <SignUpForm
+        signUpHandler={signUpHandler}
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+      />
+      {isLoading && <ModalLoader />}
 
     </>
   );

@@ -53,7 +53,6 @@ export function UserProductForm({
                   <FloatingInput
                     name="name"
                     placeholder="Наименование"
-                    label="Наименование"
                   />
                 </div>
                 <div className="col-12 form-floating fix-overlap mb-3">
@@ -61,14 +60,12 @@ export function UserProductForm({
                     component="textarea"
                     name="description"
                     placeholder="Описание"
-                    label="Описание"
                   />
                 </div>
                 <div className="col-12 form-floating mb-3">
                   <FloatingInput
                     name="pictures"
                     placeholder="Фото товара (URL)"
-                    label="Фото товара (URL)"
                   />
                 </div>
                 <div className="col-md-6 form-floating mb-3">
@@ -76,7 +73,6 @@ export function UserProductForm({
                     mode="numeric"
                     name="wight"
                     placeholder="Вес, гр."
-                    label="Вес, гр."
                     maxValue={maxValues.wight}
                   />
                 </div>
@@ -85,7 +81,6 @@ export function UserProductForm({
                     mode="numeric"
                     name="stock"
                     placeholder="Наличие, ед."
-                    label="Наличие, ед."
                     maxValue={maxValues.stock}
                   />
                 </div>
@@ -94,7 +89,6 @@ export function UserProductForm({
                     mode="numeric"
                     name="price"
                     placeholder="Цена, руб."
-                    label="Цена, руб."
                     maxValue={maxValues.price}
                   />
                 </div>
@@ -103,7 +97,6 @@ export function UserProductForm({
                     mode="numeric"
                     name="discount"
                     placeholder="Размер скидки"
-                    label="Размер скидки"
                     maxValue={maxValues.discount}
                   />
                 </div>
@@ -111,8 +104,7 @@ export function UserProductForm({
                   <FloatingInput
                     type="text"
                     name="tags"
-                    placeholder="Тэги товара (через запятую)"
-                    label="Тэги товара (через запятую)"
+                    placeholder="Теги товара (через запятую)"
                   />
                 </div>
                 <div className="col-3 mb-3">

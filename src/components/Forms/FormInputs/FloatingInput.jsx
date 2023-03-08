@@ -2,9 +2,7 @@ import clsx from 'clsx';
 import { useField } from 'formik';
 import { useState } from 'react';
 
-export function FloatingInput({
-  label, maxValue, ...props
-}) {
+export function FloatingInput({ maxValue, ...props }) {
   const { type, mode, autoComplete } = props;
 
   const CustomTag = props.component ?? 'input';
@@ -63,7 +61,7 @@ export function FloatingInput({
         {...props}
         {...addNumericProps()}
       />
-      <label htmlFor={props.id || props.name}>{label}</label>
+      <label htmlFor={props.id || props.name}>{props.placeholder}</label>
       {showFeedback ? (
         <div className="invalid-feedback position-absolute ps-1">
           {error ?? ''}
