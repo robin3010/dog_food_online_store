@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/dog_food_online_store/static/css/main.8abf2d36.css",
-    "main.js": "/dog_food_online_store/static/js/main.bf800bb4.js",
-    "static/js/787.c1112931.chunk.js": "/dog_food_online_store/static/js/787.c1112931.chunk.js",
+    "main.css": "/dog_food_online_store/static/css/main.06144322.css",
+    "main.js": "/dog_food_online_store/static/js/main.cad5586f.js",
     "static/media/logo.png": "/dog_food_online_store/static/media/logo.421300c00c975f16c414.png",
+    "static/media/result_not_found.png": "/dog_food_online_store/static/media/result_not_found.9df60b2fafbfb70c85ba.png",
+    "static/media/empty_wishlist.png": "/dog_food_online_store/static/media/empty_wishlist.fe4c9e9d5adbf30c78db.png",
+    "static/media/product_nophoto.png": "/dog_food_online_store/static/media/product_nophoto.1308e61d8e9732c40c8c.png",
     "index.html": "/dog_food_online_store/index.html",
-    "main.8abf2d36.css.map": "/dog_food_online_store/static/css/main.8abf2d36.css.map",
-    "main.bf800bb4.js.map": "/dog_food_online_store/static/js/main.bf800bb4.js.map",
-    "787.c1112931.chunk.js.map": "/dog_food_online_store/static/js/787.c1112931.chunk.js.map"
+    "main.06144322.css.map": "/dog_food_online_store/static/css/main.06144322.css.map",
+    "main.cad5586f.js.map": "/dog_food_online_store/static/js/main.cad5586f.js.map"
   },
   "entrypoints": [
-    "static/css/main.8abf2d36.css",
-    "static/js/main.bf800bb4.js"
+    "static/css/main.06144322.css",
+    "static/js/main.cad5586f.js"
   ]
 }
